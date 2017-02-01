@@ -14,6 +14,9 @@ _CATIA 자동 설정 도구 V08_
 ## 다운로드
 * [https://github.com/dymaxionkim/CATIA_Auto_Settup/archive/master.zip](https://github.com/dymaxionkim/CATIA_Auto_Settup/archive/master.zip)
 
+## SAMPLE
+![catia_sample](https://cloud.githubusercontent.com/assets/12775748/22509618/37e80d5c-e8d2-11e6-9d69-16026ba7b6e9.png)
+
 
 ## 제작배경
 * 사용자마다 설정이 달라서 혼선 발생
