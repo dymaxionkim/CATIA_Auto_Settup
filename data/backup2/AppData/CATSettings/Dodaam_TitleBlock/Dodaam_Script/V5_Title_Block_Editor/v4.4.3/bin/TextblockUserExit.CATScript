@@ -1,5 +1,0 @@
-Language = "VBSCRIPT"
-Sub CatMain()
-	msgbox "hello"
-	'msgbox objectToPass.Name
-end sub
