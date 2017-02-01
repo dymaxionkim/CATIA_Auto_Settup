@@ -1,0 +1,141 @@
+' ****************************************************************************
+'
+' 파일명 : DODAAM_Titleblock.CATScript
+' 설명 : 국방규격에 부합하는 CATIA 도면 양식 자동 생성 스크립트
+'
+' 작성자 : (주)도담시스템즈 김동호 dhkim@dodaam.com
+' 규격 : 국방규격의 서식 및 작성에 관한 지침_방위사업청예규 제248호, 2014.9.3일판
+' 개발환경 : Windows7, CATIA V5R20
+'
+' * History
+' 20150902 ::: A3용지, 외곽선, 내곽선, 중심마크 표시
+'
+' ****************************************************************************
+
+
+
+Sub CATMain()
+
+
+' ****************************************************************************
+' 이니셜라이즈
+' ****************************************************************************
+	Set DrwDocument = CATIA.ActiveDocument
+	Set DrwSheets = DrwDocument.Sheets
+
+	For i = 1 to DrwSheets.count
+	Set DrwSheet = DrwSheets.Item(i)
+	DrwSheet.Activate
+	Set DrwView = DrwSheet.Views.Item("Background View")
+	DrwView.Activate
+	Set DrwTexts = DrwView.Texts
+	Set Fact = DrwView.Factory2D
+
+
+' ****************************************************************************
+' 종이 사이즈 정의 ::: A3
+' ****************************************************************************
+	a = 297
+	b = 420
+	c = 10
+	d = 5
+	e = 20
+
+' ****************************************************************************
+' 용지 그리기
+' ****************************************************************************
+	Set Line = Fact.CreateLine(0, 0, b, 0)
+	Set Line = Fact.CreateLine(b, 0, b, a)
+	Set Line = Fact.CreateLine(b, a, 0, a)
+	Set Line = Fact.CreateLine(0, a, 0, 0)
+
+' ****************************************************************************
+' 외곽선 그리기
+' ****************************************************************************
+	Set Line = Fact.CreateLine(c, c, b-c, c)
+	Set Line = Fact.CreateLine(b-c, c, b-c, a-c)
+	Set Line = Fact.CreateLine(b-c, a-c, c ,a-c)
+	Set Line = Fact.CreateLine(c, a-c, c, c)
+
+' ****************************************************************************
+' 내곽선 그리기
+' ****************************************************************************
+	Set Line = Fact.CreateLine(c+e, c+d, b-c-d, c+d)
+	Set Line = Fact.CreateLine(b-c-d, c+d, b-c-d, a-c-d)
+	Set Line = Fact.CreateLine(b-c-d, a-c-d, c+e ,a-c-d)
+	Set Line = Fact.CreateLine(c+e, a-c-d, c+e, c+d)
+
+' ****************************************************************************
+' 중심마크 그리기
+' ****************************************************************************
+	arrowX = b/2
+	arrowY = c+d
+	Set Line = Fact.CreateLine(arrowX, arrowY, arrowX-2.5, arrowY-2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5, arrowY-2.5, arrowX-2.5+1.3, arrowY-2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5+1.3, arrowY-2.5, arrowX-2.5+1.3, arrowY-2.5-2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5+1.3, arrowY-2.5-2.5, arrowX-2.5+1.3+2.4, arrowY-2.5-2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5+1.3+2.4, arrowY-2.5-2.5, arrowX-2.5+1.3+2.4, arrowY-2.5-2.5+2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5+1.3+2.4, arrowY-2.5-2.5+2.5, arrowX-2.5+1.3+2.4+1.3, arrowY-2.5-2.5+2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5+1.3+2.4+1.3, arrowY-2.5-2.5+2.5, arrowX, arrowY)
+	arrowX = b-c-d
+	arrowY = a/2
+	Set Line = Fact.CreateLine(arrowX, arrowY, arrowX+2.5, arrowY-2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5, arrowY-2.5, arrowX+2.5, arrowY-2.5+1.3)
+	Set Line = Fact.CreateLine(arrowX+2.5, arrowY-2.5+1.3, arrowX+2.5+2.5, arrowY-2.5+1.3)
+	Set Line = Fact.CreateLine(arrowX+2.5+2.5, arrowY-2.5+1.3, arrowX+2.5+2.5, arrowY-2.5+1.3+2.4)
+	Set Line = Fact.CreateLine(arrowX+2.5+2.5, arrowY-2.5+1.3+2.4, arrowX+2.5+2.5-2.5, arrowY-2.5+1.3+2.4)
+	Set Line = Fact.CreateLine(arrowX+2.5+2.5-2.5, arrowY-2.5+1.3+2.4, arrowX+2.5+2.5-2.5, arrowY-2.5+1.3+2.4+1.3)
+	Set Line = Fact.CreateLine(arrowX+2.5+2.5-2.5, arrowY-2.5+1.3+2.4+1.3, arrowX, arrowY)
+	arrowX = b/2
+	arrowY = a-c-d
+	Set Line = Fact.CreateLine(arrowX, arrowY, arrowX+2.5, arrowY+2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5, arrowY+2.5, arrowX+2.5-1.3, arrowY+2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5-1.3, arrowY+2.5, arrowX+2.5-1.3, arrowY+2.5+2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5-1.3, arrowY+2.5+2.5, arrowX+2.5-1.3-2.4, arrowY+2.5+2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5-1.3-2.4, arrowY+2.5+2.5, arrowX+2.5-1.3-2.4, arrowY+2.5+2.5-2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5-1.3-2.4, arrowY+2.5+2.5-2.5, arrowX+2.5-1.3-2.4-1.3, arrowY+2.5+2.5-2.5)
+	Set Line = Fact.CreateLine(arrowX+2.5-1.3-2.4-1.3, arrowY+2.5+2.5-2.5, arrowX, arrowY)
+	arrowX = c+e
+	arrowY = a/2
+	Set Line = Fact.CreateLine(arrowX, arrowY, arrowX-2.5, arrowY+2.5)
+	Set Line = Fact.CreateLine(arrowX-2.5, arrowY+2.5, arrowX-2.5, arrowY+2.5-1.3)
+	Set Line = Fact.CreateLine(arrowX-2.5, arrowY+2.5-1.3, arrowX-2.5-2.5, arrowY+2.5-1.3)
+	Set Line = Fact.CreateLine(arrowX-2.5-2.5, arrowY+2.5-1.3, arrowX-2.5-2.5, arrowY+2.5-1.3-2.4)
+	Set Line = Fact.CreateLine(arrowX-2.5-2.5, arrowY+2.5-1.3-2.4, arrowX-2.5-2.5+2.5, arrowY+2.5-1.3-2.4)
+	Set Line = Fact.CreateLine(arrowX-2.5-2.5+2.5, arrowY+2.5-1.3-2.4, arrowX-2.5-2.5+2.5, arrowY+2.5-1.3-2.4-1.3)
+	Set Line = Fact.CreateLine(arrowX-2.5-2.5+2.5, arrowY+2.5-1.3-2.4-1.3, arrowX, arrowY)
+
+' ****************************************************************************
+' 구분선 그리기
+' ****************************************************************************
+
+
+' ****************************************************************************
+' 보조도번 란 그리기
+' ****************************************************************************
+
+
+' ****************************************************************************
+' 수정내용 란 그리기
+' ****************************************************************************
+
+
+' ****************************************************************************
+' 표제란 그리기
+' ****************************************************************************
+
+
+
+' ****************************************************************************
+' 연습
+' ****************************************************************************
+'	MsgBox "Text Will be created on: " & DrwSheet.name & " " & DrwView.name
+	Set Text = DrwTexts.Add("(주)도담시스템즈",50,100)
+
+'	MsgBox "Line Will be created on: " & DrwSheet.name & " " & DrwView.name
+	Set Line = Fact.CreateLine(50,100,100,100)
+
+
+	next
+End Sub
+

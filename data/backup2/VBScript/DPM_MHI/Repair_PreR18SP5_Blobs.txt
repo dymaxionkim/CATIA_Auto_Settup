@@ -1,0 +1,85 @@
+rem Handles all detailings of one project if called on a project
+rem Handles all detailings of the whole database if called on any other object
+
+Sub main(id)
+
+   project_only = data.IsDerivedFromType(id, "ergoproject")
+
+   query.ResetSearch
+   query.SetConcatenator "("
+   query.SetQuery "blob", "blobtype", "=", "CATProcess_PRO_BLOB"
+   query.SetConcatenator "OR"
+   query.SetQuery "blob", "blobtype", "=", ""
+   query.SetConcatenator ")"
+
+   if project_only = True then
+      project_name = data.GetAttributebyId(id, "name")
+      MsgBox("All detailings of the project '" + project_name + "' will be handled.")
+
+      query.BeginSubQuery "Sub1"
+      query.SetQuery "ergocompbase", "ergoproject", "=", id
+      query.EndSubQuery "Sub1"
+      query.SetSubQuery "blob", "dodefaultimpl", "=", "Sub1"
+   else
+      MsgBox("All detailings of the whole database will be handled.")
+   end if
+
+   blob_id=query.GetFirstResult
+   Do while blob_id <> ""
+
+      v5doclevel = data.GetAttributebyId(blob_id, "v5doclevel")
+   
+      Result = InStr(v5doclevel,"<OriginalECB>")
+
+      if Result = 0 then
+
+          if project_only = True then
+              parentstring = GetParentIDs(blob_id, False)
+      	  else
+              parentstring = GetParentIDs(blob_id, True)
+      	  end if
+
+      	  if parentstring <> "" then
+              'v5doclevel = data.GetAttributebyId(blob_id, "v5doclevel")
+              v5doclevel = v5doclevel + parentstring
+              data.SetAttributebyId blob_id, "v5doclevel", v5doclevel
+              'MsgBox(v5doclevel)
+      	  end if
+      
+      end if
+         
+      blob_id=query.GetNextResult
+   Loop 
+End Sub
+
+
+function GetParentIDs(blob_id, display_project_name)
+
+ecb_id = data.GetAttributebyId(blob_id, "dodefaultimpl")
+if ecb_id = "" then
+   MsgBox("corrupt blob: " + blob_id)
+   GetParentIDs = ""
+else
+   ecbname = data.GetAttributebyId(ecb_id, "name")
+   'MsgBox("Component: " + ecbname)
+
+   if display_project_name = True then
+      project_id = data.GetAttributebyId(ecb_id, "ergoproject")
+      projectname = data.GetAttributebyId(project_id, "name")
+      'MsgBox("Project: " + projectname)
+   end if
+
+   parentstring = "<OriginalECB>" + ecb_id + "</OriginalECB>"
+
+   call data.ResetIterator(ecb_id, "nodes_reverse")
+
+   sci_id = data.GetFirstChild(ecb_id, "nodes_reverse")
+   Do while sci_id <> ""
+      parentstring = parentstring + "<OriginalSCI>" + sci_id + "</OriginalSCI>"
+   sci_id = data.GetNextChild(ecb_id, "nodes_reverse")
+   Loop
+
+   GetParentIDs = parentstring
+end if
+
+end function

@@ -1,0 +1,1841 @@
+<?xml version="1.0"?>
+<std:node name="Generativeparameters" type="Generativeparameters" xmlns:std="http://www.dsweb.com/std">
+<!-- Enums definition...DO NOT TOUCH-->
+   <std:enumdef name="FilletRep">
+      <std:strval>None</std:strval>
+
+      <std:strval>Boundaries</std:strval>
+
+      <std:strval>Symbolic</std:strval>
+
+      <std:strval>OriginalEdges</std:strval>
+
+      <std:strval>ProjectedOriginalEdges</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="YesNo">
+      <std:strval>No</std:strval>
+
+      <std:strval>Yes</std:strval>
+   </std:enumdef>
+
+   <std:typedef name="DraftingOptions">
+      <std:intval name="HiddenLines">0</std:intval>
+
+      <std:intval name="CutInSection">1</std:intval>
+
+      <std:intval name="UseWhenProjected">1</std:intval>
+   </std:typedef>
+
+   <std:enumdef name="OpeningCenterlines">
+      <std:strval>No centerlines</std:strval>
+
+      <std:strval>Long centerlines</std:strval>
+
+      <std:strval>Short centerlines</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="OblongOpeningCenterlines">
+      <std:strval>Single centerlines</std:strval>
+
+      <std:strval>Double centerlines</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="MaterialExtrusion">
+      <std:strval>None</std:strval>
+
+      <std:strval>Tick mark (true width)</std:strval>
+
+      <std:strval>Throw orientation (symbolic)</std:strval>
+
+      <std:strval>Tick mark and throw orientation</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="ElecGraphicRepresentation">
+      <std:strval name="ElecGraphicRepresentation">DoubleLine</std:strval>
+
+      <std:strval name="ElecGraphicRepresentation">SingleLine</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="ElecGraphicReplacement">
+      <std:strval name="ElecGraphicReplacement">3Dprojection</std:strval>
+
+      <std:strval name="ElecGraphicReplacement">2Ddetail</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="ElecGraphicReplacementSupport">
+      <std:strval name="ElecGraphicReplacementSupport">3Dprojection</std:strval>
+
+      <std:strval name="ElecGraphicReplacementSupport">2Ddetail</std:strval>
+
+      <std:strval name="ElecGraphicReplacementSupport">3DprojectionAnd2Ddetail</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="SheetMetalAngleType">
+      <std:strval>Internal</std:strval>
+
+      <std:strval>External</std:strval>
+   </std:enumdef>
+
+<!-- End of Enum definition-->
+
+
+   <std:node name="Drafting">
+<!--   Drafting application parameters-->
+      <std:node name="Generate">
+         <std:node name="AxisLines">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="CenterLines">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Fillets">
+            <std:enumval name="FilletRep">Boundaries</std:enumval>
+         </std:node>
+
+         <std:node name="HiddenLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Threads">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="3DPoints">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Wireframe">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Using3Dspec">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+      </std:node>
+
+      <std:node name="ViewDressup">
+         <std:node name="Operators">
+            <std:node name="Section">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>4</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="SkinSection">
+                  <std:node name="Color">
+                     <std:colorval>0 0 0</std:colorval>
+                  </std:node>
+
+                  <std:node name="Linetype">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Thickness">
+                     <std:intval>1</std:intval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="SolidSection">
+                  <std:node name="Color">
+                     <std:colorval>0 0 0</std:colorval>
+                  </std:node>
+
+                  <std:node name="Linetype">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Thickness">
+                     <std:intval>1</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+
+            <std:node name="Detail">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>4</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Break">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype" minval="1" maxval="8">
+                  <std:intval>4</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Breakout">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>8</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+<!-- fin du noeud Operators -->
+         <std:node name="3DInheritance">
+            <std:node name="Wireframe">
+               <std:node name="Color">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Solid">
+               <std:node name="Color">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+            </std:node>
+
+            <std:node name="3DPoints">
+               <std:node name="Color">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Symbol">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Name">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="GeneratedGeometry">
+            <std:node name="VividEdges">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="HiddenEdges">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>3</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Fillets">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Wireframe">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="3DPoints">
+               <std:node name="Symbol">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+<!--      End of Drafting parameters-->
+   </std:node>
+
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - ELECTRICAL                   * -->
+<!-- ******************************************************************* -->
+   <std:node name="Electrical">
+      <std:node name="BundleSegment">
+         <std:node name="GraphicRepresentation">
+            <std:enumval name="ElecGraphicRepresentation">SingleLine</std:enumval>
+         </std:node>
+
+         <std:node name="AutomaticGeneration">
+            <std:node name="TextTemplate">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+
+               <std:node name="TextTemplateName">
+                  <std:strval>Bns</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="WireAnnotation">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="WireGroupName">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="InstanceName">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="PartNumber">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="SubType">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ReferenceDesignator">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Diameter">
+                  <std:intval>3</std:intval>
+               </std:node>
+
+               <std:node name="Mass">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="BendRadius">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="Length">
+                  <std:intval>2</std:intval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="SeparationCode">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="SignalID">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FromConnectionPoint">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FromDevice">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ToConnectionPoint">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ToDevice">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FromPartNumberofContactinCavity">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ToPartNumberofContactinCavity">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="Catalog">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FullyConnected">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="NetworkConnexity">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="IsRouted">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ElecSignalWhoTheElecWireRealize">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="CuttingLength">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ShieldingTermination">
+                  <std:intval>0</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="TechnologicalFeatureDimmension">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="Protection">
+         <std:node name="Tape">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="2DdetailOnExtremities">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Coefficient">
+                  <std:floatval>1.2</std:floatval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_Prot_Tape</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Corrugated tube">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="2DdetailOnExtremities">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Coefficient">
+                  <std:floatval>1.2</std:floatval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_Prot_Tube</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="InternalProtection">
+         <std:node name="Adaptive">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="2DdetailOnExtremities">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Coefficient">
+                  <std:floatval>1.2</std:floatval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_IntProt_Adapt</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="FixedDiameter">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="2DdetailOnExtremities">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Coefficient">
+                  <std:floatval>1.2</std:floatval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_IntProt_Fixed</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+	   <std:node name="Tape">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="2DdetailOnExtremities">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Coefficient">
+                  <std:floatval>1.2</std:floatval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_IntProt_Tape</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Corrugated tube">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="2DdetailOnExtremities">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Coefficient">
+                  <std:floatval>1.2</std:floatval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_IntProt_Tube</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="Device">
+         <std:node name="SingleInsertConnector">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_SIC</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="GroundStud">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_GS</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="TerminalStrip">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_TS</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="TerminalBlock">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_TB</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="ExternalSplice">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_ES</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="InternalSplice">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_IS</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Equipment">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_EQT</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="WireGroupName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="InstanceName">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="PartNumber">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToPartNumberofContactinCavity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="BackShell">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">2Ddetail</std:enumval>
+               </std:node>
+
+               <std:node name="2DDetailOrientation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>TT_BS</std:strval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="Support">
+         <std:node name="GraphicReplacement">
+            <std:node name="Type">
+               <std:enumval name="ElecGraphicReplacementSupport">3DprojectionAnd2Ddetail</std:enumval>
+            </std:node>
+
+            <std:node name="CatalogName">
+               <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+            </std:node>
+
+            <std:node name="SectionOfSupport">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Numbering">
+                  <std:node name="UseCommonDitto">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="PrefixOnSectionName">
+                     <std:strval>Section</std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="Layout">
+                  <std:node name="Originposition">
+                     <std:node name="X">
+                        <std:floatval>-400</std:floatval>
+                     </std:node>
+
+                     <std:node name="Y">
+                        <std:floatval>-400</std:floatval>
+                     </std:node>
+                  </std:node>
+
+                  <std:node name="Gridsize">
+                     <std:node name="X_Step">
+                        <std:floatval>60</std:floatval>
+                     </std:node>
+
+                     <std:node name="Y_Step">
+                        <std:floatval>60</std:floatval>
+                     </std:node>
+                  </std:node>
+
+                  <std:node name="NumberOfSectionsOnX">
+                     <std:intval>10</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="AutomaticGeneration">
+            <std:node name="TextTemplate">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>Electrical_Catalog-Default.catalog</std:strval>
+               </std:node>
+
+               <std:node name="TextTemplateName">
+                  <std:strval>TT_Support</std:strval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="MechanicalPart">
+         <std:node name="DashedGreenLine">
+            <std:node name="LineType">
+               <std:intval>6</std:intval>
+            </std:node>
+
+            <std:node name="Thickness">
+               <std:intval>2</std:intval>
+            </std:node>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END APPLICATION - ELECTRICAL                   * -->
+<!-- ******************************************************************* -->
+</std:node>
+

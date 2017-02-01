@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<std:typedef name="CATLayer">
+  <std:intval name="Number" minval="0" maxval="999">0</std:intval>
+  <std:strval name="Name">NoNameDefined</std:strval>
+  <std:strval name="Comment">NoComment</std:strval>
+</std:typedef>
+<std:typedef name="CATLayersFilter">
+  <std:strval name="Name">NoNameDefined</std:strval>
+  <std:strval name="Value">*</std:strval>
+</std:typedef>

@@ -1,0 +1,2 @@
+PartNumber	PartName	Designation	d_dia(mm)	D1_dia_min(mm)	P_pitch(mm)	threading(mm)	m_min(mm)	e_across_corners(mm)	m_max(mm)	s_across_flats(mm)	Grade	Material	Reference	Edition
+JIS B 1181 NUT M3.5 STEEL GRADE B THIN HEXAGON UNCHAMFERED NON_PREFERRED	JIS_B_1181_M3.5_STEEL_NON_PREFERRED_GRADE_B_UNCHAMFERED_THIN_HEXAGON_NUT	M3.5	3.5	2.851	0.6	2.0	1.6	6.44	2.0	6.0	B	St	JIS B 1181	1993

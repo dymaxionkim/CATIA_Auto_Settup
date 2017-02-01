@@ -1,0 +1,31 @@
+
+Language = "VBScript"
+
+Sub CATMain()
+
+
+' ****************************************************************************
+' 이니셜라이즈
+' ****************************************************************************
+'	Set DrwDocument = CATIA.ActiveDocument
+'	Set DrwSheets = DrwDocument.Sheets
+
+'	For i = 1 to DrwSheets.count
+'	Set DrwSheet = DrwSheets.Item(i)
+'	DrwSheet.Activate
+'	Set DrwView = DrwSheet.Views.Item("Background View")
+'	DrwView.Activate
+'	Set DrwTexts = DrwView.Texts
+'	Set Fact = DrwView.Factory2D
+
+
+
+' ****************************************************************************
+' DXF 읽어들이기
+' ****************************************************************************
+'	Dim Document0 As CATIA.ActiveDocument
+'	Set Document0 = CATIA.Documents.Open ("C:\Users\dhkim\Desktop\Drawing1.dxf")
+	Set Lines = CATIA.Documents.Open ("C:\Users\dhkim\Desktop\Drawing1.dxf")
+
+
+End Sub

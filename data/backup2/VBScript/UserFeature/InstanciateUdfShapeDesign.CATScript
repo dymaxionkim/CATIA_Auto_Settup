@@ -1,0 +1,83 @@
+' Instanciation of a User Feature Reference "MyUserFeature1" 
+' MyUserFeature1 is stored in the CATPart "e:\tmp\UserFeature_001_StartSweep.CATPart"
+' It has
+' 2 inputs: Centre and Surface
+' 2 published parameters: Hauteur and Rayon
+' 1 output: Direction
+'------------------------------------------------------------------
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieve the current part"
+
+Dim PartDocumentDest As PartDocument
+Set PartDocumentDest = CATIA.ActiveDocument
+
+Dim PartDest As Part
+Set PartDest = PartDocumentDest.Part
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieve the User Feature Reference"
+
+CATIA.DisplayFileAlerts = False
+
+Dim PartDocumentStart As PartDocument
+Set PartDocumentStart = CATIA.Documents.Read ("e:\tmp\UserFeature_001_StartSweep.CATPart")
+
+Dim PartStart As Part
+Set PartStart = PartDocumentStart.Part
+
+Dim reference As Object
+Set reference = PartStart.FindObjectByName("MyUserFeature1")
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Instanciate the reference in the current part"
+
+Dim factory As InstanceFactory
+Set factory = PartDest.GetCustomerFactory("InstanceFactory")
+
+Dim instance As HybridShapeInstance
+Set instance = factory.AddInstance(reference)
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Set Inputs"
+
+Dim Centre As Object
+Set Centre = PartDest.FindObjectByName("Point.1")
+
+Dim Surface As Object
+Set Surface = PartDest.FindObjectByName("Surface.1")
+
+instance.PutInput "Centre", Centre
+instance.PutInput "Surface", Surface
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Modify Parameters"
+
+Dim param1 As Parameter
+Set param1 = instance.GetParameter("Hauteur")
+param1.ValuateFromString("40mm")
+
+Dim param2 As Parameter
+Set param2 = instance.GetParameter("Rayon")
+param2.ValuateFromString("30mm")
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Update"
+PartDest.Update
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieves Inputs and Outputs"
+
+Dim inputCentre As Object
+Set inputCentre = instance.GetInput("Centre")
+Dim inputSurface As Object
+Set inputSurface = instance.GetInput("Surface")
+
+Catia.SystemService.Print "Recuperation des outputs"
+Dim outputDirection As Object
+Set outputDirection = instance.GetOutput("Direction")
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Close the CATPart containing the reference"
+PartDocumentStart.Close
+

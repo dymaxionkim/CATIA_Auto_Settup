@@ -1,0 +1,286 @@
+<?xml version="1.0" ?>
+<std:node name="LineThickness">
+
+  <std:typedef name="CATThickness">
+    <std:intval name="Availability">0</std:intval>
+    <std:intval name="Pixel">1</std:intval>
+    <std:floatval name="mm">0.13</std:floatval>
+  </std:typedef>
+
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">2</std:intval>
+      <std:floatval name="mm">0.35</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">3</std:intval>
+      <std:floatval name="mm">0.70</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">4</std:intval>
+      <std:floatval name="mm">1.00</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">5</std:intval>
+      <std:floatval name="mm">1.40</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">6</std:intval>
+      <std:floatval name="mm">2.00</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">7</std:intval>
+      <std:floatval name="mm">2.30</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">1</std:intval>
+      <std:intval name="Pixel">8</std:intval>
+      <std:floatval name="mm">2.60</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+    <std:typeval name="CATThickness">
+      <std:intval name="Availability">0</std:intval>
+      <std:intval name="Pixel">1</std:intval>
+      <std:floatval name="mm">0.13</std:floatval>
+    </std:typeval>
+
+</std:node>

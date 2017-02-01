@@ -1,0 +1,215 @@
+' *************************************************************************************
+' 
+' COPYRIGHT DASSAULT-SYSTEMES 2007
+' 
+' WARNING: 
+'
+' This macro generates temporary .cgr files, and store them in the the temporary system 
+' directory. Those files are deleted at the end of the macro.
+'
+' PREREQUISITE:
+'
+' Options "Save 3D annotation representations in cgr" and "Save lineic elements in cgr"
+' which are available in "Tools/Options/Infrastructure/Product Structure/Cgr Management" 
+' must be switched on before running this macro, 
+' to insure FTA are saved within the temporary cgr files
+' 
+' DESCRIPTION:
+'
+' Purpose of this macro is to generate cgr representation related to a Product or Part,
+' and to insert it in a new Product, which is not meant to be saved.
+'
+' USAGE:
+'
+' Select one or several elements of a Product or a Part, from the specification tree or 
+' directly from the 3D representation, then start this macro that will edit
+' the related Product(s) or Part(s).
+'
+' If no element was selected before starting the macro, the top document of the current
+' window will be edited (i.e. root product or part)
+'
+' If one or several capture were selected before running the macro, they're
+' automatically activated.
+' If no capture was selected, but edited Part/Product contains some, the first one is
+' automatically selected.
+'
+' *************************************************************************************
+
+Private selection
+
+Sub CATMain()
+			
+	' Don't stop on errors
+	On Error Resume Next
+	
+	' Currently edited doument document
+	Set currentDocument = CATIA.ActiveDocument
+	
+	' Current document selection will be used to define the Part or Product to be reviewed
+	' - If an element is selected, corresponding Part or Product will be reviewed
+	' - If selection is empty, current document will be reviewed
+	Set selection = currentDocument.Selection
+	
+	If ( selection.Count2 >= 1 ) Then
+	
+		For ii = 1 To selection.Count2
+			Set SelectedObject = selection.Item2(ii)
+		
+			' Try to get reference product related to current document selection
+			' In case the review is performed from a Part document, 
+			' reference product of reviewed instance need to be retrieved
+			' CASE Part or Product
+			Set reviewedProduct = currentDocument.Product
+			' CASE Product only (this will fail in case of a Part)
+			Set reviewedProduct = SelectedObject.LeafProduct.ReferenceProduct
+                  SwapToDesign(SelectedObject.LeafProduct)
+
+			SaveAsCGR reviewedProduct, ii
+		
+		Next
+
+		' Tile windows vertically
+		CATIA.Windows.Arrange catArrangeTiledVertical
+	
+	Else
+
+		' No selection was made by user before starting the macro
+		' Save as CGR the current document and start its review
+		SaveAsCGR currentDocument.Product, 1
+
+		' Tile windows vertically
+		CATIA.Windows.Arrange catArrangeTiledVertical
+
+	End If
+
+End Sub
+
+Sub SaveAsCGR( iProduct, iIndex )
+
+	' Don't stop on errors
+	'On Error Resume Next
+
+	' Find document corresponding to product, so as to save it
+	Set documents = CATIA.Documents
+	For ii = 1 To documents.Count
+
+		Set document = documents.Item(ii)
+		If ( document.Product.Name = iProduct.Name ) Then
+
+			' Build a unique name for temporary cgm
+			cgrName = iProduct.Name & "_" & DatePart("yyyy",Date) & "_d" & DatePart("y",Date) & "_h" & DatePart("h",Time) & "_m" & DatePart("m",Time) & "_s" &DatePart("s",Time) & "_" & CStr(iIndex)
+			' Save product document as cgr
+			document.ExportData CATIA.FileSystem.TemporaryDirectory.Path & CATIA.FileSystem.FileSeparator & cgrName & ".cgr", "cgr"
+
+			' Create a new product to support review of CGR
+			Set newProductDocument = documents.Add("Product")
+			' Get the collection of products
+			Set newProduct = newProductDocument.Product
+			Set products = newProduct.Products
+
+			' Insert existing component defined by its path
+			Dim pathToAdd(0)
+			pathToAdd(0) = CATIA.FileSystem.TemporaryDirectory.Path & CATIA.FileSystem.FileSeparator & cgrName & ".cgr"
+			products.AddComponentsFromFiles pathToAdd, "All"
+
+			' Is the same data edited several times ?
+			openEditors = 0
+			For nn = 1 To CATIA.Windows.Count
+				If ( InStr(CATIA.Windows.Item(nn).Caption, iProduct.Name) ) Then
+					openEditors = openEditors +1
+				End If
+			Next
+			' Set a user friendly name to inserted product (with name conflict with current Product in session)
+			If ( openEditors > 0 ) Then
+				newProduct.PartNumber = iProduct.Name & "_" & CStr(openEditors+1)
+			Else
+				newProduct.PartNumber = iProduct.Name
+			End If
+
+			' Retrieve existing FTA's captures, and display the first one
+			Set annotationSets = newProduct.GetTechnologicalObject("CATAnnotationSets")
+			annotationSets.LoadAnnotationSetsList
+			' Is there an annotation set ? (there can be one only anyway)
+			For jj = 1 To annotationSets.Count
+				Set annotationSet = annotationSets.Item(jj)
+				annotationSet.SwitchOn = true
+				Set captures = annotationSet.Captures
+
+				' Display selected capture if any, or display first one
+				captureName = iProduct.Name
+				captureName = ""
+				If ( selection.Count2 > 0 ) Then
+					If( selection.Item2(iIndex).Type = "Capture" ) Then 
+						For kk = 1 to captures.Count
+							If ( captures.Item(kk).Name = selection.Item2(iIndex).Value.Name ) Then
+								Set capture = captures.Item(kk)
+								capture.DisplayCapture
+								captureName = capture.Name
+								' Operation done
+								kk = captures.Count+1
+							End If
+						Next
+					Else 
+
+						' No capture selected : display first capture (if any)
+						If captures.Count > 0 Then
+							captures.Item(1).DisplayCapture
+							captureName = captures.Item(1).Name
+						End If
+
+					End If
+				Else
+
+					' Nothing selected : display first capture (if any)
+					If captures.Count > 0 Then
+						captures.Item(1).DisplayCapture
+						captureName = captures.Item(1).Name
+					End If
+
+				End If
+
+				' Was a capture activated ?
+				If( captureName <> "" ) Then
+					' Is the same data edited several times ?
+					openEditors = 0
+					productId = iProduct.Name & "_" & captureName
+					For nn = 1 To CATIA.Windows.Count
+						If ( InStr(CATIA.Windows.Item(nn).Caption, productId) ) Then
+							openEditors = openEditors +1
+						End If
+					Next
+					'Add capture name to product name (i.e. displayed as window title)
+					If ( openEditors > 0 ) Then
+						newProduct.PartNumber = iProduct.Name & "_" & captureName & "_" & CStr(openEditors+1)
+					Else
+						newProduct.PartNumber = iProduct.Name & "_" & captureName
+					End If
+				End If
+
+			Next
+
+			' Hide specs tree in new window
+			CATIA.ActiveWindow.Layout = catWindowGeomOnly
+
+			' Clean-up: delete temporary .cgr file
+			CATIA.FileSystem.DeleteFile CATIA.FileSystem.TemporaryDirectory.Path & CATIA.FileSystem.FileSeparator & cgrName & ".cgr"
+
+			' Save current document on disk, to avoid warning dialog box when closing its window
+			newProductDocument.ExportData CATIA.FileSystem.TemporaryDirectory.Path & CATIA.FileSystem.FileSeparator & newProduct.PartNumber & ".CATProduct", "CATProduct"
+
+			' Clean-up: delete current document file
+			CATIA.FileSystem.DeleteFile CATIA.FileSystem.TemporaryDirectory.Path & CATIA.FileSystem.FileSeparator & newProduct.PartNumber & ".CATProduct"
+
+			' Operation done
+			ii = documents.Count+1
+
+		End If
+
+	Next
+      
+End Sub
+
+Sub SwapToDesign (iProduct)
+' Switch to design mode if necessary  
+iProduct.ApplyWorkMode  DESIGN_MODE
+End Sub

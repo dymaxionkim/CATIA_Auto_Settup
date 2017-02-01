@@ -1,0 +1,192 @@
+<?xml version="1.0" ?>
+<std:node name="DXF.xml" type="dxf" xmlns:std="http://www.dsweb.com/std">
+  <std:enumdef name="Authorize">
+    <std:strval name="Authorize" >Yes</std:strval>
+    <std:strval name="Authorize" >No</std:strval>
+  </std:enumdef>
+  <std:typedef name="TextFontMapping">
+    <std:strval name="DxfFontName" ></std:strval>
+    <std:strval name="CatiaFontName" >Monospac821 BT</std:strval>
+    <std:floatval name="Ratio" >1.0</std:floatval>
+  </std:typedef>
+  <std:typedef name="ColorToThicknessMapping">
+    <std:intval name="DxfColorNumber" >1</std:intval>
+    <std:intval name="CatiaThicknessNumber" >1</std:intval>
+  </std:typedef>
+  <std:typedef name="LineTypeMapping">
+    <std:strval name="DxfLineTypeName" >default</std:strval>
+    <std:intval name="CatiaLineTypeNumber" >1</std:intval>
+  </std:typedef>
+  <std:node name="DxfImport">
+    <std:node name="LineTypeMapping">
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >CONTINUOUS</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >SOLID</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >DASHSPACE</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >2</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >CACHE</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >2</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >ACAD_ISO03W100</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >2</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >DASHED</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >3</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >ACAD_ISO02W100</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >3</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >DASHDOT</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >4</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >ACAD_ISO10W100</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >4</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >PHANTOM</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >5</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >FANTOME</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >5</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >DOT</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >6</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >ACAD_ISO07W100</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >6</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >AXES</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >7</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >AXESX2</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >7</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >CENTER</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >7</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >CENTRE</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >7</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >AMZIGZAG</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >8</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >AMZIGZAG2</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >8</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >GENZIGZAG</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >8</std:intval>
+      </std:typeval>
+      <std:typeval name="LineTypeMapping">
+        <std:strval name="DxfLineTypeName" >ZIGZAG</std:strval>
+        <std:intval name="CatiaLineTypeNumber" >8</std:intval>
+      </std:typeval>
+    </std:node>
+    <std:node name="ColorToThicknessMapping">
+      <std:node name="AuthorizeMapping"><std:enumval name="Authorize">No</std:enumval></std:node>
+      <std:node name="DefaultThickness"><std:intval >1</std:intval></std:node>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >1</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >2</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >3</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >4</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >5</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >6</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >7</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >8</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+      <std:typeval name="ColorToThicknessMapping">
+        <std:intval name="DxfColorNumber" >9</std:intval>
+        <std:intval name="CatiaThicknessNumber" >1</std:intval>
+      </std:typeval>
+    </std:node>
+    <std:node name="TextFontMapping">
+      <std:node name="Default">
+        <std:node name="CatiaFontName"><std:strval >Monospac821 BT</std:strval></std:node>
+        <std:node name="Ratio"><std:floatval >1.0</std:floatval></std:node>
+      </std:node>
+      <std:node name="DefaultDBCS">
+        <std:node name="CatiaFontName"><std:strval >SSS4</std:strval></std:node>
+        <std:node name="Ratio"><std:floatval >1.0</std:floatval></std:node>
+      </std:node>
+      <std:typeval name="TextFontMapping">
+        <std:strval name="DxfFontName" >ISOCT</std:strval>
+        <std:strval name="CatiaFontName" >SSS3</std:strval>
+        <std:floatval name="Ratio" >1.0</std:floatval>
+      </std:typeval>
+      <std:typeval name="TextFontMapping">
+        <std:strval name="DxfFontName" >TXT</std:strval>
+        <std:strval name="CatiaFontName" >SSS2</std:strval>
+        <std:floatval name="Ratio" >1.0</std:floatval>
+      </std:typeval>
+      <std:typeval name="TextFontMapping">
+        <std:strval name="DxfFontName" >MONOTXT</std:strval>
+        <std:strval name="CatiaFontName" >SSS2</std:strval>
+        <std:floatval name="Ratio" >1.0</std:floatval>
+     </std:typeval>
+    </std:node>
+    <std:node name="ThickPolylineMapping">
+      <std:node name="CreateAreaFill">
+        <std:enumval name="Authorize">Yes</std:enumval>
+      </std:node>
+      <std:node name="MinThicknessForAreaFill">
+        <std:floatval >2.7</std:floatval>
+      </std:node>
+    </std:node>
+    <std:node name="ColorMapping">
+      <std:node name="AdaptToBackground">
+        <std:enumval name="Authorize">Yes</std:enumval>
+      </std:node>
+      <std:node name="DarkBackgroundLuminosity">
+        <std:intval >100</std:intval>
+      </std:node>
+      <std:node name="LightBackgroundLuminosity">
+        <std:intval >200</std:intval>
+      </std:node>    
+    </std:node>
+  </std:node>
+</std:node>

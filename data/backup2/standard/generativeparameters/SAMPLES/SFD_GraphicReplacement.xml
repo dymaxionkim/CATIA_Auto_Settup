@@ -1,0 +1,3688 @@
+<?xml version="1.0"?>
+<std:node name="Generativeparameters" type="Generativeparameters" xmlns:std="http://www.dsweb.com/std">
+<!-- Enums definition...DO NOT TOUCH-->
+   <std:enumdef name="FilletRep">
+      <std:strval>None</std:strval>
+
+      <std:strval>Boundaries</std:strval>
+
+      <std:strval>Symbolic</std:strval>
+
+      <std:strval>OriginalEdges</std:strval>
+
+      <std:strval>ProjectedOriginalEdges</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="YesNo">
+      <std:strval>No</std:strval>
+
+      <std:strval>Yes</std:strval>
+   </std:enumdef>
+
+   <std:typedef name="DraftingOptions">
+      <std:intval name="HiddenLines">0</std:intval>
+
+      <std:intval name="CutInSection">1</std:intval>
+
+      <std:intval name="UseWhenProjected">1</std:intval>
+   </std:typedef>
+
+   <std:enumdef name="OpeningCenterlines">
+      <std:strval>No centerlines</std:strval>
+
+      <std:strval>Long centerlines</std:strval>
+
+      <std:strval>Short centerlines</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="OblongOpeningCenterlines">
+      <std:strval>Single centerlines</std:strval>
+
+      <std:strval>Double centerlines</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="MaterialExtrusion">
+      <std:strval>None</std:strval>
+
+      <std:strval>Tick mark (true width)</std:strval>
+
+      <std:strval>Throw orientation (symbolic)</std:strval>
+
+      <std:strval>Tick mark and throw orientation</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="ElecGraphicRepresentation">
+      <std:strval name="ElecGraphicRepresentation">DoubleLine</std:strval>
+
+      <std:strval name="ElecGraphicRepresentation">SingleLine</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="ElecGraphicReplacement">
+      <std:strval name="ElecGraphicReplacement">3Dprojection</std:strval>
+
+      <std:strval name="ElecGraphicReplacement">2Ddetail</std:strval>
+   </std:enumdef>
+
+<std:enumdef name="drafttextframe">
+    <std:strval>None</std:strval>
+    <std:strval>Rectangle</std:strval>
+    <std:strval>Square</std:strval>
+    <std:strval>Circle</std:strval>
+    <std:strval>ScoredCircle</std:strval>
+    <std:strval>Diamond</std:strval>
+    <std:strval>Triangle</std:strval>
+    <std:strval>RightFlag</std:strval>
+    <std:strval>LeftFlag</std:strval>
+    <std:strval>BothFlag</std:strval>
+    <std:strval>Oblong</std:strval>
+    <std:strval>Ellipse</std:strval>
+  </std:enumdef>
+
+<!-- End of Enum definition-->
+   <std:node name="Drafting">
+<!--   Drafting application parameters-->
+      <std:node name="Generate">
+         <std:node name="AxisLines">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="CenterLines">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Fillets">
+            <std:enumval name="FilletRep">Boundaries</std:enumval>
+         </std:node>
+
+         <std:node name="HiddenLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Threads">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="3DPoints">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Wireframe">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Using3Dspec">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+      </std:node>
+
+      <std:node name="ViewDressup">
+         <std:node name="Operators">
+            <std:node name="Section">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>4</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="SkinSection">
+                  <std:node name="Color">
+                     <std:colorval>0 0 0</std:colorval>
+                  </std:node>
+
+                  <std:node name="Linetype">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Thickness">
+                     <std:intval>1</std:intval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="SolidSection">
+                  <std:node name="Color">
+                     <std:colorval>0 0 0</std:colorval>
+                  </std:node>
+
+                  <std:node name="Linetype">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Thickness">
+                     <std:intval>1</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+
+            <std:node name="Detail">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>4</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Break">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>4</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Breakout">
+               <std:node name="Visible">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>8</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+<!-- fin du noeud Operators -->
+         <std:node name="3DInheritance">
+            <std:node name="Wireframe">
+               <std:node name="Color">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Solid">
+               <std:node name="Color">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+            </std:node>
+
+            <std:node name="3DPoints">
+               <std:node name="Color">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="Symbol">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="GeneratedGeometry">
+            <std:node name="VividEdges">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="HiddenEdges">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>3</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Fillets">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Wireframe">
+               <std:node name="Color">
+                  <std:colorval>0 0 0</std:colorval>
+               </std:node>
+
+               <std:node name="Linetype">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Thickness">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="3DPoints">
+               <std:node name="Symbol">
+                  <std:intval>1</std:intval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+<!--      End of Drafting parameters-->
+   </std:node>
+  <std:node name="Structure">
+    <std:node name="FunctionalDesignLite">
+  
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- DASSAULT SYSTEMES (c)2004                                                                            -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- This file is a sample to use with the Structure Functional Design workbench and the Generative View  -->
+<!-- Style of Drafting workbench.                                                                         -->
+<!--                                                                                                      -->
+<!-- Please, refer to the documentation before doing any change.                                          -->
+<!-- This file should be modified by your administrator only                                              -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+
+      <std:node name="Stiffener">
+          <!-- STIFFENER -->
+          <std:node name="Extraction">
+          <!-- Should it draw the stiffener ? -->
+          <!-- Values are No ____ the stiffener will not be extracted -->
+          <!--            Yes ___ the stiffener will be extracted (with or without GR - see "GraphicReplacement" setting) (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement" >
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ no graphic replacement will be used (** default **) -->
+          <!--            Yes ___ graphic replacement will be used -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <!-- Angular tolerance for section generation in degrees -->
+          <!-- Default value is 15.0  -->
+          <std:floatval>15.0</std:floatval>
+        </std:node>
+        <std:node name="ArrowheadTolerance">
+          <!-- Minimum stiffener display to display arrowhead at either end -->
+          <!-- Default value is 45.0  -->
+          <std:floatval>45.0</std:floatval>
+        </std:node>
+        <std:node name="NearSide">
+	      <std:node name="Show">
+	      <!-- Should it draw near side stiffeners ? -->
+	      <!-- Values are No ____ near side stiffener will not be drawn -->
+	      <!--            Yes ___ near side stiffener will be drawn (** default **) -->
+ 	      <std:enumval name="YesNo">Yes</std:enumval> 
+ 	      </std:node>
+	      <std:node name="Linetype" minval="1" maxval="63">
+	      <!-- The line type index to use for near side stiffener representation -->
+ 	      <!-- Default value is 1 (solid line type) -->
+ 	      <std:intval>1</std:intval>
+	      </std:node>
+	  </std:node>
+       <std:node name="FarSide">
+       <std:node name="Show">
+          	<!-- Should it draw far side stiffeners ? -->
+          	<!-- Values are No ____ far side stiffener will not be drawn (** default **) -->
+          	<!--            Yes ___ far side stiffener will be drawn -->
+   		<std:enumval name="YesNo">Yes</std:enumval> 
+      	</std:node>
+     	   	<std:node name="Linetype" minval="1" maxval="63">
+      	<!-- The line type index to use for far side stiffener representation -->
+    	      <!-- Default value is 4 (phantom line type) -->
+      	<std:intval>4</std:intval>
+	      </std:node>    
+        </std:node>         
+		<std:node name="DrawDetailsByEndCut">
+              <!-- Should the Stiffener end symbol be dependant on the end cut type ? -->
+              <!-- Values are Yes____ symbols will be chosen in following settings according to profile type -->
+              <!--            No  ___ the SymbolsAtEndsOfProfile option will always be used (** default **)-->
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+           <std:node name="DefaultDetailName">
+              <!-- The name of the detail within the catalog to instanciate by default for End Cut type -->
+              <!-- Default value is "BlackFilledArrow_3x1.5" -->  
+              <std:strval>BlackFilledArrow_3x1.5</std:strval>
+            </std:node>
+            <std:node name="DetailsByEndCutType">
+              <std:node name="Snipe">
+                <std:node name="TopAndBottomnView">
+					<std:strval>HalfArrow_5x1.5</std:strval>
+		         </std:node>
+		         <std:node name="SideView">
+					<std:strval>ec_45_degrees</std:strval>
+		         </std:node>
+              </std:node>
+              <std:node name="Weld">
+                <std:node name="TopAndBottomnView">
+					<std:strval>HalfArrow_5x1.5</std:strval>
+		         </std:node>
+		         <std:node name="SideView">
+					<std:strval>ec_45_degrees</std:strval>
+		         </std:node>
+              </std:node>
+              <std:node name="Trim">
+ 		         <std:node name="TopAndBottomnView">
+	                <std:strval>HalfArrow_5x1.5Inverted</std:strval>
+		         </std:node>
+		         <std:node name="SideView">
+					<std:strval>ec_60_degrees</std:strval>
+		         </std:node>
+		      </std:node>
+         </std:node>
+     
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <!-- Should it draw arrowheads at ends of stiffener ? -->
+            <!-- Values are No ____ no symbols representing the stiffener ends will be drawn (** default **) -->
+            <!--            Yes ___ symbols representing stiffener end will be used (see "EndSymbolDetailName" setting) -->
+            <std:enumval name="YesNo">Yes</std:enumval> 
+          </std:node>
+          <std:node name="ChapterName">
+            <!-- The name of the chapter containing end symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "Ends" -->
+            <std:strval>Ends</std:strval> 
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <!-- The name of the detail within the catalog to instanciate for ends of stiffener -->
+            <!-- Default value is "BlackFilledArrow_3x1.5" -->
+            <std:strval>NotFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <!-- Values are 'None' ____________________________ no Material Throw Orientation, nor tick mark (** default **)  -->
+            <!--            'Tick mark (true width)' __________ draw only the Tick Mark (see the TM_OffsetFromEndOfMember, and TM_Length settings) -->
+            <!--            'Throw orientation (symbolic)' ____ draw only the Material Throw Orientation (see the MTO_DetailName setting) -->
+            <!--            'Tick mark and throw orientation'__ draw both the Material Throw Orientation and the Tick Mark -->
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTO_Detail">
+            <!-- Important: following settings are only used when the MaterialThrowOrientation setting is set to 1 or 3 -->
+            <std:node name="SymbolsChapterName">
+              <!-- The name of the chapter containing MTO symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+              <!-- Default value is "MTOs" -->
+              <std:strval>MTOs</std:strval>
+            </std:node>
+            <std:node name="DefaultDetailName">
+              <!-- The name of the detail within the catalog to instanciate by default for Material Throw Orientation -->
+              <!-- Default value is "BlackFilledRectangle_5x1" -->  
+              <std:strval>BlackFilledRectangle_5x1</std:strval>
+            </std:node>
+            <std:node name="DrawDetailsByProfileType">
+              <!-- Should the Material Throw Orientation symbol be dependant of the profile type ? -->
+              <!-- Values are Yes____ symbols will be chosen in following settings according to profile type (** default **) -->
+              <!--            No  ___ default symbol will always be used -->
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="DetailsByProfileType">
+              <std:node name="Beam">
+                <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Angle">
+                <std:strval>WhiteFilledAngle_5x2</std:strval>
+              </std:node>
+              <std:node name="Channel">
+                <std:strval>WhiteFilledChannel_5x2</std:strval>
+              </std:node>
+              <std:node name="Tee">
+                <std:strval>WhiteFilledTee_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Pipe">
+                <std:strval>WhiteFilledPipe_2x2</std:strval>
+              </std:node>
+              <std:node name="RectangularHollow">
+                <std:strval>WhiteFilledHollow_2x2</std:strval>
+              </std:node>
+              <std:node name="Bulb">
+                <std:strval>WhiteFilledBulb_5x2</std:strval>
+              </std:node>
+              <std:node name="RoundBar">
+                <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+              </std:node>
+              <std:node name="Z">
+                <std:strval>WhiteFilledZ_5x2.9</std:strval>
+              </std:node>
+            </std:node>
+          </std:node> 
+          <std:node name="TickMark">
+            <!-- Important: following settings are only used when the MaterialThrowOrientation setting is set to 2 or 3 -->
+            <std:node name="OffsetFromEndOfMember">
+              <std:floatval>-7</std:floatval>
+            </std:node>
+            <std:node name="Length">
+              <std:floatval>5</std:floatval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <!-- ********************************************************************************************* -->
+        <std:node name="Beam">
+          <!-- beam -->
+          <std:node name="Extraction">
+          <!-- Should it draw the beam ? -->
+          <!-- Values are No ____ the beam will not be extracted -->
+          <!--            Yes ___ the beam will be extracted (with or without GR - see "GraphicReplacement" setting) (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement" >
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ no graphic replacement will be used (** default **) -->
+          <!--            Yes ___ graphic replacement will be used -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <!-- Angular tolerance for section generation in degrees -->
+          <!-- Default value is 15.0  -->
+          <std:floatval>15.0</std:floatval>
+        </std:node>
+        <std:node name="NearSide">
+	      <std:node name="Show">
+	      <!-- Should it draw near side beams ? -->
+	      <!-- Values are No ____ near side beam will not be drawn -->
+	      <!--            Yes ___ near side beam will be drawn (** default **) -->
+ 	      <std:enumval name="YesNo">Yes</std:enumval> 
+ 	      </std:node>
+	      <std:node name="Linetype" minval="1" maxval="63">
+	      <!-- The line type index to use for near side beam representation -->
+ 	      <!-- Default value is 1 (solid line type) -->
+ 	      <std:intval>1</std:intval>
+	      </std:node>
+	  </std:node>
+       <std:node name="FarSide">
+       <std:node name="Show">
+          	<!-- Should it draw far side beams ? -->
+          	<!-- Values are No ____ far side beam will not be drawn (** default **) -->
+          	<!--            Yes ___ far side beam will be drawn -->
+   		<std:enumval name="YesNo">Yes</std:enumval> 
+      	</std:node>
+     	   	<std:node name="Linetype" minval="1" maxval="63">
+      	<!-- The line type index to use for far side beam representation -->
+    	      <!-- Default value is 4 (phantom line type) -->
+      	<std:intval>4</std:intval>
+	      </std:node>    
+        </std:node>         
+
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <!-- Should it draw arrowheads at ends of beam ? -->
+            <!-- Values are No ____ no symbols representing the beam ends will be drawn (** default **) -->
+            <!--            Yes ___ symbols representing beam end will be used (see "EndSymbolDetailName" setting) -->
+            <std:enumval name="YesNo">Yes</std:enumval> 
+          </std:node>
+          <std:node name="ChapterName">
+            <!-- The name of the chapter containing end symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "Ends" -->
+            <std:strval>Ends</std:strval> 
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <!-- The name of the detail within the catalog to instanciate for ends of beam -->
+            <!-- Default value is "BlackFilledArrow_3x1.5" -->
+            <std:strval>NotFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <!-- Values are 'None' ____________________________ no Material Throw Orientation, nor tick mark (** default **)  -->
+            <!--            'Tick mark (true width)' __________ draw only the Tick Mark (see the TM_OffsetFromEndOfMember, and TM_Length settings) -->
+            <!--            'Throw orientation (symbolic)' ____ draw only the Material Throw Orientation (see the MTO_DetailName setting) -->
+            <!--            'Tick mark and throw orientation'__ draw both the Material Throw Orientation and the Tick Mark -->
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTO_Detail">
+            <!-- Important: following settings are only used when the MaterialThrowOrientation setting is set to 1 or 3 -->
+            <std:node name="SymbolsChapterName">
+              <!-- The name of the chapter containing MTO symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+              <!-- Default value is "MTOs" -->
+              <std:strval>MTOs</std:strval>
+            </std:node>
+            <std:node name="DefaultDetailName">
+              <!-- The name of the detail within the catalog to instanciate by default for Material Throw Orientation -->
+              <!-- Default value is "BlackFilledRectangle_5x1" -->  
+              <std:strval>BlackFilledRectangle_5x1</std:strval>
+            </std:node>
+            <std:node name="DrawDetailsByProfileType">
+              <!-- Should the Material Throw Orientation symbol be dependant of the profile type ? -->
+              <!-- Values are Yes____ symbols will be chosen in following settings according to profile type (** default **) -->
+              <!--            No  ___ default symbol will always be used -->
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="DetailsByProfileType">
+              <std:node name="Beam">
+                <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Angle">
+                <std:strval>WhiteFilledAngle_5x2</std:strval>
+              </std:node>
+              <std:node name="Channel">
+                <std:strval>WhiteFilledChannel_5x2</std:strval>
+              </std:node>
+              <std:node name="Tee">
+                <std:strval>WhiteFilledTee_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Pipe">
+                <std:strval>WhiteFilledPipe_2x2</std:strval>
+              </std:node>
+              <std:node name="RectangularHollow">
+                <std:strval>WhiteFilledHollow_2x2</std:strval>
+              </std:node>
+              <std:node name="Bulb">
+                <std:strval>WhiteFilledBulb_5x2</std:strval>
+              </std:node>
+              <std:node name="RoundBar">
+                <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+              </std:node>
+              <std:node name="Z">
+                <std:strval>WhiteFilledZ_5x2.9</std:strval>
+              </std:node>
+            </std:node>
+          </std:node> 
+          <std:node name="TickMark">
+            <!-- Important: following settings are only used when the MaterialThrowOrientation setting is set to 2 or 3 -->
+            <std:node name="OffsetFromEndOfMember">
+              <std:floatval>-7</std:floatval>
+            </std:node>
+            <std:node name="Length">
+              <std:floatval>5</std:floatval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <!-- ********************************************************************************************* -->
+   <std:node name="Plate">
+        <!-- PLATE -->
+        <std:node name="Extraction">
+          <!-- Should it draw the plate ? -->
+          <!-- Values are No ____ the plate will not be drawn  -->
+          <!--            Yes ___ the plate will be extracted (with or without GR - see "GraphicReplacement" setting) (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement">
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ no Graphic Replacements will be used (ie. will project the 3D only) (** default **)
+                          Yes ___ Graphic Replacements will be used -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+        <std:node name="Linetype" minval="1" maxval="63">
+          <!-- The linetype index to use for functional plate representation -->
+          <!-- Default value is 1 (solid linetype) -->
+          <std:intval>1</std:intval>
+        </std:node>         
+        <std:node name="LineThickness" minval="1">
+          <!-- The thickness of the GR representation -->
+          <!-- Default value is 2 -->
+          <std:intval>2</std:intval>
+        </std:node>         
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <!-- Values are 'None' ____________________________ no Material Throw Orientation, nor tick mark (** default **)  -->
+            <!--            'Tick mark (true width)' __________ draw only the Tick Mark (see the TM_OffsetFromEndOfMember, and TM_Length settings) -->
+            <!--            'Throw orientation (symbolic)' ____ draw only the Material Throw Orientation (see the MTO_DetailName setting) -->
+            <!--            'Tick mark and throw orientation'__ draw both the Material Throw Orientation and the Tick Mark -->
+            <std:enumval name="MaterialExtrusion">Tick mark and throw orientation</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <!-- The name of the chapter containing MTO symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "MTOs" -->
+            <std:strval>MTOs</std:strval> 
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <!-- The name of the detail within the catalog to instanciate for Material Throw Orientation -->
+            <!-- Default value is "BlackFilledRectangle_5x1" -->
+            <!-- Important: this setting is used only when the MaterialThrowOrientation setting is set to 1 or 3 -->
+            <std:strval>BlackFilledRectangle_5x1_CTR</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <!-- The Tick Mark length -->
+            <!-- Default value is 5.0 millimeters -->
+            <std:floatval>5.0</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <!-- ********************************************************************************************* -->
+      <std:node name="SuperPlate">
+        <!-- SUPER PLATE -->
+        <std:node name="Extraction">
+          <!-- Should it draw the plate ? -->
+          <!-- Values are No ____ the plate will not be drawn  -->
+          <!--            Yes ___ the plate will be extracted (with or without GR - see "GraphicReplacement" setting) (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement">
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ no Graphic Replacements will be used (ie. will project the 3D only) (** default **)
+                          Yes ___ Graphic Replacements will be used -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+        <std:node name="Linetype" minval="1" maxval="63">
+          <!-- The linetype index to use for functional plate representation -->
+          <!-- Default value is 1 (solid linetype) -->
+          <std:intval>1</std:intval>
+        </std:node>         
+        <std:node name="LineThickness" minval="1">
+          <!-- The thickness of the GR representation -->
+          <!-- Default value is 2 -->
+          <std:intval>2</std:intval>
+        </std:node>         
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <!-- Values are 'None' ____________________________ no Material Throw Orientation, nor tick mark (** default **)  -->
+            <!--            'Tick mark (true width)' __________ draw only the Tick Mark (see the TM_OffsetFromEndOfMember, and TM_Length settings) -->
+            <!--            'Throw orientation (symbolic)' ____ draw only the Material Throw Orientation (see the MTO_DetailName setting) -->
+            <!--            'Tick mark and throw orientation'__ draw both the Material Throw Orientation and the Tick Mark -->
+            <std:enumval name="MaterialExtrusion">Tick mark and throw orientation</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <!-- The name of the chapter containing MTO symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "MTOs" -->
+            <std:strval>MTOs</std:strval> 
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <!-- The name of the detail within the catalog to instanciate for Material Throw Orientation -->
+            <!-- Default value is "BlackFilledRectangle_5x1" -->
+            <!-- Important: this setting is used only when the MaterialThrowOrientation setting is set to 1 or 3 -->
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <!-- The Tick Mark length -->
+            <!-- Default value is 5.0 millimeters -->
+            <std:floatval>5.0</std:floatval>
+          </std:node>
+        </std:node>
+	   </std:node>
+      <std:node name="Opening">
+         <std:node name="GraphicReplacement">
+         <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="CenterlinesType">
+        <std:enumval name="OpeningCenterlines">Long centerlines</std:enumval>
+      </std:node>
+      <std:node name="OblongOpeningCenterlinesType">
+          <std:enumval name="OblongOpeningCenterlines">Double centerlines</std:enumval>
+      </std:node>
+      <std:node name="ButterflyThickness">
+         <std:floatval>5.0</std:floatval>
+      </std:node>
+    </std:node>
+    </std:node>
+
+ <std:node name="CommonStructureSymbols">
+  <std:node name="ReferencePlaneSystem">
+  <!-- REFERENCE PLANE SYSTEM -->
+    <std:node name="ShowReferencePlaneSystem">
+      <!-- Should it draw the reference plane system ? -->
+      <!-- Values are No ___ no reference plane system will be drawn (** default **) -->
+      <!--            Yes __ reference plane systems will be drawn depending on the next settings -->
+      <std:enumval name="YesNo">Yes</std:enumval> 
+    </std:node>
+    <std:node name="RestrictedToTheBoundingBox">
+      <!-- Should the reference plane systems be restricted to the generated object(s) bounding box -->
+      <!-- Values are No ___ the entire reference plane systems line will be drawn (except in case of clipping) (** default **) -->
+      <!--            Yes __ the reference plane systems will be restricted -->
+      <std:enumval name="YesNo">Yes</std:enumval>
+    </std:node>
+        <std:node name="GridsetPosition" minval="0" maxval="1">
+          <!-- Positionnement of the reference plane systems according to the generated view -->
+          <!-- Values are 0 ____ the reference plane systems are generated where the set of planes is located (** default **) -->
+          <!--            1 ____ the reference plane systems are specified -->
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="GridSetSelection">
+          <!-- Specify where the grids shoule be placed ? -->
+     		<std:node name="GridLeft">
+          	 <!-- Should it draw the reference plane system on the left side of the model ? -->
+          	 <!-- Values are No ___ no reference plane system will be drawn on the left side of the model (** default **) -->
+          	 <!--            Yes __ reference plane systems will be drawn on the left side of the model -->
+          	 <std:enumval name="YesNo">Yes</std:enumval> 
+        	</std:node>
+  		<std:node name="GridRight">
+          	 <!-- Should it draw the reference plane system on the right side of the model ? -->
+          	 <!-- Values are No ___ no reference plane system will be drawn on the right side of the model (** default **) -->
+          	 <!--            Yes __ reference plane systems will be drawn on the right side of the model -->
+          	 <std:enumval name="YesNo">No</std:enumval> 
+        	</std:node>
+  		<std:node name="GridTop">
+          	 <!-- Should it draw the reference plane system on the top side of the model ? -->
+          	 <!-- Values are No ___ no reference plane system will be drawn on the top side of the model (** default **) -->
+          	 <!--            Yes __ reference plane systems will be drawn on the top side of the model -->
+          	 <std:enumval name="YesNo">Yes</std:enumval> 
+        	</std:node>
+  		<std:node name="GridBottom">
+          	 <!-- Should it draw the reference plane system on the bottom side of the model ? -->
+          	 <!-- Values are No ___ no reference plane system will be drawn on the bottom side of the model (** default **) -->
+          	 <!--            Yes __ reference plane systems will be drawn on the bottom side of the model -->
+          	 <std:enumval name="YesNo">No</std:enumval> 
+        	</std:node>
+        </std:node>
+        <std:node name="HorizontalOffset">
+          <!-- The horizontal offset to add between the generated view and the vertical reference plane system in millimeters -->
+          <!-- Default value is 20.0 millimeters -->
+          <std:floatval>35</std:floatval>
+        </std:node>
+        <std:node name="VerticalOffset">
+          <!-- The vertical offset to add between the generated view and the horizontal reference plane system in millimeters -->
+          <!-- Default value is 20.0 millimeters -->
+          <std:floatval>35</std:floatval>
+        </std:node>
+        <std:node name="GridSetLineType" minval="1" maxval="63">
+          <!-- The linetype index to use for Grid Set representation -->
+          <!-- Default value is 1 (solid linetype) -->
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="TickSize">
+          <!-- The size of the ticks in millimeters -->
+          <!-- Default value is 2.0 millimeters -->
+          <std:floatval>60</std:floatval>
+        </std:node>
+        <std:node name="AnnotationStyle" minval="0" maxval="3">
+          <!-- Style of the annotation of the frames -->
+          <!-- Values are 0 ____ no annotation  -->
+          <!--            1 ____ frames names (** default **) -->
+          <!--            2 ____ offset from the origin with the units -->
+          <!--            3 ____ offset from the origin without the units -->
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="AnnotationSize">
+          <!-- Size of the annotations -->
+          <!-- Default value is 2.0 millimeters -->
+          <!-- Model unit must be millimeter for length params (else, set the size to 0.2 if your param is centimeter) -->
+          <std:floatval>2.0</std:floatval>
+        </std:node>
+       <std:node name="AnnotationFrame">
+          <!-- Size of the annotations -->
+          <!-- Default value is 2.0 millimeters -->
+          <!-- Model unit must be millimeter for length params (else, set the size to 0.2 if your param is centimeter) -->
+          <std:enumval name="drafttextframe">Circle</std:enumval>
+        </std:node>
+        <std:node name="AnnotationStep" minval="1">
+          <!-- Step between 2 annotations -->
+          <!-- Default value is 1 (means you have an annotation on each stick) -->
+          <std:intval>3</std:intval>
+        </std:node>
+        <std:node name="AnnotationStart">
+          <!-- The first annotation position-->
+          <!-- Default value is 1 -->
+          <std:intval>-100</std:intval>
+        </std:node>
+        <std:node name="Elevations">
+          <std:node name="Extraction">
+            <!-- Should it draw the orientation symbol ? -->
+            <!-- Values are No ___ no orientation will be drawn -->
+            <!--            Yes __ the orientation will be drawn (** default **) -->
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+            <std:node name="ZPlusOrient_Symbol">
+              <!-- The letter used for ZPlusOrient orientation -->
+              <!-- Default value is "U" -->
+              <std:strval>U</std:strval>
+            </std:node>
+            <std:node name="ZMinOrientName_Symbol">
+              <!-- The letter used for ZMinOrientName orientation -->
+              <!-- Default value is "L" -->
+              <std:strval>L</std:strval>
+            </std:node>
+            <std:node name="XPlusOrientName_Symbol">
+              <!-- The letter used for XPlusOrientName orientation -->
+              <!-- Default value is "A" -->
+              <std:strval>A</std:strval>
+            </std:node>
+            <std:node name="XMinOrientName_Symbol">
+              <!-- The letter used for XMinOrientName orientation -->
+              <!-- Default value is "F" -->
+              <std:strval>F</std:strval>
+            </std:node>
+            <std:node name="YPlusOrientName_Symbol">
+              <!-- The letter used for YPlusOrientName orientation -->
+              <!-- Default value is "S" -->
+              <std:strval>S</std:strval>
+            </std:node>
+            <std:node name="YMinOrientName_Symbol">
+              <!-- The letter used for YMinOrientName orientation -->
+              <!-- Default value is "P" -->
+              <std:strval>P</std:strval>
+            </std:node>
+            <std:node name="HullInOrientName_Symbol">
+              <!-- The letter used for HullInOrientName orientation -->
+              <!-- Default value is "I" -->
+              <std:strval>I</std:strval>
+            </std:node>
+            <std:node name="HullOutOrientName_Symbol">
+              <!-- The letter used for outboard orientation -->
+              <!-- Default value is "O" -->
+              <std:strval>O</std:strval>
+            </std:node>
+            <std:node name="FontSize">
+              <!-- The size of the piece part number text -->
+              <!-- Default is 2.0 -->
+              <std:floatval>1.5</std:floatval>
+            </std:node>
+          </std:node>
+      </std:node>
+    </std:node>
+      <std:node name="PreliminaryLayout">
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- DASSAULT SYSTEMES (c)2002                                                                                                                                                      -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- This file is a sample to use with the Structure Preliminary Layout workbench and the Generative View -->
+<!-- Style of Drafting workbench.                                                                                                                                                   -->
+<!-- This file should be modified by your administrator only                          -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+         <std:node name="SPLWrappingSurf">
+            <std:node name="Extraction">
+<!-- Set if the wrapping surface has to be drawn  -->
+<!-- Values are 0 ____ the wrapping surface only will be extracted (** default **)  -->
+<!--            -1 ____ the wrapping surface will not be extracted. This Option disable GraphicReplacement -->
+               <std:intval>0</std:intval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+<!-- Set if the wrapping surface has a Graphic Replacement  -->
+<!-- Values are 0 ____ the wrapping surface will be simply drawn  -->
+<!--            1 ____ the wrapping surface and the hull centerline will be extracted   (** default **)  -->
+<!--            2 ____ the hull centerline only will be extracted -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="MPSelection">
+<!-- Tell if the user selects the plane representing the middle station -->
+<!-- Value is 0 ___ when the user doesn't select the middle station plane (** default **)  -->
+<!--          1 ___ when the user does select the middle station plane -->
+               <std:intval>0</std:intval>
+            </std:node>
+
+            <std:node name="MPXCoord">
+<!-- If the user doesn't select the plane representing the middle station,  -->
+<!-- give the distance of this plane on X  -->
+<!-- Default value is 50000.0  -->
+               <std:floatval>50000.0</std:floatval>
+            </std:node>
+
+            <std:node name="WLSelection">
+<!-- Tell if the user selects the plane representing the WaterLine  -->
+<!-- Value is 0 ___ when the user doesn't select the WaterLine plane  -->
+<!--                    1 ___ when the user does select the WaterLine  plane (** default **) -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="WLZCoord">
+<!-- If the user doesn't select the plane representing the WaterLine,  -->
+<!-- give the distance of this plane on Z  -->
+<!-- Default value is 0.0  -->
+               <std:floatval>0.0</std:floatval>
+            </std:node>
+
+            <std:node name="FrontViewSymmetrical">
+<!-- Tell if Front View is Symmetrical  -->
+<!-- Value is 0 ___ when the view is asymmetrical  -->
+<!--          1 ___ when the view is symmetrical (** default **) -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="TopViewSymmetrical">
+<!-- Tell if Top View is Symmetrical  -->
+<!-- Value is 0 ___ when the view is asymmetrical  -->
+<!-- Value is 1 ___ when the view is symmetrical (** default **) -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="GeometryType">
+<!-- Tell what type of geometry is used  -->
+<!-- Value is 0 ___ when the type is wireframe only (** default **)  -->
+<!--          1 ___ when the view is surface only  -->
+<!--          2 ___ when the view is both = wireframe + Surface -->
+               <std:intval>0</std:intval>
+            </std:node>
+
+            <std:node name="HullCenterlineText">
+<!-- This is the text to be written at the extemities of the centerline  -->
+<!-- Default value is "CL SHIP" -->
+               <std:strval>CL SHIP</std:strval>
+            </std:node>
+
+            <std:node name="CenterlineLocation">
+<!-- Tell where the HullCenterlineText must be pin  -->
+<!-- Value is 1 ___ Top location (** default **)  -->
+<!--          2 ___ Bottom location  -->
+<!--          3 ___ both location, Top and Bottom -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="HullCenterlineTextSize">
+<!-- Size of the hull centerline text  -->
+<!-- Default value is 3 millimeters (paper size relative)  -->
+<!-- Model unit must be millimeter for length params (else, set the size to 0,3 if your param is centimeter) -->
+               <std:floatval>3.0</std:floatval>
+            </std:node>
+         </std:node>
+
+<!-- ************************************************************************ -->
+         <std:node name="SPLMoldedForm">
+            <std:node name="Extraction">
+<!-- Set if the object has to be drawn -->
+<!-- Values are 0 ____ has to be displayed (** default **) -->
+<!--            -1 ____ no need to be displayed  -->
+               <std:intval>0</std:intval>
+            </std:node>
+
+            <std:node name="Linetype">
+<!-- The linetype index to use for Molded Form representation -->
+<!-- Default value is 1 (solid linetype) -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="LineThickness">
+<!-- The thickness of the GR representation -->
+<!-- Default value is 2 -->
+               <std:intval>2</std:intval>
+            </std:node>
+
+            <std:node name="ApplyOnProfileOnly">
+<!-- Apply the linetype on profile view only -->
+<!-- Values are 0 __ linetype will be applied to molded forms whatever the view (** default value **)  -->
+<!--            1 __ linetype will be applied only when the molded form is seen on its profile -->
+               <std:intval>0</std:intval>
+            </std:node>
+
+            <std:node name="BulkheadLineType">
+<!-- The fonted bukhead linetype -->
+<!--Default value is 1 (should be a customized value) -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="CurvedBulkheadLineType">
+<!-- The line type index to use for far side curved plate representation (fonted bulkhead) -->
+<!-- Default value is 1 (solid line type) -->
+<!-- This line type should be a customized line type -->
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="CurvedBulkheadThickness">
+<!-- The thickness to use for far side curved plate representation (fonted bulkhead) -->
+<!-- Default value is 2 -->
+               <std:intval>2</std:intval>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="EquipmentSupport">
+         <std:node name="Member">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="EndCuts">
+
+	              <std:node name="ShowEndCutName">
+	                  <std:enumval name="YesNo">No</std:enumval>
+ 	               </std:node>
+
+	              <std:node name="FontSize">
+ 				<std:floatval>3.5</std:floatval>
+ 	              </std:node>
+
+ 	           	  <std:node name="UseLeader">
+  	      	      <std:enumval name="YesNo">Yes</std:enumval>
+  		        </std:node>
+
+   	      	   <std:node name="LeaderSymbol">
+               		<std:intval>1</std:intval>
+      	 	   </std:node>
+		</std:node>
+
+            <std:node name="StructuralMode">
+               <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+
+            <std:node name="StructuralChapterName">
+               <std:strval>Orientations</std:strval>
+            </std:node>
+
+            <std:node name="StructuralSymbolDefault">
+               <std:strval>StructuralTee</std:strval>
+            </std:node>
+
+            <std:node name="StructuralSymbolByProfileType">
+                 <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="SymbolsByProfileType">
+
+                <std:node name="Angle">
+                    <std:strval>StructuralAngle</std:strval>
+                </std:node>
+
+                <std:node name="Tee">
+                    <std:strval>StructuralTee</std:strval>
+                </std:node>
+            </std:node>
+
+            <std:node name="AngularToleranceForEndView">
+               <std:floatval>15.0</std:floatval>
+            </std:node>
+
+           <std:node name="ShowNearSide">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="ShowFarSide">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+           <std:node name="FarSideLinetype" minval="1" maxval="63">
+               <std:intval>2</std:intval>
+            </std:node>
+ 
+          <std:node name="NearSideLinetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="SymbolsAtEndsOfProfile">
+               <std:node name="UseAnEndSymbol">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="ChapterName">
+                  <std:strval>Ends</std:strval>
+               </std:node>
+
+               <std:node name="DefaultDetailName">
+                  <std:strval>BlackFilledArrow_3x1.5</std:strval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Plate">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="Linetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="LineThickness" minval="1">
+               <std:intval>2</std:intval>
+            </std:node>
+
+            <std:node name="MaterialExtrusion">
+               <std:node name="MaterialThrowOrientation">
+                  <std:enumval name="MaterialExtrusion">Tick mark and throw orientation</std:enumval>
+               </std:node>
+
+               <std:node name="MTOSymbolsChapterName">
+                  <std:strval>MTOs</std:strval>
+               </std:node>
+
+               <std:node name="MTO_DetailName">
+                  <std:strval>BlackFilledRectangle_5x1</std:strval>
+               </std:node>
+
+               <std:node name="TM_Length">
+                  <std:floatval>10.0</std:floatval>
+               </std:node>
+            </std:node>
+
+        <std:node name="PiecePartNumber">
+          <std:node name="Extraction">
+            <!-- Should it draw the piece part number ? -->
+            <!-- Values are No ___ no piece part number will be drawn -->
+            <!--            Yes __ the piece part number will be drawn (** default **) -->
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="GraphicProperties">
+            <std:node name="FontSize">
+              <!-- The size of the piece part number text -->
+              <!-- Default is 2.0 -->
+              <std:floatval>3.0</std:floatval>
+            </std:node>
+            <std:node name="Border">
+              <!-- Defines the border style around the part number text -->
+              <!-- Default is None -->
+              <std:enumval name="PiecePartNumberBorder">Oblong</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+
+        <std:node name="GlobalOrientations">
+          <std:node name="Extraction">
+            <!-- Should it draw the orientation symbol ? -->
+            <!-- Values are No ___ no orientation will be drawn -->
+            <!--            Yes __ the orientation will be drawn (** default **) -->
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="GraphicProperties">
+            <std:node name="GO_ZPlusOrient_Symbol">
+              <!-- The letter used for ZPlusOrient orientation -->
+              <!-- Default value is "U" -->
+              <std:strval>U</std:strval>
+            </std:node>
+            <std:node name="GO_ZMinOrientName_Symbol">
+              <!-- The letter used for ZMinOrientName orientation -->
+              <!-- Default value is "L" -->
+              <std:strval>L</std:strval>
+            </std:node>
+            <std:node name="GO_XPlusOrientName_Symbol">
+              <!-- The letter used for XPlusOrientName orientation -->
+              <!-- Default value is "A" -->
+              <std:strval>A</std:strval>
+            </std:node>
+            <std:node name="GO_XMinOrientName_Symbol">
+              <!-- The letter used for XMinOrientName orientation -->
+              <!-- Default value is "F" -->
+              <std:strval>F</std:strval>
+            </std:node>
+            <std:node name="GO_YPlusOrientName_Symbol">
+              <!-- The letter used for YPlusOrientName orientation -->
+              <!-- Default value is "S" -->
+              <std:strval>S</std:strval>
+            </std:node>
+            <std:node name="GO_YMinOrientName_Symbol">
+              <!-- The letter used for YMinOrientName orientation -->
+              <!-- Default value is "P" -->
+              <std:strval>P</std:strval>
+            </std:node>
+            <std:node name="GO_HullInOrientName_Symbol">
+              <!-- The letter used for HullInOrientName orientation -->
+              <!-- Default value is "I" -->
+              <std:strval>I</std:strval>
+            </std:node>
+            <std:node name="GO_HullOutOrientName_Symbol">
+              <!-- The letter used for outboard orientation -->
+              <!-- Default value is "O" -->
+              <std:strval>O</std:strval>
+            </std:node>
+            <std:node name="FontSize">
+              <!-- The size of the piece part number text -->
+              <!-- Default is 2.0 -->
+              <std:floatval>3.0</std:floatval>
+            </std:node>
+          </std:node>
+          <std:node name="GO_SymbolsChapterName">
+            <!-- The name of the chapter containing global orientation symbols within  -->
+			<!-- the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "Orientations" -->
+            <std:strval>Orientations</std:strval> 
+          </std:node>
+          <std:node name="GO_DetailName">
+            <!-- The name of the detail within the catalog to instanciate for Material Throw Orientation -->
+            <!-- Default value is "Orient_15x15" -->
+            <std:strval>Orient_15x15</std:strval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="FunctionalDesign">
+         <std:node name="FunStiffener">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement" minval="0" maxval="1">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="AngularToleranceForEndView">
+               <std:floatval>15.0</std:floatval>
+            </std:node>
+
+            <std:node name="ShowNearSide">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="NearSideLinetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="ShowFarSide">
+               <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+
+            <std:node name="FarSideLinetype" minval="1" maxval="63">
+               <std:intval>4</std:intval>
+            </std:node>
+
+            <std:node name="SymbolsAtEndsOfProfile">
+               <std:node name="UseAnEndSymbol">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="ChapterName">
+                  <std:strval>Ends</std:strval>
+               </std:node>
+
+               <std:node name="DefaultDetailName">
+                  <std:strval>BlackFilledArrow_3x1.5</std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="MaterialExtrusion">
+               <std:node name="MaterialThrowOrientation">
+                  <std:enumval name="MaterialExtrusion">None</std:enumval>
+               </std:node>
+
+               <std:node name="MTO_Detail">
+                  <std:node name="SymbolsChapterName">
+                     <std:strval>MTOs</std:strval>
+                  </std:node>
+
+                  <std:node name="DefaultDetailName">
+                     <std:strval>BlackFilledRectangle_5x1</std:strval>
+                  </std:node>
+
+                  <std:node name="DrawDetailsByProfileType">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="DetailsByProfileType">
+                     <std:node name="Beam">
+                        <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+                     </std:node>
+
+                     <std:node name="Angle">
+                        <std:strval>WhiteFilledAngle_5x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Channel">
+                        <std:strval>WhiteFilledChannel_5x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Tee">
+                        <std:strval>WhiteFilledTee_5x2.9</std:strval>
+                     </std:node>
+
+                     <std:node name="Pipe">
+                        <std:strval>WhiteFilledPipe_2x2</std:strval>
+                     </std:node>
+
+                     <std:node name="RectangularHollow">
+                        <std:strval>WhiteFilledHollow_2x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Bulb">
+                        <std:strval>WhiteFilledBulb_5x2</std:strval>
+                     </std:node>
+
+                     <std:node name="RoundBar">
+                        <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Z">
+                        <std:strval>WhiteFilledZ_5x2.9</std:strval>
+                     </std:node>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TickMark">
+                  <std:node name="OffsetFromEndOfMember">
+                     <std:floatval>-7</std:floatval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:floatval>5</std:floatval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="FunPlate">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="Linetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="LineThickness" minval="1">
+               <std:intval>2</std:intval>
+            </std:node>
+
+            <std:node name="MaterialExtrusion">
+               <std:node name="MaterialThrowOrientation">
+                  <std:enumval name="MaterialExtrusion">Tick mark and throw orientation</std:enumval>
+               </std:node>
+
+               <std:node name="MTOSymbolsChapterName">
+                  <std:strval>MaterialOrientations</std:strval>
+               </std:node>
+
+               <std:node name="MTO_DetailName">
+                  <std:strval>BlackFilledRectangle_5x1</std:strval>
+               </std:node>
+
+               <std:node name="TM_Length">
+                  <std:floatval>5.0</std:floatval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="FunOpening">
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="CenterlinesType">
+               <std:enumval name="OpeningCenterlines">Long centerlines</std:enumval>
+            </std:node>
+
+            <std:node name="OblongOpeningCenterlinesType">
+               <std:enumval name="OblongOpeningCenterlines">Double centerlines</std:enumval>
+            </std:node>
+
+            <std:node name="ButterflyThickness">
+               <std:floatval>4.0</std:floatval>
+            </std:node>
+         </std:node>
+
+         <std:node name="FunPillar">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="DetailDesign">
+         <std:node name="Stiffening">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement" minval="0" maxval="1">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="AngularToleranceForEndView">
+               <std:floatval>15.0</std:floatval>
+            </std:node>
+
+            <std:node name="ShowNearSide">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="NearSideLinetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="ShowFarSide">
+               <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+
+            <std:node name="FarSideLinetype" minval="1" maxval="63">
+               <std:intval>4</std:intval>
+            </std:node>
+
+            <std:node name="MaterialExtrusion">
+               <std:node name="MaterialThrowOrientation">
+                  <std:enumval name="MaterialExtrusion">Tick mark and throw orientation</std:enumval>
+               </std:node>
+
+               <std:node name="MTO_Detail">
+                  <std:node name="SymbolsChapterName">
+                     <std:strval>MTOs</std:strval>
+                  </std:node>
+
+                  <std:node name="DefaultDetailName">
+                     <std:strval>BlackFilledRectangle_5x1</std:strval>
+                  </std:node>
+
+                  <std:node name="DrawDetailsByProfileType">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="DetailsByProfileType">
+                     <std:node name="Beam">
+                        <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+                     </std:node>
+
+                     <std:node name="Angle">
+                        <std:strval>WhiteFilledAngle_5x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Channel">
+                        <std:strval>WhiteFilledChannel_5x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Tee">
+                        <std:strval>WhiteFilledTee_5x2.9</std:strval>
+                     </std:node>
+
+                     <std:node name="Pipe">
+                        <std:strval>WhiteFilledPipe_2x2</std:strval>
+                     </std:node>
+
+                     <std:node name="RectangularHollow">
+                        <std:strval>WhiteFilledHollow_2x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Bulb">
+                        <std:strval>WhiteFilledBulb_5x2</std:strval>
+                     </std:node>
+
+                     <std:node name="RoundBar">
+                        <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+                     </std:node>
+
+                     <std:node name="Z">
+                        <std:strval>WhiteFilledZ_5x2.9</std:strval>
+                     </std:node>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TickMark">
+                  <std:node name="OffsetFromEndOfMember">
+                     <std:floatval>-7</std:floatval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:floatval>5</std:floatval>
+                  </std:node>
+               </std:node>
+            </std:node>
+
+            <std:node name="SymbolsAtEndsOfProfile">
+               <std:node name="UseAnEndSymbol">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="ChapterName">
+                  <std:strval>Ends</std:strval>
+               </std:node>
+
+               <std:node name="DefaultDetailName">
+                  <std:strval>BlackFilledArrow_3x1.5</std:strval>
+               </std:node>
+
+               <std:node name="AutomaticDetailDetermination">
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Plating">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="MaterialExtrusion">
+               <std:node name="MaterialThrowOrientation">
+                  <std:enumval name="MaterialExtrusion">None</std:enumval>
+               </std:node>
+
+               <std:node name="MTOSymbolsChapterName">
+                  <std:strval>MTOs</std:strval>
+               </std:node>
+
+               <std:node name="MTO_DetailName">
+                  <std:strval>BlackFilledRectangle_5x1</std:strval>
+               </std:node>
+
+               <std:node name="TM_Length">
+                  <std:floatval>5.0</std:floatval>
+               </std:node>
+            </std:node>
+
+            <std:node name="Linetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="LineThickness" minval="1">
+               <std:intval>2</std:intval>
+            </std:node>
+         </std:node>
+
+         <std:node name="Inserting">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="Linetype" minval="1" maxval="63">
+               <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="LineThickness" minval="1">
+               <std:intval>2</std:intval>
+            </std:node>
+
+            <std:node name="MaterialExtrusion">
+               <std:node name="MaterialThrowOrientation">
+                  <std:enumval name="MaterialExtrusion">None</std:enumval>
+               </std:node>
+
+               <std:node name="MTOSymbolsChapterName">
+                  <std:strval>MTOs</std:strval>
+               </std:node>
+
+               <std:node name="MTO_DetailName">
+                  <std:strval>BlackFilledRectangle_5x1</std:strval>
+               </std:node>
+
+               <std:node name="TM_Length">
+                  <std:floatval>5.0</std:floatval>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Beaming">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+         </std:node>
+
+         <std:node name="Opening">
+            <std:node name="GraphicReplacement">
+               <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <std:node name="CenterlinesType">
+               <std:enumval name="OpeningCenterlines">Long centerlines</std:enumval>
+            </std:node>
+
+            <std:node name="OblongOpeningCenterlinesType">
+               <std:enumval name="OblongOpeningCenterlines">Double centerlines</std:enumval>
+            </std:node>
+
+            <std:node name="ButterflyThickness">
+               <std:floatval>4.0</std:floatval>
+            </std:node>
+         </std:node>
+      </std:node>
+
+
+
+         <std:node name="Connection">
+            <std:node name="Extraction">
+               <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+
+            <std:node name="WeldSeam">
+               <std:node name="AngularTolerance">
+                  <std:floatval>1.0</std:floatval>
+               </std:node>
+
+               <std:node name="UseSymbol">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="S_Representation">
+                  <std:node name="LongWeldSeam">
+                     <std:node name="Offset">
+                        <std:floatval>3.0</std:floatval>
+                     </std:node>
+
+                     <std:node name="Thickness">
+                        <std:floatval>3.0</std:floatval>
+                     </std:node>
+                  </std:node>
+
+                  <std:node name="ShortWeldSeam">
+                     <std:node name="Gap">
+                        <std:floatval>1</std:floatval>
+                     </std:node>
+
+                     <std:node name="Length">
+                        <std:floatval>5</std:floatval>
+                     </std:node>
+                  </std:node>
+               </std:node>
+
+               <std:node name="SymbolicRepresentation">
+                  <std:node name="WeldSeam">
+                     <std:node name="ChapterName">
+                        <std:strval>Connections</std:strval>
+                     </std:node>
+
+                     <std:node name="DetailName">
+                        <std:strval>S_5x1</std:strval>
+                     </std:node>
+                  </std:node>
+
+                  <std:node name="WeldSeamWithKnuckle">
+                     <std:node name="ChapterName">
+                        <std:strval>Connections</std:strval>
+                     </std:node>
+
+                     <std:node name="DetailName">
+                        <std:strval>SwKnuckle_5x1</std:strval>
+                     </std:node>
+                  </std:node>
+               </std:node>
+            </std:node>
+
+            <std:node name="TightHiddenPlate">
+               <std:node name="StraightLineType" minval="1" maxval="63">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="CurvedLineType" minval="1" maxval="63">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="CurvedLineThickness" minval="1">
+                  <std:intval>2</std:intval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+   </std:node>
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - P I P I N G    D E S I G N          * -->
+<!-- ******************************************************************* -->
+   <std:node name="PipingDesign">
+<!-- ********* OBJECT = PIPING PARTS ****************************** -->
+      <std:node name="PipingPart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* Default Color=Blue -->
+         <std:node name="Color">
+            <std:colorval>0 0 255</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- ********* End Style Symbols: Welds, Flange,.. -->
+         <std:node name="EndStyleSymbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* Fabrication Break Symbol - Spool -->
+         <std:node name="FabricationBreakSymbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* Corner Bend Point -->
+         <std:node name="CornerBendPoint">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Single) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Single</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval>2 1/2in</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>6.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_2 (Default=Double) -->
+<!-- *************************************************** -->
+         <std:node name="GR_2">
+            <std:strval>Double_NoGeneration</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_2_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_2_MinNominalSize">
+            <std:strval>3in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_2_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_2_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_2_CenterLines">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_2_CenterLinesExtensionLength">
+            <std:floatval>8.0</std:floatval>
+         </std:node>
+
+<!-- ***************************************************** -->
+<!-- ********* Graphic Representation_3 (Default=Envelope) -->
+<!-- ***************************************************** -->
+         <std:node name="GR_3">
+            <std:strval>Envelope_NoGeneration</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_3_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_3_MinNominalSize">
+            <std:strval>3in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_3_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_3_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_3_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_3_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - P I P I N G    D E S I G N          * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - EQUIPMENT  ARRANGEMENT              * -->
+<!-- ******************************************************************* -->
+   <std:node name="EquipmentArrangement">
+<!-- ********* OBJECT = EQUIPMENT ********************************* -->
+      <std:node name="Equipment">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* DefaultColor=Green -->
+         <std:node name="Color">
+            <std:colorval>0 255 0</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- ********* Local dimension of Equipment -->
+         <std:node name="FB-Dimension">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* Center Of Gravity Symbol -->
+         <std:node name="CenterOfGravitySymbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ***************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Envelope) -->
+<!-- ***************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Envelope</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_2 (Default=Layout) -->
+<!-- *************************************************** -->
+         <std:node name="GR_2">
+            <std:strval>Layout</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_2_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_2_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_2_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_2_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_2_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_2_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - EQUIPMENT  ARRANGEMENT              * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - HVAC DESIGN                         * -->
+<!-- ******************************************************************* -->
+   <std:node name="HVACDesign">
+<!-- ********* OBJECT = HVAC Parts ******************************** -->
+      <std:node name="HVACPart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* DefaultColor=Light Blue -->
+         <std:node name="Color">
+            <std:colorval>100 200 255</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Double) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Double</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - HVAC DESIGN                         * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION -  T U B I N G    D E S I G N         * -->
+<!-- ******************************************************************* -->
+   <std:node name="TubingDesign">
+<!-- ********* OBJECT = TUBING PARTS ****************************** -->
+      <std:node name="TubingPart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* Default Color=Blue -->
+         <std:node name="Color">
+            <std:colorval>0 0 255</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- ********* End Style Symbols: Welds, Flange,.. -->
+         <std:node name="EndStyleSymbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* Corner Bend Point -->
+         <std:node name="CornerBendPoint">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Single) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Single</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>6.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_2 (Default=Double) -->
+<!-- *************************************************** -->
+         <std:node name="GR_2">
+            <std:strval>Double_NoGeneration</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_2_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_2_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_2_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_2_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_2_CenterLines">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_2_CenterLinesExtensionLength">
+            <std:floatval>8.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION -  T U B I N G    D E S I G N         * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - Compartment and Access              * -->
+<!-- ******************************************************************* -->
+   <std:node name="CompartmentAndAccess">
+<!-- ********* OBJECT = Access Part ******************************* -->
+      <std:node name="CamAccessPart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* DefaultColor=Green -->
+         <std:node name="Color">
+            <std:colorval>0 255 0</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- ********* Local dimension of Equipment -->
+         <std:node name="FB-Dimension">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Single) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Single</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ***************************************************** -->
+<!-- ********* Graphic Representation_2 (Default=Envelope) -->
+<!-- ***************************************************** -->
+         <std:node name="GR_2">
+            <std:strval>Envelope_NoGeneration</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_2_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_2_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_2_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_2_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_2_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_2_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_3 (Default=Layout) -->
+<!-- *************************************************** -->
+         <std:node name="GR_3">
+            <std:strval>Layout_NoGeneration</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_3_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_3_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_3_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_3_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_3_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_3_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - Compartment and Access              * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - CONDUIT DESIGN                      * -->
+<!-- ******************************************************************* -->
+   <std:node name="ConduitDesign">
+<!-- ********* OBJECT = Conduit Parts ***************************** -->
+      <std:node name="CndConduitPart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* DefaultColor=Black -->
+         <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Double) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Double</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - CONDUIT DESIGN                      * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - RACEWAY DESIGN                      * -->
+<!-- ******************************************************************* -->
+   <std:node name="RacewayDesign">
+<!-- ********* OBJECT = RwyRaceway Parts ************************** -->
+      <std:node name="RwyRacewayPart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* DefaultColor=Black -->
+         <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Double) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Double</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - RACEWAY DESIGN                      * -->
+<!-- ******************************************************************* -->
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - WAVEGUIDE DESIGN                    * -->
+<!-- ******************************************************************* -->
+   <std:node name="WaveguideDesign">
+<!-- ********* OBJECT = WaveguidePart Parts *********************** -->
+      <std:node name="WaveguidePart">
+<!-- ************************************************** -->
+<!-- ********* Graphic Representation Common Attributes -->
+<!-- ************************************************** -->
+<!-- ********* Default=Visible -->
+         <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+<!-- ********* DefaultColor=Black -->
+         <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+         </std:node>
+
+<!-- ********* Default LineType=Solid -->
+         <std:node name="LineType">
+            <std:intval>1</std:intval>
+         </std:node>
+
+<!-- *************************************************** -->
+<!-- ********* Graphic Representation_1 (Default=Double) -->
+<!-- *************************************************** -->
+         <std:node name="GR_1">
+            <std:strval>Double</std:strval>
+         </std:node>
+
+<!-- ********* Display if size is MaxNominalSize or less -->
+<!-- ********* No value means no  MaxNominalSize         -->
+         <std:node name="GR_1_MaxNominalSize">
+            <std:strval />
+         </std:node>
+
+<!-- ********* Display if size is MinNominalSize or more -->
+         <std:node name="GR_1_MinNominalSize">
+            <std:strval>0in</std:strval>
+         </std:node>
+
+<!-- ********* LineGapping -->
+         <std:node name="GR_1_LineGapping">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* LineGappingValue -->
+         <std:node name="GR_1_LineGappingValue">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+
+<!-- ********* CenterLine Definition -->
+         <std:node name="GR_1_CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+<!-- ********* CenterLine ExtensionLength -->
+         <std:node name="GR_1_CenterLinesExtensionLength">
+            <std:floatval>0.0</std:floatval>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - WAVEGUIDE DESIGN                    * -->
+<!-- ******************************************************************* -->
+   <std:node name="Automotive BiW Fastening">
+<!--Automotive BiW Fastening Application-->
+      <std:node name="Fasteners">
+<!--Fasteners Category-->
+         <std:node name="Spot Fasteners">
+<!--Spot Fasteners Category-->
+            <std:node name="Generate">
+<!--Extraction Parameters-->
+               <std:node name="Extract Location">
+<!--Extraction Flag for Spot Fasteners (Yes/No)-->
+<!--Default Value=Yes-->
+                  <std:enumval name="YesNo">Yes</std:enumval>
+               </std:node>
+
+               <std:node name="Angular Tolerance">
+<!--Maximum Angle between Spot Normal Vector and View Background Plane-->
+<!--Default Value=90.0-->
+                  <std:floatval>90.0</std:floatval>
+               </std:node>
+
+               <std:node name="Include View Reverse Direction">
+<!--Reverse Direction for Spot Fasteners (Yes/No)-->
+<!--Default Value=No-->
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - SHEETMETAL DESIGN                   * -->
+<!-- ******************************************************************* -->
+   <std:node name="SheetMetal">
+      <std:node name="SheetMetalDesign">
+         <std:node name="Bend">
+<!-- ********* 1 = Visible, 0 = Hidden -->
+            <std:node name="OML">
+               <std:intval>1</std:intval>
+            </std:node>
+
+<!-- ********* 1 = Visible, 0 = Hidden -->
+            <std:node name="BTLs">
+               <std:intval>1</std:intval>
+            </std:node>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END   APPLICATION - SHEETMETAL DESIGN                   * -->
+<!-- ******************************************************************* -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- ******************************************************************* -->
+<!-- *         START APPLICATION - ELECTRICAL                   * -->
+<!-- ******************************************************************* -->
+   <std:node name="Electrical">
+      <std:node name="BundleSegment">
+         <std:node name="GraphicRepresentation">
+            <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+         </std:node>
+
+         <std:node name="AutomaticGeneration">
+            <std:node name="TextTemplate">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+
+               <std:node name="TextTemplateName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="WireAnnotation">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="SubType">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ReferenceDesignator">
+                  <std:intval>1</std:intval>
+               </std:node>
+
+               <std:node name="Diameter">
+                  <std:intval>3</std:intval>
+               </std:node>
+
+               <std:node name="Mass">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="BendRadius">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="Length">
+                  <std:intval>2</std:intval>
+               </std:node>
+
+               <std:node name="Color">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="SeparationCode">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="SignalID">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FromConnectionPoint">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FromDevice">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ToConnectionPoint">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ToDevice">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="Catalog">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="FullyConnected">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="NetworkConnexity">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="IsRouted">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ElecSignalWhoTheElecWireRealize">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="CuttingLength">
+                  <std:intval>0</std:intval>
+               </std:node>
+
+               <std:node name="ShieldingTermination">
+                  <std:intval>0</std:intval>
+               </std:node>
+            </std:node>
+
+            <std:node name="TechnologicalFeatureDimmension">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="Protection">
+         <std:node name="Tape">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Corrugated tube">
+            <std:node name="GraphicRepresentation">
+               <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="TechnologicalFeatureDimmension">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="Device">
+         <std:node name="SingleInsertConnector">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="GroundStud">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="TerminalStrip">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="TerminalBlock">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">Yes</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="ExternalSplice">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="InternalSplice">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="Equipment">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+
+               <std:node name="WireAnnotation">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="SubType">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ReferenceDesignator">
+                     <std:intval>1</std:intval>
+                  </std:node>
+
+                  <std:node name="Diameter">
+                     <std:intval>3</std:intval>
+                  </std:node>
+
+                  <std:node name="Mass">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="BendRadius">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Length">
+                     <std:intval>2</std:intval>
+                  </std:node>
+
+                  <std:node name="Color">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SeparationCode">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="SignalID">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FromDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToConnectionPoint">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ToDevice">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="Catalog">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="FullyConnected">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="NetworkConnexity">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="IsRouted">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ElecSignalWhoTheElecWireRealize">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="CuttingLength">
+                     <std:intval>0</std:intval>
+                  </std:node>
+
+                  <std:node name="ShieldingTermination">
+                     <std:intval>0</std:intval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+
+         <std:node name="BackShell">
+            <std:node name="GraphicReplacement">
+               <std:node name="Type">
+                  <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+
+            <std:node name="AutomaticGeneration">
+               <std:node name="TextTemplate">
+                  <std:node name="Generation">
+                     <std:enumval name="YesNo">No</std:enumval>
+                  </std:node>
+
+                  <std:node name="CatalogName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+
+                  <std:node name="TextTemplateName">
+                     <std:strval>
+                     </std:strval>
+                  </std:node>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+
+      <std:node name="Support">
+         <std:node name="GraphicReplacement">
+            <std:node name="Type">
+               <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+            </std:node>
+
+            <std:node name="CatalogName">
+               <std:strval>
+               </std:strval>
+            </std:node>
+         </std:node>
+
+         <std:node name="AutomaticGeneration">
+            <std:node name="TextTemplate">
+               <std:node name="Generation">
+                  <std:enumval name="YesNo">No</std:enumval>
+               </std:node>
+
+               <std:node name="CatalogName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+
+               <std:node name="TextTemplateName">
+                  <std:strval>
+                  </std:strval>
+               </std:node>
+            </std:node>
+         </std:node>
+      </std:node>
+   </std:node>
+
+<!-- ******************************************************************* -->
+<!-- *         END APPLICATION - ELECTRICAL                   * -->
+<!-- ******************************************************************* -->
+</std:node>
+
+
+
+

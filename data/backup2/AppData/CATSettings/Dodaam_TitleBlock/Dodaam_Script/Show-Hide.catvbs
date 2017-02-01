@@ -1,0 +1,91 @@
+Language="VBSCRIPT"
+
+Sub CATMain()
+
+Set productDocument1 = CATIA.ActiveDocument
+
+Set selection1 = productDocument1.Selection
+
+SH=inputbox("해당 번호를 입력!     1:구속표시, 2:Plane, 3:Line, 4:Point, 5:Curve, 6:Surface, 7:AxisSystem, 8:Sketch","숨기기 모드",8)
+
+if SH=1 Then
+
+selection1.Search "CATProductSearch.MfConstraint.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=2 Then
+
+selection1.Search "CATPrtSearch.Plane.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=3 Then
+
+selection1.Search "CATPrtSearch.Line.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=4 Then
+
+selection1.Search "CATPrtSearch.Point.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=5 Then
+
+selection1.Search "CATPrtSearch.Curve.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=6 Then
+
+selection1.Search "CATPrtSearch.Surface.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=7 Then
+
+selection1.Search "CATPrtSearch.AxisSystem.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+if SH=8 Then
+
+selection1.Search "CATPrtSearch.Sketch.Visibility=Visible,all"
+
+Set VisPropSet1 = Selection1.VisProperties 
+
+VisPropSet1.SetShow catVisPropertyNoShowAttr 
+
+End if
+
+End Sub

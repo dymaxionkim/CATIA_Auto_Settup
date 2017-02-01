@@ -1,0 +1,3307 @@
+Language = "VBSCRIPT"
+' Purpose:       Get a Title Block and fill Entries
+'
+' Author:        M. Neukirchen
+'
+' Languages:     VBScript
+' Version:       V5R9 SP2, V5R9 GA,V5R10, V5R15, V5R16 GA (Diagrams not working), V5R16 SP2, V5R19SP3
+' Reg. Settings: English (United States)
+' ****************************************************************************
+'**************************************************************************
+' PROGRAM: Titleblock
+'**************************************************************************
+'
+'
+' (C) COPYRIGHT Michael Neukirchen 2010
+'**************************************************************************
+'                	Erstellt: 01.09.2000      Name: M. Maier
+'                	Update  : 20.07.2001      Name: M. Neukirchen
+'			18.08.2001	V 2.1.1
+'					Suppport of multiple sheets
+'					Configuration Path to sInstallDir
+'			05.11.2001	V 2.2.0   M. Neukirchen
+'					Execute external program with ExecuteProcessus
+'					Naming Convention according to Dassault Macros
+'					Copy data from template to current sheet
+'					exchange title block data
+'			03.12.2001	V 2.2.1   M. Neukirchen
+'					temp directory from environment
+'			15.12.2001	V 2.3.0   M. Neukirchen
+'					some compatibility with TeamPDM
+'					Step1 : Drawing / Sheet fields
+'			01.06.2002	V 2.3.1   M. Neukirchen
+'					Error exchange frame fixed.
+'			24.06.2002	V 2.3.2   M. Neukirchen
+'					Re-activation of active view
+'			02.08.2002	V 2.3.3   M. Neukirchen
+'					regexp 					-> MHNReplace
+'					\ 						-> / for Unix
+'				   Split 					-> MHNSplit
+'					VB file system object 	-> CATIA file system object
+'					VB temp folder 			-> /tmp or VB special Folder on Windows
+'					BackGroundView			-> integrated feedback from Helbling
+'			01.10.2002	V 2.3.4   M. Neukirchen
+'					Bugfix for parameters, copy of frames
+'			03.10.2002  V 2.4.0
+'					Parameter handling from M. RÃ¶cker
+'					info on td1 compatibility
+'			14.10.2002  V 2.4.1
+'					Performance optimization, delete Parameters only if necessary
+'					File Create problen in 5.10 fixed
+'			25.11.2002  V 2.4.2
+'					Detection of OS (getos function)
+'			12.12.2002  V 2.4.3
+'					TD1 configuration in basics.cfg config data set
+'					CALL_GUI_Mode for foreground/background invocation of GUI
+'			09.03.2003  V 2.4.7
+'					Enable tracing
+'			13.05.2003  V 2.4.9
+'					Use the drawing scale of the existing drawing
+'					Compliance for R11
+'					tracing enhanced
+'			24.09.2003  V 2.4.12
+'					support for Details
+'					check for " " in sInstallDir
+'			20.01.2004  V 2.4.14
+'					support for CATIAVERSION
+'			28.07.2004  V 3.0.0
+'					support for BOMs
+'			04.11.2004  V 3.0.3
+'					NLS support
+'			13.01.2005  V 3.1.1
+'					STARKIT Support UNIX
+'					Check for CATDrawing as active document
+'			18.02.2005  V 3.1.3
+'					BOM error for Title at the bottom
+'			18.06.2005  V 3.1.4
+'					BOM reworked,  weight,volume,wetarea info added
+'			07.09.2005  V 3.2.0
+'					Diagrams, R16 test (FromSelection replaced)
+'			01.03.2005  V 4.0.0
+'					Multiple Configurations
+'			20.09.2006  V 4.0.4
+'					Dimension for names -> 400
+'
+'
+'
+'
+'**********************************************************************************
+
+
+'-------------------------------------------------- change path for your installation ----------
+sInstallDir = "c:\myfolder/v4.4.0"
+
+'------------------------------------------------------------------------------------------------
+
+public myDelimiter			as string
+public fs 					as object
+public communication_1	 	as string
+public communication_2 		as string
+public communication_3 		as string
+
+public command_edit     	as string
+public command_select  	 	as string
+public work             	as string
+Public sValues(1000) 		As String
+Public sNames (1000) 		As String
+Public sCATIAVERSION		As String
+public iNumNames 			as Integer
+public leadingZeroes		as boolean
+
+public DrwDocument   		as object
+redim  DrwSheets(1)    		as object
+redim  Drw3DType(1)			as Integer
+redim  BomShowMode(1)		as Integer
+
+public DrwSelection  		as object
+public DrwSheet      		as object
+public DrwView       		as object
+public DrwViewActive 		as object
+public DrwViews      		as object
+public DrwGeomElems  		as object
+public DrwTexts      		as object
+public ActiveWindow  		as object
+public trace_dat     		as object
+public trace_mode			as string
+public trace				as boolean
+public trace_is_init		as boolean
+public data_trace			as object
+public sCatDocType			as string
+
+public cur_sheet_active		as object
+public cur_view_active		as object
+public cur_sheet_background as object
+public iTitleblockTexts 	as integer
+public resolve_3d		    as boolean
+
+public call_method   		as string
+public is_init       		as string
+'public td1_configured		as boolean
+public num_td1_parms		as integer
+public fso 					as object
+public td1_parm_params	(100)
+public td1_parm_ids		(100)
+public td1_parm_visible	(100)
+public td1_parm_sheet1	(100)
+public TD1_compliant		as boolean
+public check3DAnalysisData	as boolean
+public CALL_GUI_Mode		as string
+public numComponents		as integer
+public sTempFolder
+redim myComponents(1) 		as DrawingView
+redim myComponents_m0(1)     as double
+redim myComponents_m1(1)     as double
+redim myComponents_m2(1) 	as double
+redim myComponents_m3(1) 	as double
+redim myComponents_m4(1) 	as double
+redim myComponents_m5(1) 	as double
+redim myTranslateStringsIn(1) as string
+redim myTranslateStringsOut(1) as string
+public numTransItems		as integer
+public didIAskFor3D			as integer
+public TBlockPrefix			as string
+public TBlockPrefixLen		as integer
+public os					as string
+public fatalError			as integer
+redim UnitFields(1)			as string
+redim UnitSymbols(1)		as string
+redim UnitDP(1)				as string
+redim UnitFactor(1)			as string
+redim UnitShow(1)			as string
+public productWeights(1000)	as string
+public productWetAreas(1000) as string
+public productVolumes(1000)	as string
+public productNames(1000)	as string
+public iNumParts			as integer
+public iColWeight			as integer
+public iColWetArea			as integer
+public iColVolume			as integer
+public iColPartNumber		as integer
+public iUserDefined         as integer
+
+public mySheets(1)			as object
+public keepBackViewActive	as boolean
+public TBConfig				as String
+public oldProductDrawnName	as String
+public oldProductDrawn  	as Object
+redim  TBlockPrefices(1)    as string
+public s3DModelFullName     as String
+public s3DModelName			as String
+public bStreamAllProperties as boolean
+public sModeBomFromGui 		as string
+
+public numMaterialInfo
+public sMaterialInfoPartName(1000) as string
+public sMaterialInfoValue(1000) as string
+public autoLoad3DModel		as boolean
+public topLevelProduct		as object
+
+public objectToPass
+public sConfigDir			as string
+public sTBVersion			as string
+
+public vbCr as string
+vbCr = chr(13)
+sTBVersion = "4.3.3"
+'-------------------------------------------------------------------------------
+' ------------ Main Loop
+'-------------------------------------------------------------------------------
+
+Sub CATMain()
+	MHNinit
+	if fatalError > 0 then
+		exit sub
+	end if
+	iBack = MHNBackgroundViewIsEmpty(DrwViews)
+	if iBack = 2 then				'geometrz in the background without text, cancelled
+		exit sub
+	end if
+	if iBack = 1 then 				'No choice, first get a title block
+		if CATDrw_AddTitleBlock("init") = "cancelled" then
+			exit sub
+		end if
+	end if
+
+	work = "change title block"
+	while work = "change title block"
+		CATDrw_EditTitleBlock()
+		if work = "change title block" then
+			ModifyModel			            	'do additionally all the changes which have been made on the tabs (2.4.11)
+			CATDrw_ExchangeTitleBlock("loop")
+		end if
+	wend
+	MHNexit
+End Sub
+
+'-------------------------------------------------------------------------------
+' ------------ Add a new title block
+'-------------------------------------------------------------------------------
+
+Function CATDrw_AddTitleBlock (sMode as String) as String
+	Dim CatiaFile as String
+	MHNinit
+	CatiaFile = MHNGetCatiaTemplate(sMode)
+	CATDrw_AddTitleBlock = "ok"
+	If CatiaFile = "cancelled" then
+		CATDrw_AddTitleBlock = "cancelled"
+		Exit Function
+      Else
+		MHNGetTitleBlock(CatiaFile)
+	End If
+End Function
+
+'-------------------------------------------------------------------------------
+' ------------ Call the Gui to edit title block entries
+'-------------------------------------------------------------------------------
+
+Sub CATDrw_EditTitleBlock()
+	Tracer "CATDrw_EditTitleBlock", "--> entering"
+	MHNinit
+	Tracer "CATDrw_EditTitleBlock", "Scan Model"
+	ScanModel
+	work = "calling edit"  			'if something goes wrong, avoid loop in main
+	if iTitleblockTexts > 0 then		'has scan model found Title Block Texts
+		Tracer "CATDrw_EditTitleBlock", "Calling GUI"
+		ExecuteOS command_edit
+		Tracer "CATDrw_EditTitleBlock", "Calling ModifyModel"
+		ModifyModel
+	else
+        sTemp= Translate("No Title Block entries found in sheet, ok to delete background")
+		iback = MsgBox   (sTemp, vbYesNo)
+		if iback = vbOK then
+			MHNinit
+				Tracer "CATDrw_EditTitleBlock", "Cleaning Background View"
+			CATRemoveAll
+				Tracer "CATDrw_EditTitleBlock", "Calling Title Block Chooser"
+			CATDrw_AddTitleBlock("init")
+				Tracer "CATDrw_EditTitleBlock", "Calling ScanModel"
+			ScanModel
+				Tracer "CATDrw_EditTitleBlock", "Calling GUI"
+			ExecuteOS command_edit
+				Tracer "CATDrw_EditTitleBlock", "Calling ModifyModel"
+
+			ModifyModel
+
+		end if
+	end if
+	Tracer "CATDrw_EditTitleBlock", "--> leaving"
+End Sub
+'-------------------------------------------------------------------------------
+' ------------ change titel blocks
+'-------------------------------------------------------------------------------
+
+Sub CATDrw_ExchangeTitleBlock(sMode as String)
+	Dim sCatiaFile as String
+		Tracer "CATDrw_ExchangeTitleBlock", "--> entering with sMode=" & sMode
+	MHNinit
+
+'	if sCatDocType = "Diagram" then
+'		msgbox Translate("Exchange of Frame not supported, sorry")
+'		exit sub
+'	end if
+
+'	if CATCheckRef()=1 then
+		sCatiaFile = MHNGetCatiaTemplate(sMode)
+			Tracer "CATDrw_ExchangeTitleBlock", "MHNGetCatiaTemplate got:" & sCatiaFile
+		if sCatiaFile = "cancelled" then
+			exit sub
+		end if
+
+		if right(sCatiaFile,20) <> "KeepFrame.CATDrawing" then
+				Tracer "CATDrw_ExchangeTitleBlock", "Call ScanModel"
+			ScanModel		'scan contents of title block
+'			Tracer "CATDrw_ExchangeTitleBlock", "Call CATRemoveAll"
+'		CATRemoveAll					'clear background view in current model
+				Tracer "CATDrw_ExchangeTitleBlock", "Before call MHNGetTitleBlock"
+			MHNGetTitleBlock(sCatiaFile)	'get the title block from template
+				Tracer "CATDrw_ExchangeTitleBlock", "Before Call ModifyModel"
+			ModifyModel
+		end if
+'	else
+'		msgbox Translate("title identifier not found, change impossible")
+'	end if
+	Tracer "CATDrw_ExchangeTitleBlock", "--> leaving"
+End Sub
+
+'-------------------------------------------------------------------------------
+' ------------ Init everything
+'-------------------------------------------------------------------------------
+
+sub MHNinit ()
+	HKOMM=chr(34)
+	myDelimiter="?+-!?"
+'	dim fields(20)
+	dim sTemp as string
+	fatalError = 0
+	if is_init = "initialised" then
+	else
+		modeBom = 0
+		os = getos()
+		TBConfig = "standard"
+
+		if instr(sInstallDir," ") > 0 then
+			msgbox translate("The install path must not contain blanks, exiting")
+			fatalError = 1
+			exit sub
+		end if
+
+		trace_is_init = false
+
+		is_init = "initialised"
+		set fs = CATIA.FileSystem
+
+		didIAskFor3D = -999 'not yet asked for that
+
+		if os = "intel" then
+			set fso = CreateObject("Scripting.FileSystemObject")
+			sTempFolder = fso.GetSpecialFolder(2)
+'			set fso = nothing
+		else
+			sTempFolder = CATIA.SystemService.Environ("HOME")
+'			sTempFolder = "/tmp"
+		end if
+
+		communication_1 = sTempFolder & "\cat_title_block.txt"
+		communication_2 = sTempFolder & "\cat_title_block_2.txt"
+		communication_3 = sTempFolder & "\cat_title_block_3.txt"
+
+'		trace_dat_name = sTempFolder & "\cat_title_block_trace.txt"
+
+		wish = sInstallDir & "\bin\" & os & "\MyTextblock.exe "
+
+
+		command_edit   = wish  & sInstallDir & " bin\my_textblock_entry_script.tcl " &  sTempFolder & " " & wish
+		command_select = wish  & sInstallDir & " bin\Choose_Frame_Body.tcl " & sTempFolder & " from_catia " & wish
+
+'		td1_config	   	= sInstallDir & "\config\general\td1_config.cfg"
+		basics_config   = sInstallDir & "\config\general\basics.cfg"
+		skinFile 		= sInstallDir & "\config\general\skin.tcl"
+
+		if not os = "intel" then
+			communication_1 = MHNReplaceChar (communication_1,"\","/")
+			communication_2 = MHNReplaceChar (communication_2,"\","/")
+			communication_3 = MHNReplaceChar (communication_3,"\","/")
+
+			command_edit	= MHNReplaceChar (command_edit,   "\","/")
+			command_select	= MHNReplaceChar (command_select, "\","/")
+			trace_dat_name	= MHNReplaceChar (trace_dat_name, "\","/")
+'			td1_config		= MHNReplaceChar (td1_config	, "\","/")
+			basics_config   = MHNReplaceChar (basics_config , "\","/")
+			skinFile		= MHNReplaceChar (skinFile , "\","/")
+			wish			= MHNReplaceChar (wish,   "\","/")
+		end if
+
+		if Not fs.FileExists(trim(wish)) Then
+		   MsgBox Translate("Command >") & wish & Translate("< not found, check sInstallDir in Titleblock.CATScript")
+		   fatalError = 1
+		   exit sub
+		end if
+
+		' read basic info
+		check3DAnalysisData = true
+		Set basics_in 		= safeGetFile(basics_config)
+	 	set basics_stream 	= tbOpen(basics_in,"ForReading")
+		bStreamAllProperties = false
+		
+		TBlockPrefix = "TitleBlock_Text"
+		TBlockPrefixLen=15
+   		Do until basics_stream.atEndOfStream
+			zeile = basics_stream.ReadLine
+			zeile = MHNReplaceChar(zeile,chr(10),"")
+			zeile = MHNReplaceChar(zeile,chr(13),"")
+  	   		if not mid(zeile,1,1) = "'" then
+       			' num_fields = MHNSplit(fields,zeile, "=")
+				fields = l_Split(zeile,"=")
+				' num_fields = ubound(fields)
+       			if fields(0) = "TD1_compliant" then
+       				if Ucase(left(fields(1),4)) = "TRUE" then
+       					TD1_compliant = true
+       				else
+       					TD1_compliant = false
+       				end if
+       			elseif fields(0) =	"CALL_GUI_Mode" then
+       				CALL_GUI_Mode = fields(1)
+       			elseif fields(0) =	"CADSystem" then
+					sCATIAVERSION = fields(1)
+       			elseif fields(0) =	"Trace_Mode" then
+       				trace_mode = fields(1)
+       				if trace_mode = "none" then
+       					trace = false
+       				else
+       					trace = true
+       				end if
+       			elseif fields(0) = "3DAnalysis" then
+       				if Ucase(left(fields(1),4)) = "TRUE" then
+       					check3DAnalysisData = true
+       				else
+       					check3DAnalysisData = false
+       				end if
+       			elseif Trim(fields(0)) = "TBPrefix" then
+					TBlockPrefix = Trim(fields(1))
+					TBlockPrefixLen = Len(TBlockPrefix)
+					sTbTemp = l_Split(TBlockPrefix,",")
+					redim TBlockPrefices (uBound(sTbTemp))
+					for i = 0 to uBound(sTbTemp)
+						TBlockPrefices(i) = Trim(sTbTemp(i))					
+					next
+					'TBlockPrefices = l_Split(TBlockPrefix,",")
+					'msgbox ubound(TBlockPrefices)
+					'msgbox (TBlockPrefices(0))
+					'msgbox (TBlockPrefices(1))
+				elseif Trim(fields(0)) = "DefaultConfig" then
+					TBConfig = Trim(fields(1))
+				elseif Trim(fields(0)) = "autoLoad3DModel" then
+					if Ucase(trim(fields(1))) = "TRUE" then
+						autoLoad3DModel = true
+					end if
+				elseif Trim(fields(0)) = "StreamAllProperties" then
+					if Ucase(trim(fields(1))) = "TRUE" then
+						bStreamAllProperties = true
+					end if
+       			elseif Trim(fields(0)) = "leadingZeroes" then
+					leadingZeroes = false
+					if Ucase(trim(fields(1))) = "TRUE" then
+						leadingZeroes = true
+					end if
+       			end if
+       		end if
+		Loop
+		basics_stream.close
+		
+		' check, if config directory is available to avoid crash
+		sConfigDir = sInstallDir & "\config\custom\" & TBConfig
+		if not os = "intel" then
+			sConfigDir = MHNReplaceChar (sConfigDir,"\","/")
+		end if
+		if not fs.FileExists(sConfigDir & "/title_block_config.tcl") then
+			msgbox translate("Config dir not found in config/custom, searched for:") & sConfigDir & "/title_block_config.tcl"
+			fatalError = 1
+			exit sub
+		end if
+
+		tracer "MHNinit", "sTBVersion	   = " & sTBVersion
+		tracer "MHNinit", "communication_1 = " & communication_1
+		tracer "MHNinit", "communication_2 = " & communication_2
+		tracer "MHNinit", "communication_3 = " & communication_3
+		tracer "MHNinit", "command_edit    = " & command_edit
+		tracer "MHNinit", "command_select  = " & command_select
+		tracer "MHNinit", "basics_config   = " & basics_config
+		tracer "MHNinit", "os              = " & os 
+		tracer "MHNinit", "sTempFolder     = " & sTempFolder
+		tracer "MHNinit", "CADSystems      = " & sCATIAVERSION
+		tracer "MHNinit", "3D Analysis Data= " & check3DAnalysisData
+		tracer "MHNinit", "TBlockPrefix    = " & TBlockPrefix
+		tracer "MHNinit", "skinFile        = " & skinFile
+		tracer "MHNinit", "TBConfig        = " & TBConfig
+
+		if fs.FileExists(communication_2) then
+			fs.DeleteFile(communication_2)
+			tracer "MHNinit", "deleted        = " & communication_2
+
+		end if
+
+		translateInit fs,skinFile, sInstallDir
+
+'		Msgbox "TD1_compliant=" & 	TD1_compliant
+'		Msgbox "CALL_GUI_Mode=" & CALL_GUI_Mode
+		' check for td1 compatibility
+
+'		if TD1_compliant Then
+'			num_td1_parms  = 0
+'			Set td1_in 		= fs.GetFile(td1_config)
+'		 	set td1_stream 	= td1_in.OpenAsTextStream("ForReading")
+'    		Do until td1_stream.atEndOfStream
+'    	   		zeile = td1_stream.ReadLine
+'    	   		if not isComment(zeile) then
+'					fields = l_Split(zeile,";")
+'					td1_parm_params		(num_td1_parms) = fields(0)
+'					td1_parm_ids		(num_td1_parms) = fields(1)
+'					td1_parm_visible	(num_td1_parms) = fields(2)
+'					td1_parm_sheet1		(num_td1_parms) = fields(3)
+'           			num_td1_parms = num_td1_parms + 1
+'           		end if
+'           	Loop
+'           	td1_stream.close
+'		end if
+
+		' no document is open -> create a blank drawing
+
+		If CATIA.Documents.Count = 0 Then
+			Set documents1 = CATIA.Documents
+			Set drawingDocument1 = CATIA.Documents.Add("Drawing")
+			drawingDocument1.Standard = catISO
+			Set drawingSheets1 = drawingDocument1.Sheets
+			Set drawingSheet1 = drawingSheets1.Item("Sheet.1")
+			drawingSheet1.PaperSize = catPaperA4
+			drawingSheet1.Scale = 1.000000
+			drawingSheet1.Orientation = catPaperLandscape
+		End If
+		
+		on error resume next
+		Set DrwDocument 	= CATIA.ActiveDocument
+		'case of invisible documents
+		if err.number <>0 then
+			Set documents1 = CATIA.Documents
+			Set drawingDocument1 = CATIA.Documents.Add("Drawing")
+			drawingDocument1.Standard = catISO
+			Set drawingSheets1 = drawingDocument1.Sheets
+			Set drawingSheet1 = drawingSheets1.Item("Sheet.1")
+			drawingSheet1.PaperSize = catPaperA4
+			drawingSheet1.Scale = 1.000000
+			drawingSheet1.Orientation = catPaperLandscape
+			Set DrwDocument 	= CATIA.ActiveDocument
+		end if
+		on error goto 0
+
+		'msgbox catDocType(CATIA.ActiveDocument)
+
+		sCatDocType = catDocType(CATIA.ActiveDocument)
+		tracer "MHNinit", "sCatDocType        = " & sCatDocType
+
+		if sCatDocType = "unsupported" then
+			answer = MsgBox (translate("TB Macro only works with CATDrawings, start a new drawing?"), vbYesNo)
+			if answer = vbYes then
+				Set documents1 = CATIA.Documents
+				Set drawingDocument1 = CATIA.Documents.Add("Drawing")
+				drawingDocument1.Standard = catISO
+				Set drawingSheets1 = drawingDocument1.Sheets
+				Set drawingSheet1 = drawingSheets1.Item("Sheet.1")
+				drawingSheet1.PaperSize = catPaperA4
+				drawingSheet1.Scale = 1.000000
+				drawingSheet1.Orientation = catPaperLandscape
+				drawingDocument1.Activate
+
+				Set DrwDocument 	= CATIA.ActiveDocument
+				sCatDocType = catDocType(CATIA.ActiveDocument)
+
+			else
+				fatalError = 1
+				exit sub
+			end if
+		end if
+
+  		Set DrwSelection	= DrwDocument.Selection
+
+'		Set DrwSheets   	= DrwDocument.Sheets
+'  		Set cur_sheet_active= DrwSheets.ActiveSheet
+		Set DrwViews		= DrwSheet.Views
+		Set cur_view_active = DrwViews.ActiveView
+	  	Set DrwSelection	= DrwDocument.Selection
+		Set DrwViewActive	= DrwSheet.Views.ActiveView
+
+		Set DrwBckView		= MHNGetBackgroundView(DrwViews)
+		Set DrwTexts		= DrwBckView.Texts
+		Set DrwGeomElems	= DrwBckView.GeometricElements
+
+		sTemp = CATIA.SystemConfiguration.Version
+		sCATIAVERSION = MHNReplaceChar(sCATIAVERSION, "&Version", sTemp)
+		sTemp = CATIA.SystemConfiguration.Release
+		sCATIAVERSION = MHNReplaceChar(sCATIAVERSION, "&Release", sTemp)
+		sTemp = CATIA.SystemConfiguration.ServicePack
+		sCATIAVERSION = MHNReplaceChar(sCATIAVERSION, "&SP", sTemp)
+'		Set td1_in 		= fs.CreateFile("C:\temp\test.log",True)
+'	 	set td1_stream 	= td1_in.OpenAsTextStream("ForWriting")
+'
+'		for each oParameter in CATIA.ActiveDocument.Parameters
+'			td1_stream.write oParameter.Name & vbCrLf
+'			
+'		next
+
+
+	end if
+
+
+
+'	Set DrwDocument 	= CATIA.ActiveDocument
+'	Set DrwSheets   	= DrwDocument.Sheets
+'  	Set DrwSheet    	= DrwSheets.ActiveSheet
+	Set DrwViews		= DrwSheet.Views
+
+end sub
+
+'-------------------------------------------------------------------------------
+' ------------ Execute an OS command
+'-------------------------------------------------------------------------------
+
+sub ExecuteOS(command)
+
+	' Brute Force communication
+	' Starting the Application in foreground will cause CATIA not to
+	' refresh the screen
+	tracer "ExecuteOS","Command = " & command
+	CATIA.StatusBar = "Executing " & command
+
+	if trace = true then
+			tracer "ExecuteOS", "Communication File 1 before GUI"
+			tracer "ExecuteOS", "-------------------------------"
+
+			Set inFile 		= safeGetFile(communication_1)
+			set inStream 	= tbOpen(inFile,"ForReading")
+			Do until inStream.atEndOfStream
+				zeile = inStream.ReadLine
+				tracer "ExecuteOS", zeile
+			loop
+			tracer "ExecuteOS", "-------------------------------"
+			inStream.Close
+			tracer "ExecuteOS", "-------------------------------"
+	end if
+
+	if os = "intel" and CALL_GUI_Mode="background" then
+		if fs.FileExists(communication_3) then
+			fs.DeleteFile(communication_3)
+		end if
+ 		set check_dat= fs.CreateFile(communication_3, True)
+
+		
+		return = CATIA.SystemService.ExecuteBackgroundProcessus(command)
+		
+
+		
+    	on error resume next
+		do while fs.FileExists(communication_3)
+		' if somebody knows a suitable sleep, I will put it here
+		loop
+		on error goto 0
+	else
+		 on error resume next			'compatible to r11!!
+		 CATIA.RefreshDisplay = True
+		 on error goto 0
+
+		CATIA.SystemService.ExecuteProcessus(command)
+	end if
+	
+	if trace = true then
+			tracer "ExecuteOS", "Communication File 1 after GUI"
+			tracer "ExecuteOS", "-------------------------------"
+
+			Set inFile 		= safeGetFile(communication_1)
+			set inStream 	= tbOpen(inFile,"ForReading")
+			Do until inStream.atEndOfStream
+				zeile = inStream.ReadLine
+				tracer "ExecuteOS", zeile
+			loop
+			inStream.Close
+			tracer "ExecuteOS", "-------------------------------"
+	end if
+
+end sub
+
+'-------------------------------------------------------------------------------
+' ------------ Clean all and go
+'-------------------------------------------------------------------------------
+
+Sub MHNexit ()
+'	cur_sheet_active.Activate -> activates 'Hintergrund' Mode
+	if keepBackViewActive then
+		MHNGetBackgroundView(DrwViews).Activate
+	else
+		cur_view_active.Activate
+	end if
+	'kill all communication files
+	if fs.FileExists(communication_1) then
+		fs.DeleteFile(communication_1)
+	end if
+	if fs.FileExists(communication_2) then
+		fs.DeleteFile(communication_2)
+	end if
+	if fs.FileExists(communication_3) then
+		fs.DeleteFile(communication_3)
+	end if
+	if fs.FileExists(sBomFile) then
+		fs.DeleteFile(sBomFile)
+	end if
+
+'	Set Fact  = CATIA.ActiveDocument.Sheets.ActiveSheet.Views.Item(1).Factory2D
+'	Set Line  = Fact.CreateLine(0.0,0.0,0.0,1.0)
+
+End Sub
+
+'-------------------------------------------------------------------------------
+' ------------ Copy a title block frame from another drawing
+'-------------------------------------------------------------------------------
+
+Sub MHNGetTitleBlock(CatiaFileName As String)
+
+	Dim height as double
+	Dim width  as double
+'	MsgBox CatiaFileName
+'	get all components placed on the background view and put them on the target sheet
+	set oView = MHNGetBackgroundView (DrwViews)
+	numComponents = oView.Components.Count
+	if numComponents > 0 then
+		CATIA.ActiveDocument.Selection.Clear()
+		for each Component in oView.Components
+			CATIA.ActiveDocument.Selection.Add(Component)
+		next
+		CATIA.ActiveDocument.Selection.Copy()
+	end if
+	CATIA.ActiveDocument.Selection.Clear()
+
+  	CATIA.StatusBar = "MHNGetTitleBlock"
+		Tracer "MHNGetTitleBlock", "--> entering with CatiaFileName="&CatiaFileName
+
+	set model = CATIA.Documents.Open(CatiaFileName)
+	'msgbox "CATIA FIle Name:" & CatiaFileName
+
+ 	Set FromDrwDocument = CATIA.ActiveDocument
+  	Set FromDrwSheets   = FromDrwDocument.Sheets
+  	Set FromDrwSelection= FromDrwDocument.Selection
+  	Set FromDrwSheet    = FromDrwSheets.ActiveSheet
+  	Set FromDrwViews    = FromDrwSheet.Views
+	Set FromDrwWindow	= CATIA.ActiveWindow
+
+	FromDrwSelection.Clear
+	
+	on error resume next
+	ComponentsDeltax= DrwSheet.GetPaperWidth - FromDrwSheet.GetPaperWidth()
+
+    DrwSheet.PaperSize   = FromDrwSheet.PaperSize				'get setup info and copy
+    if err.number <> 0 then
+    	msgbox Translate("Paper Size mismatch, probably ANSI / ISO mismatch - ignoring paper size")
+    else
+		if FromDrwSheet.Papersize = CatPaperUser then
+			DrwSheet.SetPaperHeight(FromDrwSheet.GetPaperHeight())
+			DrwSheet.SetPaperWidth (FromDrwSheet.GetPaperWidth())
+		end if
+	end if
+	on error goto 0
+'	Keep the scale of the current drawing (Thanx Martin)
+'	DrwSheet.Scale2      = FromDrwSheet.Scale2
+	DrwSheet.Orientation = FromDrwSheet.Orientation
+
+'	Copy Components from Clipboard to the background view component collection
+	set oView = MHNGetBackgroundView(FromDrwViews)
+
+	if numComponents > 0 then
+		FromDrwSelection.Clear()
+		FromDrwSelection.Add(oView.Components)
+		FromDrwSelection.Paste()
+		FromDrwSelection.Clear()
+		for each component in oView.Components
+			Component.x = Component.x - ComponentsDeltax
+		next
+	End if
+'   And now copy + paste the background view to the current active sheet
+' 	FromSelection.Add (oView)
+'	FromSelection.Add (FromDrwViews.item(2))
+' 	FromSelection.Add (oView.Texts)
+
+'   for catdoctype = 2 (tubing diagrams)
+'   delete all info on background view
+	if sCatDocType = "Drawing" or sCatDocType = "Diagram"  then
+	 	FromDrwSelection.Add (MHNGetBackgroundView(FromDrwViews))
+
+        'CATIA.ActiveDocument.Selection.Copy()
+        'CATIA.ActiveDocument.Selection.Clear()
+        FromDrwSelection.Selection.Copy()
+        FromDrwSelection.Selection.Clear()
+
+        DrwDocument.Activate
+        DrwSheet.Activate
+        
+        CATIA.ActiveDocument.Selection.Clear()
+        CATIA.ActiveDocument.Selection.Add (DrwViews)
+        CATIA.ActiveDocument.Selection.Paste
+
+        CATIA.ActiveDocument.Selection.Clear()
+				
+	elseif sCatDocType = "Diagram1" then
+        for i = 1 to oView.Texts.Count
+            FromDrwSelection.Add (oView.Texts.Item(i))
+        next
+        for i = 1 to oView.GeometricElements.Count
+            FromDrwSelection.Add (oView.GeometricElements.Item(i))
+        next
+        for i = 1 to oView.Tables.Count
+            FromDrwSelection.Add (oView.Tables.Item(i))
+        next
+
+        CATIA.ActiveDocument.Selection.Copy()
+        CATIA.ActiveDocument.Selection.Clear()
+
+        DrwDocument.Activate
+
+        DrwDocument.Selection.Clear
+
+        set oView = DrwViews.Item(2)
+
+        for i = 1 to oView.GeometricElements.Count
+            CATIA.ActiveDocument.Selection.Add (oView.GeometricElements.Item(i))
+        next
+        for i = 1 to oView.Tables.Count
+            CATIA.ActiveDocument.Selection.Add (oView.Tables.Item(i))
+        next
+'        for i = 1 to oView.Texts.Count
+'            CATIA.ActiveDocument.Selection.Add (oView.Texts.Item(i))
+'        next
+
+        on error resume next
+        DrwDocument.Selection.Delete
+        on error goto 0
+
+
+		if oView.Texts.Count > 0 then
+			Dim sFilter(0)
+			oView.activate
+            msgbox Translate("Manual Help needed --- Select Texts to be deleted")
+            SFilter(0) = "CATBaseDispatch"  'Possible to select all elements
+            sStatus = CATIA.ActiveDocument.Selection.SelectElement3(sFilter, Translate("Select texts to delete"), false,   CATMultiSelTriggWhenSelPerf, false)
+            CATIA.ActiveDocument.Selection.Delete
+		end if
+    ' -->
+
+
+        DrwSelection.Clear
+
+        DrwDocument.Selection.Add DrwViews.Item(2).Texts
+        DrwDocument.Selection.Add DrwViews.Item(2).GeometricElements
+        DrwDocument.Selection.Add DrwViews.Item(2).Tables
+
+        DrwSelection.Paste
+
+
+	end if
+
+    CATIA.ActiveDocument.Selection.Clear()
+	DrwViewActive.Activate
+	
+	'set oView = MHNGetBackgroundView(DrwViews)
+	'addTBPrefixForFrame (oView)
+	
+'	FromDrwWindow.Close
+		Tracer "MHNGetTitleBlock", "--> before FromDrwDocument.Close"
+
+	FromDrwDocument.Close
+		Tracer "MHNGetTitleBlock", "--> after FromDrwDocument.Close"
+
+'	FromDrwWindow.Close
+		Tracer "MHNGetTitleBlock", "--> leaving"
+
+
+End Sub
+
+'-------------------------------------------------------------------------------
+' ------------ Prompt the user for a title block frame
+'-------------------------------------------------------------------------------
+
+function MHNGetCatiaTemplate (sMode as String) as String
+	if sMode = "init" then
+		' write sheet papersize info
+		if fs.FileExists(communication_1) then
+			set data_set= safeGetFile(communication_1)
+			set stream 	= tbOpen(data_set,"ForAppending")
+		else
+			set data_set= fs.CreateFile(communication_1, True)
+			set stream 	= tbOpen(data_set,"ForWriting")
+		end if
+	    'stream.Write "cat_active_sPaperSizeÂ§" & DrwSheet.PaperSize & vbCrLf
+		stream.close
+
+
+      	ExecuteOS(command_select)
+	end if
+
+		tracer "MHNGetCatiaTemplate", "communication_2 = " & communication_2
+
+ 	set data_set= safeGetFile(communication_2)
+ 	set stream 	= tbOpen(data_set,"ForReading")
+    MHNGetCatiaTemplate = stream.ReadLine
+	TBConfig = stream.ReadLine
+
+	stream.close
+end function
+
+'-------------------------------------------------------------------------------
+' ------------ Scan the actual view for title block entries
+'-------------------------------------------------------------------------------
+sub ScanModel ()
+
+	if fs.FileExists(communication_1) then
+		fs.DeleteFile(communication_1)
+	end if
+'   Scan the model, try to find title block entries
+'   Name of texts must start with cat_title_block
+'	set datei = fs.CreateTextFile(communication_1,true)
+ 	set data_set= fs.CreateFile(communication_1, True)
+ '	set datei 	= data_set.OpenAsTextStream("ForWriting")
+ 	set datei 	= tbOpen(data_set,"ForWriting")
+	
+
+	Dim Texts 	As DrawingTexts
+	Dim oView 	As Object
+	Dim oText 	As Object
+	Dim cSheets As Object
+	Dim oSheet 	As Object
+	Dim cDrawingParameters As Object
+	Dim oParameter As Object
+	Dim sReplString As String
+	Dim sfound (20)
+  	On Error Resume Next
+
+	On Error goto 0
+
+ 	DrwDocument.Activate
+  	DrwSheet.Activate
+	DrwViewActive.Activate
+
+'	Get the active sheet
+	Set oSheet = DrwSheet
+'	Set oSheet = CATIA.ActiveDocument.Sheets.ActiveSheet
+
+'	Set oSheet = DrwSheet
+	datei.write "TBConfig" & myDelimiter &TBConfig & vbCrlf
+	datei.write "TBLocaleDecSep" & myDelimiter & 3/4 & vbCrlf
+
+
+	datei.write "cat_active_sheet"& myDelimiter  & oSheet.name & vbCrlf
+    datei.Write "cat_active_sPaperSize" & myDelimiter  & DrwSheet.PaperSize & vbCrLf
+
+	if TD1_compliant then
+		datei.write "cat_configuration" & myDelimiter & "td1" & vbCrLf
+	end if
+
+
+'	Set cSheets = CATIA.ActiveDocument.Sheets
+'	Set cSheets = DrwSheets
+
+	iTitleblockTexts = 0
+
+'	Get all sheets
+	numSheets = uBound(DrwSheets)
+
+'   Count the number of all non detail sheets
+	iNonDetailSheet = 0
+
+	for iSheet =0 to numSheets - 1
+        set oSheet = DrwSheets(iSheet)
+		IF Not oSheet.Isdetail then
+			iNonDetailSheet = 	iNonDetailSheet + 1
+		end if
+	next
+
+   	Dim viewLinks As DrawingViewGenerativeLinks
+	Dim firstLink As AnyObject
+
+'	model_has_3d_links = false
+	resolve_3d = true
+
+'	For Each oSheet In DrwSheets
+	for iSheet =0 to numSheets - 1
+	
+'	For Each oSheet In DrwSheets
+		s3DModelFullName 	= ""
+		s3DModelName		= ""
+
+        set oSheet = DrwSheets(iSheet)
+		Drw3DType(iSheet) =0
+		BomShowMode(iSheet) =0
+		IF Not oSheet.Isdetail then
+
+			iActSheet = iActSheet + 1
+
+			Set Views = oSheet.Views ' get the collection of views
+
+'		check for 3d references
+			links_found = 0
+
+			set oActiveView = Views.ActiveView
+
+			set oView = MHNGetBackgroundView (Views)
+
+			Set Texts = oView.Texts	' gets the collection of texts
+			
+			'modifyTextNames (Texts)
+			
+			lBlock = 0
+			if Texts.Count > 0 Then
+				For Each oText In Texts
+					name = oText.Name
+
+'				Fits text to naming convention?
+					If isATbPrefix(name)  Or Left(name,18) = "RevisionBlock_Text" Then
+						if lBlock = 0 Then
+			        		lBlock = 1
+							datei.Write "cat_sheet" & myDelimiter  & oSheet.name & myDelimiter  & oView.name  & vbCrLf
+							gotA3DModelLinked = 0
+							For Each o3View In Views
+								if links_found = 0 then
+									links_found = CATLinks (0, datei, o3View, oSheet)
+								else
+									links_found = CATLinks (1, datei, o3View, oSheet)
+	      						end if
+								if links_found > gotA3DModelLinked then
+									gotA3DModelLinked = links_found
+								end if
+								'msgbox Drw3Dtype(iSheet)
+							Next
+							Drw3DType(iSheet) = gotA3DModelLinked
+
+						End If
+						iTitleblockTexts = iTitleblockTexts + 1
+					  '-------------------------------------------------------------------------------
+					  'insert catia version info
+					  '-------------------------------------------------------------------------------
+						if Left(name,18) = "RevisionBlock_Text" then
+							datei.Write substituteTB(oText.name) & myDelimiter  & MHNReplaceChar (oText.Text, vbLF, "%%") & vbCrLf
+					    elseif isATbPrefix(name) then
+							prefixTb = getATbPrefix(name)
+							prefixTbLen=len(prefixTb)
+		  				  	if Left(name,prefixTbLen+11)=prefixTb & "_" & "CADSystem" then
+		  						datei.Write "TitleBlock_Text_CADSystem" & myDelimiter  & sCATIAVERSION  & vbCrLf
+		  					end if
+		  				  	if Left(name,prefixTbLen+15)=prefixTb & "_" & "CADDWGModelName" then
+		  						datei.Write "TitleBlock_Text_CADDWGModelName"& myDelimiter  & DrwDocument.Name  & vbCrLf
+		  					end if
+
+		         		  	if Left(name,prefixTbLen+11)=prefixTb & "_" & "NumSheets" then
+		          		  		if numSheets < 10 and leadingZeroes then
+		  							datei.Write "TitleBlock_Text_NumSheets"& myDelimiter  & "0" & iNonDetailSheet  & vbCrLf
+		  						else
+		  							datei.Write "TitleBlock_Text_NumSheets"& myDelimiter  & iNonDetailSheet  & vbCrLf
+		  						end if
+						  	else
+								datei.Write substituteTB(oText.name) & myDelimiter  & MHNReplaceChar (oText.Text, vbLF, "%%") & vbCrLf
+						  	end if
+						end if
+					End If
+
+				Next
+			End If
+'		Get Dittos with modifyable texts and write these texts to the file
+			if oView.Components.Count > 0 then
+				for each Component in oView.Components
+					if Component.GetModifiableObjectsCount( )  > 0 then
+						for icomp = 1 to Component.GetModifiableObjectsCount( )
+							set oVarText = Component.GetModifiableObject(icomp)
+							name = oVarText.Name
+							If isATbPrefix(name)  Or Left(name,18) = "RevisionBlock_Text" Then
+								if lBlock = 0 Then
+			        				lBlock = 1
+									datei.Write "cat_sheet" & myDelimiter  & oSheet.name & myDelimiter  & oView.name  & vbCrLf
+								End If
+							iTitleblockTexts = iTitleblockTexts + 1
+							datei.Write substituteTB(oVarText.name) & myDelimiter  & MHNReplaceChar (oVarText.Text, vbLF, "%%") & vbCrLf
+							End If
+						next
+					end if
+				next
+			end if
+
+			if lBlock = 1 then
+		'
+		'		unstream tables, if available
+		'
+				streamAllTables oView, datei
+
+				
+				if iActSheet < 10 and leadingZeroes then
+					datei.Write "TitleBlock_Text_numActSheet" & myDelimiter  & "0" & iActSheet & vbCrLf
+				else
+					datei.Write "TitleBlock_Text_numActSheet" & myDelimiter  & iActSheet & vbCrLf
+				end if
+
+				datei.Write "TitleBlock_Text_SheetScale" & myDelimiter  & sDec2Frac(oSheet.Scale2) & vbCrLf
+				datei.Write "TitleBlock_Text_CADDWGModelName" & myDelimiter  & DrwDocument.Name  & vbCrLf
+				datei.Write "TitleBlock_Text_CADSystem" & myDelimiter  & sCATIAVERSION  & vbCrLf
+
+				datei.Write "TitleBlock_Text_CADDWGModelName" & myDelimiter  & MHNReplaceChar(DrwDocument.Name,"\","\\")  & vbCrLf
+				datei.Write "TitleBlock_Text_CADDWGModelFullName" & myDelimiter  & MHNReplaceChar(DrwDocument.FullName,"\","\\")  & vbCrLf
+				datei.Write "TitleBlock_Text_CADDWGModelNameWithoutExtension" & myDelimiter  & MHNReplaceChar(Left(DrwDocument.Name,Len(DrwDocument.Name)-11),"\","\\")  & vbCrLf
+
+				datei.Write "TitleBlock_Text_3DModelFullName" & myDelimiter & MHNReplaceChar(s3DModelFullName,"\","\\")  & vbCrLf
+				datei.Write "TitleBlock_Text_3DModelName" & myDelimiter & MHNReplaceChar(s3DModelName,"\","\\")  & vbCrLf
+
+				set oTable = getBomTableFromDrawing(Views)
+				' check for 3D type of model, only offer BOM for CATProducts (type=2)
+				' if table exists -> noSho it if no 3d model is associated or a CATPart is associated
+				if oTable is Nothing then
+					datei.Write "cat_bom_info" & myDelimiter & "0"  & myDelimiter & "none" & vbCrLf
+				else
+					sTemp = l_split(oTable.Name,",")
+					if uBound(sTemp) < 1 then
+						msgbox Translate("Found MyBomTable entry. Configuration wrong, check name - skipping table")
+					else
+						sTabType = sTemp(1)
+						if Drw3DType(iSheet)= 2 then
+						    set Selection=CATIA.ActiveDocument.Selection
+							Selection.Clear()
+							Selection.Add(oTable)
+							Set VisPropertySet = Selection.VisProperties
+							VisPropertySet.GetShow showStateOfBom
+'							VisPropertySet.SetShow 0
+							Selection.Clear()
+	                        BomShowMode(isheet) = showStateOfBom
+							datei.Write "cat_bom_info" & myDelimiter &"1" & myDelimiter & showStateOfBom  & myDelimiter & sTabType & vbCrLf
+						else
+						    set Selection=CATIA.ActiveDocument.Selection
+							Selection.Clear()
+							Selection.Add(oTable)
+							Set VisPropertySet = Selection.VisProperties
+							VisPropertySet.SetShow 1
+							Selection.Clear()
+							datei.Write "cat_bom_info" & myDelimiter & "0" & myDelimiter & "1"  & myDelimiter & sTabType & vbCrLf
+						end if
+					end if
+
+				end if
+				datei.Write "cat_sheet_end" & vbCRLF
+			end if
+		end if
+
+	Next
+
+	datei.close
+end sub
+
+Function CATLinks(imode, datei, oView, oSheet) As Integer
+  	CATLinks = 0
+
+  '-------------------------------------------------------------------------------
+  'How to fill in texts with data of the part/product linked with current sheet
+  '-------------------------------------------------------------------------------
+	if	resolve_3d then
+
+'   	On Error Resume Next
+
+
+'    	If Err.Number <> 0 Then
+			'check, if the user has first selected a partbody in a body
+'			name = ProductDrawn.Parent.Parent.Parent.FullName
+'		end if
+
+
+'		msgbox name
+'		msgbox oView.IsGenerative()
+    	If oView.IsGenerative() Then
+	    	Dim ProductDrawn As ProductDocument
+'    	on error goto 0
+			on error resume next
+    		Set ProductDrawn = oView.GenerativeBehavior.Document
+			'msgbox  ProductDrawn.Parent.Name
+			if Err.Number <> 0 then
+			    msgbox translate("Cannot get corresponding 3D doc - load PDM context first")
+				exit function
+			end if
+			on error goto 0
+'		name = ProductDrawn.Parent.FullName
+			on error resume next
+
+			if not getToplevel(ProductDrawn) then
+				exit function
+			end if
+
+			set ProductDrawn = topLevelProduct
+			
+			CATLinks = 1
+
+			sTypeOfDoc = TypeName(ProductDrawn.Parent)
+
+			if sTypeOfDoc = "ProductDocument" then
+				CATLinks=2
+			end if
+
+			
+    		if imode = 0 then
+				datei.Write "cat_generative_3dmodel"  & myDelimiter & osheet.Name  & myDelimiter & oView.Name  & myDelimiter & ProductDrawn.Parent.FullName  & vbCrLf
+				datei.Write "cat_generative_sheet_Number"  & myDelimiter & ProductDrawn.PartNumber  & vbCrLf
+				datei.Write "cat_generative_sheet_Title"  & myDelimiter & ProductDrawn.Definition  & vbCrLf
+				datei.Write "cat_generative_sheet_Revision"  & myDelimiter & ProductDrawn.Revision  & vbCrLf
+				datei.Write "cat_generative_sheet_Nomenclature"  & myDelimiter & ProductDrawn.Nomenclature  & vbCrLf
+				datei.Write "cat_generative_sheet_Source"  & myDelimiter & ProductDrawn.Source  & vbCrLf
+				datei.Write "cat_generative_sheet_Description"  & myDelimiter & MHNReplaceChar(ProductDrawn.DescriptionRef, vbCrLf, "%%")  & vbCrLf
+				datei.Write "TitleBlock_Text_3DModelFullName" & myDelimiter & ProductDrawn.Parent.FullName & vbCrLf
+				sTemp = l_split(MHNReplaceChar(ProductDrawn.Parent.FullName,"\","/"),"/")
+				sName = sTemp(ubound(sTemp))
+				datei.Write "TitleBlock_Text_3DModelName" & myDelimiter & sName & vbCrLf
+				s3DModelFullName = ProductDrawn.Parent.FullName
+				s3DModelName	= sName
+
+				'
+				' user properties
+				'
+				Set UserProps = ProductDrawn.UserRefProperties
+				for i=1 to UserProps.count
+					wert = MHNReplaceChar(UserProps.item(i).value, vbCrLf, "%%")
+					propName = UserProps.item(i).name & ""
+'					myArray=Split(propName,"\",-1,1)
+					myArray=l_Split(propName,"\")
+					propName = myArray(2)
+					' if Property Name contans _ replace that by X
+					' propName = MHNReplaceChar(propName,"_","<X?>")
+					datei.Write "cat_generative_sheet_UP"& propName  & myDelimiter & wert & vbCrlf
+					if bStreamAllProperties then
+						datei.Write "cat_generative_sheet_"& propName  & myDelimiter & wert & vbCrlf
+					end if
+				next
+				'
+				' be careful for CATProducts -> That can take a while
+				'
+'				Set oManager = ProductDrawn.GetItem("CATMatManagerVBExt")
+'				oManager.GetMaterialOnProduct ProductDrawn,oAppliedMaterial 
+'				if oAppliedMaterial is Nothing then 
+'					myMaterial = ""
+'				else
+'				    myMaterial = oAppliedMaterial.Name
+'				end if
+
+				myMaterial = ""
+				
+				if sTypeOfDoc = "PartDocument" then
+					'for each oParameter in ProductDrawn.Parameters
+						'myArray=l_Split(oParameter.Name,"\")
+							'pName = trim(myArray(uBound(myArray)))
+							'if pName = "Material" or pName = "RefMaterial" then
+								'myMaterial = oParameter.ValueAsString
+							'end if
+					'next
+					Set oManager = ProductDrawn.Parent.Product.GetItem("CATMatManagerVBExt")                                          
+					Set oProduct = ProductDrawn.Parent.Part                        
+					Dim oAppliedMaterial                                            
+					oManager.GetMaterialOnPart oProduct,oAppliedMaterial                                              
+					if oAppliedMaterial is Nothing then
+					else
+						myMaterial = oAppliedMaterial.Name  
+					end if
+				end if
+
+				if myMaterial = "None" then
+					myMaterial = ""
+				end if
+				
+				
+				datei.Write "cat_generative_sheet_Material"  & myDelimiter & myMaterial  & vbCrLf
+				
+				'call user exit
+				'Dim params()
+				'Redim params(0)
+				'set params(0) = ProductDrawn
+				'CATIA.SystemService.ExecuteScript sInstallDir & "/bin", 1,  "TextblockUserExit.CATScript","CatMain",params
+
+
+				'extension = GetFileExtension(ProductDrawn.Parent.FullName)
+				
+				tracer "CATLinks", "Derived Model= " & ProductDrawn.Parent.FullName
+				tracer "CATLinks", "TypeOfDoc= " & sTypeOfDoc
+
+				didIloadA3DModel = "No"
+
+				
+				if check3DAnalysisData then
+				   if sTypeOfDoc = "ProductDocument" then
+				   		if didIAskFor3D = -999 then
+	   						didIAskFor3D = MsgBox (Translate("Process analysis - Weight, Volume, WetArea (that may take a while)?"), vbYesNo)
+						end if
+						if didIAskFor3D = vbYes then
+'	      					Dim ProductAnalysis As Analyze
+			      			Set ProductAnalysis = ProductDrawn.Analyze
+							'Load 3D model -> error with mass
+							if autoLoad3DModel = True then
+								if Not isModelLoaded (ProductDrawn.Parent.FullName) then
+									didIloadA3DModel = ProductDrawn.Parent.FullName
+									on error resume next
+									set oActiveModel = CATIA.ActiveDocument
+									set model = CATIA.Documents.Open(ProductDrawn.Parent.FullName)
+									oActiveModel.Activate
+									on error goto 0
+								end if
+							end if
+							
+							datei.Write "cat_generative_sheet_Weight"  & myDelimiter & FormatNum(ProductAnalysis.Mass,2) & vbCrLf
+							datei.Write "cat_generative_sheet_Volume"  & myDelimiter & FormatNum(ProductAnalysis.Volume,2) & vbCrlf
+							datei.Write "cat_generative_sheet_WetArea"  & myDelimiter & FormatNum(ProductAnalysis.WetArea,2) & vbCrlf
+							set products = ProductDrawn.Products
+							for i = 1 to products.Count
+				      			Set ProductAnalysis = products.Item(i).Analyze
+				      			sTemp = l_Split(products.Item(i).name,".")
+								'myMaterial = ""
+								'if TypeName(products.Item(i).ReferenceProduct.Parent) = "PartDocument" then
+								'	Set oManager = products.Item(i).ReferenceProduct.Parent.Product.GetItem("CATMatManagerVBExt")                                          
+								'	Set oProduct = products.Item(i).ReferenceProduct.Parent.Part                        
+								'	oManager.GetMaterialOnPart oProduct,oAppliedMaterial
+								'	if oAppliedMaterial is Nothing then
+								'		myMaterial = ""
+								'	else
+								'		myMaterial = oAppliedMaterial.Name      
+								'	end if
+								'end if
+								datei.Write "passthrough_generative_sheet_PartInfo"  & myDelimiter & sTemp(0)  & myDelimiter & ProductAnalysis.Mass & ";" & ProductAnalysis.Volume & ";"  & ProductAnalysis.WetArea & ";" & myMaterial & vbCrLf
+							next
+						end if
+				   else
+							if autoLoad3DModel = True then
+								if Not isModelLoaded (ProductDrawn.Parent.FullName) then
+									didIloadA3DModel = ProductDrawn.Parent.FullName
+
+									on error resume next
+
+									'Load 3D model -> error with mass
+									set oActiveModel = CATIA.ActiveDocument
+									set model = CATIA.Documents.Open(ProductDrawn.Parent.FullName)
+									oActiveModel.Activate
+									on error goto 0
+								end if
+							end if
+
+'	      					Dim ProductAnalysis As Analyze
+			      			Set ProductAnalysis = ProductDrawn.Analyze
+							datei.Write "cat_generative_sheet_Weight"  & myDelimiter & FormatNum(ProductAnalysis.Mass,5) & vbCrLf
+							datei.Write "cat_generative_sheet_Volume"  & myDelimiter & FormatNum(ProductAnalysis.Volume,5) & vbCrlf
+							datei.Write "cat_generative_sheet_WetArea"  & myDelimiter & FormatNum(ProductAnalysis.WetArea,5) & vbCrlf
+
+				   end if
+				end if
+
+
+			else
+				datei.Write "cat_generative_3dmodel"  & myDelimiter & osheet.Name  & myDelimiter & oView.Name  & myDelimiter & ProductDrawn.Parent.FullName  & vbCrLf
+
+			end if
+    	End If
+    	Err.Clear
+		on error goto 0
+		if didIloadA3DModel <> "No" then
+			unloadModel didIloadA3DModel
+		end if
+	end if
+
+
+End Function
+
+
+'-------------------------------------------------------------------------------
+' ------------ Modify the title block entries
+'-------------------------------------------------------------------------------
+
+sub ModifyModel ()
+	'  Scan the model, try to find title block entries
+	'  Name of texts must be equal to names in data set
+	Dim cTexts As DrawingTexts
+	Dim obj as Text
+	Dim oView As Object
+	Dim cViews As Object
+	Dim cSheets As Object
+	Dim oSheet As Object
+	Dim cDrawingParameters As Object
+'	Dim fields (20)
+	Dim sParms(100)
+	Dim sTexts(100)
+	dim showBom as integer
+	showBom = 1
+	
+	td1_config	   	= sInstallDir & "\config\custom\" & TBConfig & "\td1_config.cfg"
+	if not os = "intel" then
+		td1_config		= MHNReplaceChar (td1_config	, "\","/")
+	end if
+	tracer "ModifyModel", "td1_config      = " & td1_config
+	
+	if fs.FileExists(td1_config) then
+	   TD1_compliant = true
+	else
+		TD1_compliant = false
+	end if
+	
+	
+	if TD1_compliant Then
+
+	'Get the right TD1 config Data Set
+
+
+		num_td1_parms  = 0
+		Set td1_in 		= safeGetFile(td1_config)
+		set td1_stream 	= tbOpen(td1_in,"ForReading")
+		Do until td1_stream.atEndOfStream
+			zeile = td1_stream.ReadLine
+			zeile = MHNReplaceChar(zeile,chr(10),"")
+			zeile = MHNReplaceChar(zeile,chr(13),"")
+
+			if not isComment(zeile) then
+				fields = l_Split(zeile,";")
+				td1_parm_params		(num_td1_parms) = fields(0)
+				td1_parm_ids		(num_td1_parms) = fields(1)
+				td1_parm_visible	(num_td1_parms) = fields(2)
+				td1_parm_sheet1		(num_td1_parms) = fields(3)
+				num_td1_parms = num_td1_parms + 1
+			end if
+		Loop
+		td1_stream.close
+	end if
+
+	CATIA.StatusBar = "Modifying frame"
+	Tracer "ModifyModel", "---> entering"
+
+	if fs.FileExists(communication_1) then
+ 		set data_set= safeGetFile(communication_1)
+ 		set datei 	= tbOpen(data_set,"ForReading")
+	end if
+
+	keepBackViewActive = false
+	DrwDocument.Activate
+'	Set cSheets = DrwDocument.Sheets
+'	Set cSheets = CATIA.ActiveDocument.Sheets
+
+	on error resume next
+	Set cDrawingParameters = DrwDocument.Parameters
+	on error goto 0
+
+	if TD1_compliant then	' initialise td1 related control variables
+		parmDirtyFlag = false
+		parmMissing   = false
+		errorstring   = "Entry(ies) disconnected:" & vbCrLF
+		errorparms    = "Parameter(s) missing:" & vbCrLF
+	end if
+
+    Do until datei.atEndOfStream
+    	   	zeile = datei.ReadLine
+'			msgbox zeile
+			fields = l_Split(zeile, myDelimiter)
+		' separate variables
+           	s_check = fields(0)
+			
+			'msgbox fields(0) & "=" & fields(1)
+
+           	if s_check = "work" then
+                   work = fields(1)
+			elseif s_check = "cat_global_info_UnitFields" then
+					temp = l_Split(Fields(1),";")
+					redim UnitFields(uBound(temp))
+					for i = 0 to uBound(temp)
+						UnitFields(i) = temp(i)
+					next
+			elseif s_check = "cat_global_info_UnitSymbols" then
+					temp = l_Split(Fields(1),";")
+					redim UnitSymbols(uBound(temp))
+					for i = 0 to uBound(temp)
+						UnitSymbols(i) = temp(i)
+					next
+			elseif s_check = "cat_global_info_UnitDP" then
+					temp = l_Split(Fields(1),";")
+					redim UnitDP(uBound(temp))
+					for i = 0 to uBound(temp)
+						UnitDP(i) = temp(i)
+					next
+			elseif s_check = "cat_global_info_UnitFactor" then
+					temp = l_Split(Fields(1),";")
+					redim UnitFactor(uBound(temp))
+					for i = 0 to uBound(temp)
+						UnitFactor(i) = temp(i)
+					next
+			elseif s_check = "cat_global_info_UnitShow" then
+					temp = l_Split(Fields(1),";")
+					redim UnitShow(uBound(temp))
+					for i = 0 to uBound(temp)
+						UnitShow(i) = temp(i)
+					next
+
+            elseif s_check = "cat_bom_info_modify" then
+            	   if fields(1) ="1" then
+            	   		modifyBom = true
+            	   else
+            	   		modifyBom = false
+            	   end if
+            elseif s_check = "cat_bom_info_show" then
+            	   if fields(1) ="1" then
+            	   		showBom = 0
+            	   else
+            	   		showBom = 1
+            	   end if
+            elseif s_check = "cat_bom_info_levels" then
+					sModeBomFromGui = Trim(fields(1))
+            	   'if fields(1) ="none" then
+            	   '		sMmodeBomFromGui = -1
+            	   'elseif fields(1) ="AllLevels" then
+            	   '		modeBom = 2
+				   'else
+					'	modeBom = 1
+            	   ' end if
+
+            elseif s_check = "cat_control_keepBackgroundViewActive" then
+            	   if fields(1) ="1" then
+            	   		keepBackViewActive = true
+            	   else
+            	   		keepBackViewActive = false
+            	   end if
+
+
+            elseif s_check = "cat_sheet" then
+                   sheet_name 	= fields(1)
+                   view_name  	= fields(2)
+                   iNumNames	= 0
+				   iNumParts 	= 0
+	               Tracer "ModifyModel","sheet_name=" & sheet_name & ",view_name=" & view_name
+				   'msgBox fields(1) & ":" & fields(2)
+	        elseif s_check = "passthrough_generative_sheet_PartInfo" then
+	        		tempar = l_Split(fields(2),";")
+	        	    productNames(iNumParts) 	= fields(1)
+	        	    productWeights(iNumParts) 	= tempar(0)
+	        	    productWetAreas(iNumParts) 	= tempar(1)
+	        	    productVolumes(iNumParts) 	= tempar(2)
+	                iNumParts = iNumParts + 1
+
+	   		elseif s_check = "TitleBlock_Text_TData_Start" then
+'					For blNr = 1 to cSheets.count  			'Get the right sheet
+					For blNr = 1 to uBound(DrwSheets)  			'Get the right sheet
+'						if cSheets.item(blNr).name = sheet_name Then
+						if DrwSheets(blNr-1).name = sheet_name Then
+
+							set oSheet = DrwSheets(blNr-1)
+							Exit For
+						end if
+					Next
+
+
+					Set cViews = oSheet.Views
+					Set oView  = MHNGetBackgroundView(cViews)
+
+         		   tableUnStreamer oView, zeile, datei
+            elseif left(s_check,13) = "cat_sheet_end" then
+
+					For blNr = 1 to uBound(DrwSheets)  			'Get the right sheet
+						if DrwSheets(blNr-1).name = sheet_name Then
+							set oSheet = DrwSheets(blNr-1)
+							Exit For
+						end if
+					Next
+
+
+					Set cViews = oSheet.Views
+					Set oView  = MHNGetBackgroundView(cViews)
+					Set cTexts = oView.Texts
+
+					For Each obj In cTexts
+						call updateText(obj,blNr,cDrawingParameters,errorstring, errorparms, parmMissing)
+					Next
+					if oView.Components.Count > 0 then
+						for each Component in oView.Components
+							if Component.GetModifiableObjectsCount( )  > 0 then
+								for icomp = 1 to Component.GetModifiableObjectsCount( )
+									set oVarText = Component.GetModifiableObject(icomp)
+									call updateText(oVarText,blNr,cDrawingParameters,errorstring, errorparms, parmMissing)
+								next
+							end if
+						next
+					end if
+
+					' go and modify the bom
+					' ask the user first
+					if modifyBom then
+						modBomInDrawing oSheet
+					end if
+					showBomInDrawing oSheet, showBom
+				Else
+					if zeile <> "" then
+           				iNumNames = iNumNames + 1
+						sTemp = fields(0)
+'						temp = mid(sTemp,17)
+						if left(sTemp,18) = "RevisionBlock_Text" then
+							temp = mid(sTemp,20)
+						else
+							temp = mid(sTemp,17)
+						end if
+						'temp = MHNReplaceChar(fields(0), "TitleBlock_Text", TBlockPrefix)
+               			sNames (iNumNames) = temp
+           				sValues(iNumNames) = fields(1)
+					end if
+           	End If
+
+	Loop
+
+	datei.close
+
+	if TD1_compliant then  ' do we have text entries, which have wrong entries
+		if parmMissing then ' --> parms missing
+			errorstring = errorparms & Translate("Create and reconnect Parameters?")
+		elseif parmDirtyFlag then ' --> disconnected
+			errorstring = errorstring & Translate("Reconnect Parameters?")
+		end if
+		if parmMissing or parmDirtyFlag then
+			answer  = msgbox (errorstring, vbYesNo)
+			if answer = vbYes then
+				deleteTD1Parms
+				createTD1Parms
+			end if
+		end if
+	end if
+
+	CATIA.StatusBar = "Modification done"
+	Tracer "ModifyModel", "---> leaving"
+
+end sub
+
+
+' check, if a suitable title block is in the model
+
+Function CATCheckRef() As Integer
+	CATCheckRef = 0
+  	for i = 1 to DrwTexts.Count
+    		If (Left(DrwTexts.Item(i).Name,11) = "TitleBlock_") Then
+    			CATCheckRef = 1
+    			Exit Function
+    		end if
+  	next
+End Function
+
+Sub CATRemoveAll()
+	DrwSelection.Clear()			'I don't understand it
+	DrwSelection.Add(DrwGeomElems)
+	DrwSelection.Add(DrwTexts)
+'	DrwSelection.Add(DrwSheet)
+  	DrwSelection.Delete
+
+End Sub
+
+'-------------------------------------------------------------------------------
+' ------------ Get the backgroung view
+'-------------------------------------------------------------------------------
+
+Function MHNGetBackgroundView (Views as object) as object
+	Dim MyPrefix as CATBSTR
+	Dim MyIdent as CATBSTR
+	Dim MySuffix as CATBSTR
+	Dim oView    as object
+
+	MyPrefix = "                             "
+	MyIdent  = "                             "
+	MySuffix = "                             "
+
+'	For Each oView In Views
+'		oView.GetViewName MyPrefix,MyIdent, MySuffix
+'		if left (MyPrefix,15) = "Background View" then
+'			Set MHNGetBackgroundView=oView
+'			Exit Function
+'		end if
+'	Next
+'    Background View not found, take item(2) --> Helbling info (thanx)
+
+    Set MHNGetBackgroundView = Views.Item(2)
+	modifyTextNames MHNGetBackgroundView.Texts
+
+End Function
+
+Function MHNBackgroundViewIsEmpty (Views as object) as Integer
+	set oView = MHNGetBackgroundView(Views)
+	num_elems = oView.GeometricElements.Count + oView.Texts.Count
+    numTexts = oView.Texts.Count
+'	check, if tblock texts are available
+	Set Texts = oView.Texts	' gets the collection of texts
+
+	lTblock = false
+	if Texts.Count > 0 Then
+		For Each oText In Texts
+			name = oText.Name
+			If isATbPrefix(name)  Then
+				lTblock = true
+			end if
+		next
+	end if
+
+	if lTblock then
+		MHNBackgroundViewIsEmpty = 0     ' we have TBlock entries
+	else
+		if num_elems = 1 then			'nur Hauptachse ist vorhanden
+			MHNBackgroundViewIsEmpty = 1
+		else
+			iback = MsgBox (Translate("No TitleBlock texts on background view, ok to delete background"), vbOKCancel)
+			if iback = vbOK then
+		    	MHNBackgroundViewIsEmpty = 1
+			else
+				MHNBackgroundViewIsEmpty = 2   'cancelled selected
+			end if
+
+		end if
+	end if
+end function
+
+Function MHNReplaceChar (in_string, char_search, char_replace)
+	out = ""
+	ls = len(char_search)
+	for i = 1 to len(in_string)
+		if mid (in_string,i,ls) = char_search then
+			out = out & char_replace
+			i = i + ls - 1
+		else
+			out = out & mid (in_string,i,1)
+		end if
+	next
+	MHNReplaceChar = out
+end function
+
+
+Function MHNSplit (out_field, text,char_split)
+	numfields = 0
+	out = ""
+	for i = 0 to 20
+		out_field (i) = ""
+	next
+	for i = 1 to len(text)
+		if mid (text,i,1) = char_split then
+			out_field (numfields) = Trim(MHNReplaceChar(out,vbCr," "))
+			numfields = numfields + 1
+			out = ""
+		else
+			if i = len(text) then
+			    out = out & mid (text,i,1)
+				out_field (numfields) = Trim(MHNReplaceChar(out,vbCr," "))
+				numfields = numfields + 1
+			else
+				out = out & mid (text,i,1)
+			end if
+		end if
+	next
+	MHNSplit = numfields
+End Function
+
+Function MHNGetByName (cCollection, name) as object
+	for each oElem in cCollection
+	    if oElem.name = name then
+	       set MHNGetByName = oElem
+	       exit function
+	    end if
+	next
+end function
+
+function getWeight(product)
+	getWeight = 0
+	for i = 0 to iNumParts - 1
+		if productNames(i) = product then
+			getWeight = productWeights(i)
+		end if
+	next
+end function
+
+' Thanx to Martin RÃ¶cker!
+' Kill existing parameters
+
+Sub deleteTd1Parms
+  	CATIA.StatusBar = "Deleting Paramters"
+  	on error resume next
+  	Set cDrwParams = CATIA.ActiveDocument.Parameters
+  	if err.number = 0 then
+    'all Parameters defined in td1_config data set
+		max_count = cDrwParams.count
+		For idx = max_count to 1 step -1
+			oParam = cDrwParams(idx)
+      		if not oParam.readonly then
+      			for i = 0 to num_td1_parms
+      				if oParam.name = "Drawing\"&td1_parm_params(i) or oParam.Name = td1_parm_params(i) then
+        				cDrwParams.remove(idx)
+        				exit for
+        			end if
+         		next
+  		    end if
+    	next
+  	end if
+  	err.clear
+'	msgbox "Delete Done"
+  	on error goto 0
+end sub
+
+sub createTd1Parms()
+	' Thanx to Martin RÃ¶cker!
+  	CATIA.StatusBar = "Creating Parameters"
+
+  	Set DrwDocument = CATIA.ActiveDocument
+  	Set DrwPSheets  = CATIA.ActiveDocument.Sheets
+  	Set DrwParams   = CATIA.ActiveDocument.Parameters
+
+    For blNr = 1 To CATIA.ActiveDocument.Sheets.Count
+      	Set DrwSheet = DrwPSheets.item(blNr)
+		set oBack = MHNGetBackgroundView(DrwSheet.views)
+
+		if blNr > 1 then	'New parameters may be available
+           Set DrwParams   = CATIA.ActiveDocument.Parameters
+		end if
+
+   	   	for i = 0 to num_td1_parms - 1
+			if oBack.Texts.Count > 0 then
+	       			text_found = false
+					for each oText in oBack.Texts
+
+	       			if oText.Name = td1_parm_ids(i) then
+	       				if oText.Text = "" then
+	       					oText.Text = " "
+	       				end if
+						on error resume next
+						set oParameter = DrwParams.GetItem (td1_parm_params(i))
+						'create parameter once
+						if err.number <> 0 then
+			      		'if blNr = 1 then   					'create Parameter only on sheet 1
+	 	       				set oParameter = DrwParams.createString(td1_parm_params(i), oText.Text)
+	        				if td1_parm_visible(i) = "false" then
+	          					oParameter.hidden = true
+	        				else
+	          					oParameter.hidden = false
+	        				end if
+	        			'else
+		  		        '	set oParameter = DrwParams.GetItem (td1_parm_params(i))
+	        			end if
+						on error goto 0
+						
+	        			if td1_parm_sheet1(i)="false" then
+	    	    			oText.InsertVariable 0, len(oText.Text)+1, oParameter
+	    	    		end if
+						text_found = true
+						'exit for
+
+					end if
+				next
+			end if
+'		Get Dittos with modifyable texts and write these texts to the file
+			if oBack.Components.Count > 0 then
+				for each Component in oBack.Components
+					if Component.GetModifiableObjectsCount( )  > 0 then
+						for icomp = 1 to Component.GetModifiableObjectsCount( )
+							set oText = Component.GetModifiableObject(icomp)
+			       			if oText.Name = td1_parm_ids(i) then
+       							if oText.Text = "" then
+       								oText.Text = " "
+       							end if
+		      					if blNr = 1 then   					'create Parameter only on sheet 1
+ 	       							set oParameter = DrwParams.createString(td1_parm_params(i), oText.Text)
+        							if td1_parm_visible(i) = "false" then
+          								oParameter.hidden = true
+        							else
+          								oParameter.hidden = false
+          							end if
+
+        						else
+	  		        				set oParameter = DrwParams.GetItem (td1_parm_params(i))
+        						end if
+        						if td1_parm_sheet1(i)="false" then
+    	    						oText.InsertVariable 0, len(oText.Text)+1, oParameter
+    	    					end if
+								text_found = true
+								exit for
+							end if
+						next
+					end if
+				next
+			end if
+
+			if not text_found then
+    	    	msgBox Translate("Field >") & td1_parm_ids(i) & Translate("< not found on sheet ") & blNr, vbInformation, Translate("Text not on Drawing")
+			end if
+       	next
+
+	next
+
+  	On Error GoTo 0
+
+end sub
+'-------------------------------------------------------------------------------
+' ------------ create parameters for ST
+'-------------------------------------------------------------------------------
+sub createParmsIfNecessary()
+
+	on error resume next
+  	Set cDrwParams   = CATIA.ActiveDocument.Parameters
+   	for i = 0 to num_td1_parms - 1
+   		found = false
+   		for each oParameter in cDrwParams
+   			if oParameter.Name = "Drawing\"&td1_parm_params(i) or oParameter.Name = td1_parm_params(i) then
+   				found = true
+   				exit for
+   			end if
+   		next
+   		if not found then
+			set oParameter = cDrwParams.createString(td1_parm_params(i), " ")
+       		if td1_parm_visible(i) = "false" then
+       			oParameter.hidden = true
+       		else
+       			oParameter.hidden = false
+       		end if
+       	end if
+   	next
+
+ 	On Error GoTo 0
+
+end sub
+
+function getos()
+	
+	Value = CATIA.SystemConfiguration.OperatingSystem
+	fields = l_Split(Value,"_")
+	
+	tracer "getos", "Value = " & Value & "fields(0):" & fields(0)
+	if fields(0) = "win" then
+		getos = "intel"
+	else
+		getos = fields(0)
+	end if
+end function
+'-------------------------------------------------------------------------------
+' ------------ trace some data in case of failure
+'-------------------------------------------------------------------------------
+sub tracer(routine, text)
+	if trace = true then
+		if trace_is_init = false then
+			if fs.FileExists(trace_mode) then
+				fs.DeleteFile(trace_mode)
+			end if
+			Set trace_data_set  = fs.CreateFile(trace_mode,True)
+			set data_trace 	    = tbOpen(trace_data_set,"ForWriting")
+
+	 		trace_is_init = true
+	 		msgbox "Tracing to:" & trace_mode
+'	 		Check for communication data sets
+			on error resume next
+			if fs.FileExists(communication_1) then
+				fs.DeleteFile(communication_1)
+			end if
+
+	 		set data_set= fs.CreateFile(communication_1, True)
+ 			set datei 	= tbOpen(data_set,"ForWriting")
+			datei.write "Hello World"
+			datei.close
+			data_trace.write "tracer >> communication_1 error message: " & err.description & vbCrLf
+
+			if fs.FileExists(communication_2) then
+				fs.DeleteFile(communication_2)
+			end if
+
+	 		set data_set= fs.CreateFile(communication_2, True)
+ 			set datei 	= tbOpen(data_set,"ForWriting")
+			datei.write "Hello World"
+			datei.close
+			data_trace.write "tracer >> communication_2 error message: " & err.description & vbCrLf
+
+			if fs.FileExists(communication_3) then
+				fs.DeleteFile(communication_3)
+			end if
+
+	 		set data_set= fs.CreateFile(communication_3, True)
+ 			set datei 	= tbOpen(data_set,"ForWriting")
+			datei.write "Hello World"
+			datei.close
+			data_trace.write "tracer >> communication_3 error message: " & err.description & vbCrLf
+			on error goto 0
+			data_trace.close
+		end if
+		Set trace_data_set  = fs.GetFile(trace_mode)
+ 		set data_trace 	    = tbOpen(trace_data_set,"ForAppending")
+	   	data_trace.write routine & ">>" & text & vbCrLf
+		data_trace.close
+	end if
+end sub
+
+'-------------------------------------------------------------------------------
+' ------------ modify the titleblock entries and reconnect to the parameters for ST
+'-------------------------------------------------------------------------------
+Sub updateText (obj as object, blNr, cDrawingParameters, errorstring, errorparms, parmMissing)
+	name = obj.Name
+	For i = 1 to iNumNames
+		if isATbPrefix(name) then
+	        sPref = getATbPrefix(name)
+			If sPref & "_" & sNames(i) = name Then
+				temp = sValues(i)
+				sTemp = MHNReplaceChar(temp,"%%",vbLF)   'check for newlines
+				if TD1_compliant then
+			 		for j = 0 to num_td1_parms - 1 ' is parameter associated?
+						' do it for sheet number 1 and for all sheets, if td1_parm_sheet1 = true
+			   			' if td1_parm_sheet1(j)="false" or blNr <> 1 then
+			   			if blNr = 1 or td1_parm_sheet1(j) = "false" then
+							if obj.Name = td1_parm_ids(j) then   ' get parameter object
+								found = false
+					 			for each oParameter in cDrawingParameters
+						   			if oParameter.Name = "Drawing\"&td1_parm_params(j) Or oParameter.Name = td1_parm_params(j) then
+	   									found = true
+										'msgbox "Found Parameter"
+	   									oParameter.ValuateFromString (sTemp) ' set Parameter Value
+	   									if not obj.Text = sTemp then ' mismatch of values
+	   										parmDirtyFlag = true
+	   										errorstring = errorstring & sheet_name & ":" & obj.Name & vbCrLf
+											FontName = obj.GetFontName(0,0)  ' explicitely set it
+											obj.SetFontName 0,0, FontName    ' happens to change
+											obj.Text = sTemp
+											obj.InsertVariable 0, len(sTemp)+1 , oParameter
+	   									end if
+'  									obj.InsertVariable 0, len(obj.Text)+1, oParameter
+	   									exit for
+									end if
+								next
+								if not found then ' parameter is missing
+									FontName = obj.GetFontName(0,0)
+									obj.SetFontName 0,0, FontName
+									obj.Text = sTemp
+									errorparms = errorparms & sheet_name & ":" & obj.Name & vbCrLf
+							    	parmMissing = true
+								end if
+	   						end if
+						end if
+					next
+	   				if not found then ' edit the text anyway
+						FontName = obj.GetFontName(0,0)
+						obj.SetFontName 0,0, FontName
+						obj.Text = sTemp
+	   				end if
+				else
+					FontName = obj.GetFontName(0,0)
+					obj.SetFontName 0,0, FontName
+					obj.Text = sTemp
+	   			end if
+
+			End If
+		End if
+	Next
+End Sub
+
+Function GetFileExtension(FileName As String) As String
+	'Declaration of variables.
+  	Dim i As Integer
+  	Dim DotPos As Integer
+
+  	GetFileExtension = FileName
+  	DotPos = 0
+  	'Retrieve after the last "." .
+  	For i = Len(FileName) To 1 Step -1
+    	If (Mid(FileName,i,1) = ".") Then
+      		DotPos = i
+'	  		Print "DotPos = " + cstr(DotPos)
+	  		Exit For
+    	End If
+  	Next
+  	If (DotPos <> 0) Then
+    	GetFileExtension = Mid(FileName, DotPos+1, Len(FileName)-DotPos)
+'		Print "GetFileExtension = " + Mid(FileName, DotPos+1, Len(FileName)-DotPos)
+  	Else
+		GetFileExtension = ""
+  	End If
+End Function
+
+Function sDec2Frac(f)
+
+
+   lUpperPart = 1
+   lLowerPart = 1
+
+   df = lUpperPart / lLowerPart
+   While (df <> f)
+      If (df < f) Then
+         lUpperPart = lUpperPart + 1
+      Else
+         lLowerPart = lLowerPart + 1
+         lUpperPart = int(f * lLowerPart)
+      End If
+      df = lUpperPart / lLowerPart
+   Wend
+
+	sDec2Frac = CStr(lUpperPart) & ":" & CStr(lLowerPart)
+End Function
+
+'
+' get a user defined bom table from the drawing
+'
+Function getBomTableFromDrawing(Views) as object
+	got_table = false
+    For Each o2View In Views
+       Set cTables = o2View.Tables
+       If cTables.Count > 0 Then
+          For Each oTable In cTables
+          	  tName = oTable.Name
+              If left(tName,10) = "MyBomTable" Then
+                   set getBomTableFromDrawing = oTable
+                   got_table = true
+              end if
+          Next
+       End If
+       If got_table Then
+           Exit For
+       End If
+    next
+    If not got_table Then
+		set getBomTableFromDrawing = Nothing
+	end if
+end function
+
+Sub modBomInDrawing (activeSheet)
+'	dim splitList (20) as string
+'
+	Tracer "bomInDrawing", "--> entering"
+
+    set cViews = activeSheet.Views
+	Dim my_product As Object
+'    Set CATIA = CreateObject("CATIA.Application")
+'	Bom Table in the drawing?
+
+
+    got_table = False
+    For Each o2View In cViews
+       Set cTables = o2View.Tables
+       If cTables.Count > 0 Then
+          For Each oTable In cTables
+          	  tName = oTable.Name
+              If left(tName,10) = "MyBomTable" Then
+                   got_table = True
+'                   sBomInfo = Split(tName,",",-1,1)
+                    'numItems = MHNSplit(splitList,tName,",")
+					splitList = l_Split(tName,",")
+					numItems = uBound(splitList) + 1
+                   ' check type of table
+'                   sTableType = sBomInfo(1)
+					sTableType = splitList(1)
+
+                   if sTableType = "OneLevel" then
+                         set bomTable = oTable
+                         set cBomTables = cTables
+                   elseif sTableType = "AllLevels" Then
+                     	set bomTable = oTable
+                        set cBomTables = cTables
+                   else
+                   		Msgbox  Translate("Unsupported BOM Type: >") & sTableType & "< ... quitting!"
+                   		Exit For
+				   end if
+				   bomHeaderMode = splitList(2)
+
+'				   bomHeaderMode = sBomInfo(2)
+'				   Redim sBomEntries(uBound(sBomInfo)-3)
+				   Redim sBomEntries(numItems-3)
+
+				   iColPartNumber 	= -9
+				   iColWetArea		= -9
+				   iColVolume		= -9
+				   iColWeight		= -9
+				   iUserDefined     = -9
+				   for i = 1 to numItems - 3
+				   		sBomEntries(i-1) = splitList(2+i)
+				   		stemp = l_Split(sBomEntries(i-1),":")
+				   		if ubound(stemp) = 1 then
+				   			sBomEntries(i-1) = stemp(0)
+				   			if stemp(1) = "Part Number" then
+				   				iColPartNumber = i
+				   			elseif stemp(1) = "WetArea" then
+							   	iColWetArea		= i
+				   			elseif stemp(1) = "Volume" then
+				   				iColVolume		= i
+				   			elseif stemp(1) = "Weight" then
+				   				iColWeight		= i
+							elseif stemp(1) = "BomData" then
+								iUserDefined 	= i
+				   			end if
+				   		end if
+				   next
+              End If
+          Next
+       End If
+       If got_table Then
+           Exit For
+       End If
+     Next
+     if not got_table then
+'     	Msgbox ("No MyBOM_Table in the drawing ... quitting!")
+		Tracer "bomInDrawing", "--> no table entry found"
+     	exit sub
+     end if
+
+' 	link to 3d geometry available?
+    got3d = False
+    For Each o3View In cViews
+        If o3View.IsGenerative Then
+            Set oProduct = o3View.GenerativeBehavior.Document
+			Tracer "bomInDrawing", "--> " & oProduct.Parent.FullName
+
+'            MsgBox oProduct.Name
+            if TypeName(oProduct.Parent) = "ProductDocument" then
+	            got3d = True
+	            Set my_product = oProduct
+	            Exit For
+            end if
+        End If
+    Next
+
+
+    If Not got3d Then
+		Tracer "bomInDrawing", "--> No link to 3D model available ... quitting!"
+		MsgBox  Translate( "No Link to 3D CATProduct found, BOM not regenerated")
+    	exit sub
+    end if
+
+	sBomFile 		= sTempFolder & "/cat_title_block_bom.txt"
+	sBomStreamFile 	= sTempFolder & "/cat_title_block_bom_stream.txt"
+
+	oldStatusNumerOfRows = bomTable.NumberOfRows
+
+'	store user defined column	
+	if (iUserDefined <> -9) then
+		ReDim userBomProp(bomTable.NumberOfRows - 1) as string
+		ReDim partNumbers(bomTable.NumberOfRows - 1) as string
+
+		if bomHeaderMode = "Top" then
+			for i = 2 to bomTable.NumberOfRows
+				userBomProp(i-2) = bomTable.GetCellString(i,iUserDefined)
+				partNumbers(i-2) = bomTable.GetCellString(i,iColPartNumber)
+			next
+		else
+			for i = 1 to bomTable.NumberOfRows - 1
+				userBomProp(i-1) = bomTable.GetCellString(i,iUserDefined)
+				partNumbers(i-1) = bomTable.GetCellString(i,iColPartNumber)
+			next
+		end if
+	end if
+
+'   get header entries from CATIA
+
+
+	Set assemblyConvertor = my_product.GetItem("BillOfMaterial")
+	assemblyConvertor.SetCurrentFormat sBomEntries
+	assemblyConvertor.SetSecondaryFormat sBomEntries
+	assemblyConvertor.Print "HTML",sBomFile,my_product
+
+	getBom my_product.Name,sBomFile, bomTable, sTableType, bomHeaderMode, fs, userBomProp,partNumbers
+
+	numBomProp = bomTable.NumberOfColumns
+
+    iProd = 0
+
+    On Error GoTo 0
+
+	' Delete old entries
+	bomTable.ComputeMode = 0
+
+	For iRow = 1 to oldStatusNumerOfRows - 2
+		if bomHeaderMode = "Top" then
+	       	bomTable.RemoveRow 2
+		else
+			bomTable.RemoveRow bomTable.NumberOfRows - 1
+		end if
+	Next
+
+	if bomHeaderMode = "Top" then
+		bomTable.RemoveRow bomTable.NumberOfRows
+	else
+		bomTable.RemoveRow 1
+	end if
+	bomTable.ComputeMode = 1
+
+	' set the visibility show/hide
+
+End Sub
+
+Sub showBomInDrawing (activeSheet as object, showBom as integer)
+    set cViews = activeSheet.Views
+	set myBomTable = getBomTableFromDrawing(cViews)
+	if myBomTable is Nothing then
+	else
+		set Selection=CATIA.ActiveDocument.Selection
+		Selection.Clear()
+		Selection.Add(myBomTable)
+		Set VisPropertySet = Selection.VisProperties
+		VisPropertySet.SetShow showBom
+		Selection.Clear()
+	end if
+end sub
+
+Sub getBom(sPart,sBomFile,oTable,sTableType, bomHeaderMode,fso,userBomProp,partNumbers)
+	'dim splitFields(20) as string
+	HKOMM=chr(34)
+
+	set f = fso.getFile(sBomFile)
+	Set TextStr = tbOpen(f,"ForReading")
+    oTable.ComputeMode = 0
+
+	sDoLevel = "AllLevels"
+	
+	if sTableType="AllLevels" then
+		sDoLevel = "AllLevels"
+	end if
+	if sTableType="OneLevel" then
+		sDoLevel = "OneLevel"
+	end if
+	if sModeBomFromGui = "AllLevels" then
+		sDoLevel = "AllLevels"
+	end if
+	if sModeBomFromGui = "OneLevel" then
+		sDoLevel = "OneLevel"
+	end if
+
+	'msgbox "Type:" & sDoLevel
+	
+	if sDoLevel="AllLevels" then
+		
+		' all levels: the result is not sorted by find numbers
+		'->first read all entries, then do a sort, this will work, if the find number ist in the first place, which normally should be the case
+		
+		redim sBomEntries(0) as string
+
+		Do until TextStr.atEndOfStream
+		' find last table  <table
+			zeile = TextStr.ReadLine
+			if (left(zeile,6) = "<table" ) then
+                zeile = TextStr.ReadLine
+                zeile = TextStr.ReadLine
+				iNumEntries = 0
+				do until left(zeile,7) = "</table" or TextStr.atEndOfStream
+					zeile = bomRemoveHTML(zeile)
+					redim preserve sBomEntries(iNumEntries)
+					sBomEntries(iNumEntries) = trim(zeile)
+					iNumEntries = iNumEntries + 1
+                    zeile = TextStr.ReadLine
+                loop
+                exit do
+            end if
+		Loop
+		
+		for i = 0 to iNumEntries-1
+			splitFields = l_Split(sBomEntries(i),"|")
+			sTemp = splitFields(1)
+			do until len(sTemp) > 20
+			   sTemp = "0" & sTemp
+			loop
+			sBomEntries(i) =  sTemp & " " & sBomEntries(i)
+		next
+		'sTemp = ""
+		'for i = 0 to iNumEntries-1
+		'	sTemp = sTemp & sBomEntries(i) & "vbcr"
+		'next 
+		'msgbox sTemp
+		
+		quickSort sBomEntries, 0, iNumEntries-1
+		
+		for i = 0 to iNumEntries-1
+			sBomEntries(i) = Mid(sBomEntries(i),21)
+		next
+		'msgbox sBomEntries(0)
+		for i = 0 to iNumEntries-1
+			addBomLine  oTable,sBomEntries(i), bomHeaderMode,userBomProp,partNumbers
+		next
+		
+	end if
+	
+	if sDoLevel="OneLevel" then
+		Do until TextStr.atEndOfStream
+		' search part
+			zeile = TextStr.ReadLine
+            if (left(zeile,8) = "<a name=") then
+    			splitFields = l_Split(zeile,HKOMM)
+				splitFields1 = l_Split(splitFields(1),":")
+				sPartFound = trim (splitFields1(1))
+'                msgbox zeile
+'                myArray = Split(zeile,":",-1,1)
+'                numItems = MHNSplit(splitFields,zeile,":")
+
+                if sPartFound = Trim(sPart) then
+'                    msgbox "Got it"
+                    zeile = TextStr.ReadLine
+                    zeile = TextStr.ReadLine
+                    zeile = TextStr.ReadLine
+                    zeile = TextStr.ReadLine
+                    ' Header lines merken
+'                    myHeader = Split(zeile,"|",-1,1)
+					do until left(zeile,7) = "</table" or TextStr.atEndOfStream
+					                
+						zeile = bomRemoveHTML(zeile)
+						addBomLine oTable,zeile, bomHeaderMode, userBomProp,partNumbers
+                        zeile = TextStr.ReadLine
+
+                    loop
+                    exit do
+                else
+                    zeile = TextStr.ReadLine
+                    zeile = TextStr.ReadLine
+                end if
+            end if
+	   	Loop
+	end if
+    oTable.ComputeMode = 1
+	TextStr.Close
+
+	'Remove temporary Bom File
+	'set f = fs.DeleteFile(sBomFile)
+	
+end sub
+
+function bomRemoveHTML(bomLine) as String
+
+	sTemp = bomLine
+'	msgbox sTemp
+	sTemp = MHNReplaceChar(sTemp,"<tr><td>","|")
+	sTemp = MHNReplaceChar(sTemp,"</td><td>","|")
+	sTemp = MHNReplaceChar(sTemp,"</td> </tr>","|")
+	sTemp = MHNReplaceChar(sTemp,"&nbsp;"," ")
+
+	' kill the href part
+	
+	iposStart = InStr(sTemp, "<A")
+	do while iposStart > 0
+		iposEnd = InStr(sTemp, ">")
+		if iposEnd > 0 then
+			'msgbox Mid (sTemp,1,iposStart-1) 
+			sTemp = Mid (sTemp,1,iposStart-1) + Mid (sTemp,iposEnd + 1,len(sTemp))
+		end if
+		iposStart = InStr(sTemp, "<A")
+	loop
+	
+    sTemp = MHNReplaceChar(sTemp,"</A>","")
+	
+	bomRemoveHTML = sTemp
+
+end function
+
+
+sub addBomLine (oTable,zeile, bomHeaderMode,userBomProp,partNumbers)
+	on error goto 0
+	'dim splitFields(20)
+	'numItems = MHNSplit(splitFields, zeile,"|")
+
+	splitFields = l_Split(zeile,"|")
+'	numItems = uBound(splitFields) + 1
+'          msgbox numItems
+	if bomHeaderMode = "Top" then
+		lineToAdd = oTable.NumberOfRows
+		oTable.AddRow lineToAdd
+		if oTable.NumberOfRows = 3 then
+			'copy the orientation etc.
+		    For icol = 1 To oTable.NumberOfColumns
+				oTable.SetCellString 2, icol, oTable.GetCellString(3,icol)
+				oTable.SetCellAlignment 2, icol,  oTable.GetCellAlignment(3,icol)
+		    Next
+		end if
+	else
+		lineToAdd = 2
+		oTable.AddRow lineToAdd
+	end if
+
+	if iColPartNumber > -1 then
+		sPart = splitFields(iColPartNumber)
+	else
+		sPart = "????"
+	end if
+
+    For icol = 1 To oTable.NumberOfColumns
+		' check if unit has to be converted
+'		msgbox splitFields(3)
+'		msgbox getWeight(splitFields(3))
+		if icol = iUserDefined then
+			temp = bomGetUserDefFields(sPart,userBomProp,partNumbers)
+'			msgbox temp
+		else
+			temp = unitChecker(sPart, icol, splitFields(icol))
+		end if
+
+		oTable.SetCellString lineToAdd, icol, temp
+
+	Next
+
+End Sub
+
+' get back the user defined data
+function bomGetUserDefFields(sPartName,userBomProp,partNumbers) as string
+	'search PartNo
+	for i = 0 to uBound(partNumbers) - 1
+		if Trim(partNumbers(i)) = Trim(sPartname) then
+'			msgbox sPartName & ":" & partNumbers(i) & ":" & userBomProp(i)
+			bomGetUserDefFields = userBomProp(i)
+			exit function
+		end if
+	next
+	bomGetUserDefFields = ""
+end function
+
+' convert the units
+function unitChecker (sPartName, iColumn, sValue)
+	Dim sTemp as String
+	unitChecker = sValue
+	sField = "dummy"
+	' get field names from tabName
+    if iColWeight = iColumn  then
+    	sField = "Weight"
+    elseif iColWetArea = iColumn  then
+    	sField = "WetArea"
+    elseif iColVolume = iColumn  then
+    	sField = "Volume"
+	end if
+'	msgbox iColumn & ":" & sField
+	if sField <> "dummy" then
+		' get the right part
+'		msgBox sPartName
+		for j=0 to uBound(productNames)
+			if trim(productNames(j)) = trim(sPartName) then
+'				msgbox "hello"
+			' get the value
+				if iColumn = iColWeight then
+					sWert = productWeights(j)
+				elseif iColumn = iColWetArea then
+					sWert = productWetAreas(j)
+				elseif iColumn = iColVolume then
+					sWert = productVolumes(j)
+				end if
+	' check, if name is in the list of unit names for conversion
+                for i = 0 to uBound(UnitFields)
+                    if sField = UnitFields(i) then
+                        'msgbox sValue
+                        'msgBox UnitFields(i)
+                        'msgbox UnitFactor(i)
+                        if Trim(sWert) <> "" then
+                            lValue = sWert * UnitFactor(i)
+                            ' if yes, calculate the new value
+                            lValue = Round(lValue, CInt(UnitDP(i)))
+						    sTemp = FormatNum(lValue,2)
+                            if UnitShow(i) = "yes" then
+                                unitChecker = sTemp & " " & UnitSymbols(i)
+                            else
+                                unitChecker = sTemp & ""
+                            end if
+                        end if
+                    end if
+                next
+             end if
+      	next
+      end if
+
+end function
+
+sub translateInit(fs,titleblockCFG,sInstallDir)
+	' read config data set
+	' find language
+'	dim splitFields(20)
+	dim line as string
+	numTransItems = 0
+
+
+	Set translateIn 		= safeGetFile(titleblockCFG)
+	set translateInStream 	= tbOpen(translateIn,"ForReading")
+	lang = "No Translation"
+   	Do until translateInStream.atEndOfStream
+	   line = translateInStream.ReadLine
+	   line = Trim(line)
+	   if left(line,12) = "set language" then		' Pattern: set language "de"
+			'numItems = MHNSplit(splitFields, line,chr(34))
+			splitFields = l_Split(line,chr(34))
+			numItems = uBound(splitFields) + 1
+	   		lang = splitFields(1)
+	   end if
+	loop
+	translateInStream.close
+
+
+	if lang <> "No translation" then
+		'check, if file exists
+		msgFile = sInstallDir & "/config/" & lang & "/messages.cfg"
+		if fs.FileExists(msgFile) then
+			' open  language data set
+			' fill translate array
+
+			Set translateIn 		= safeGetFile(msgFile)
+			set translateInStream 	= tbOpen(translateIn,"ForReading")
+		   	Do until translateInStream.atEndOfStream
+				line = translateInStream.ReadLine
+				if line <> "" and left(line,1) <> "#" then
+					numTransItems = numTransItems + 1
+				end if
+			loop
+
+			redim myTranslateStringsIn(numTransItems)
+			redim myTranslateStringsOut(numTransItems)
+			translateInStream.close
+
+			Set translateIn 		= safeGetFile(msgFile)
+			set translateInStream 	= tbOpen(translateIn,"ForReading")
+
+	   	   	numTransItems = 0
+		   	Do until translateInStream.atEndOfStream
+		   	   	line = translateInStream.ReadLine
+				if line <> "" and left(line,1) <> "#" then
+					numTransItems = numTransItems + 1
+					'numItems = MHNSplit(splitFields, line,"=")
+					splitFields = l_Split(line,"=")
+					myTranslateStringsIn(numTransItems)  = Trim(splitFields(0))
+					myTranslateStringsOut(numTransItems) = Trim(splitFields(1))
+				end if
+			loop
+		end if
+	end if
+	translateInStream.close
+End Sub
+
+function translate(stringIn)
+	'check if translate string is available, tranlate it or leave it as is
+	' on unix no dictionary available, so we have to use arrays
+	translate = stringIn
+	for i = 1 to numTransItems
+		if myTranslateStringsIn(i) = stringIn then
+			translate = myTranslateStringsOut(i)
+			exit function
+		end if
+	next
+end function
+
+function substituteTB (stringin)
+	if left(stringin,18)<> "RevisionBlock_Text" then
+		prefixTb = getATbPrefix(stringin)
+'	msgbox stringin & ":" & prefixTB
+		substituteTB = MHNReplaceChar (stringin,  prefixTb,"TitleBlock_Text")
+	else
+		substituteTB = stringin
+	end if
+end function
+
+function docIsDrawing (oDoc) as boolean
+	on error resume next
+	Set DrwSheets   	= oDoc.Sheets
+    if err.number = 0 then
+		docIsDrawing = true
+	else
+		docIsDrawing = false
+	end if
+	on error goto 0
+end function
+
+function catDocType(oDoc) as string
+	catDocType = "unsupported"
+
+	Select Case  TypeName(oDoc)
+        Case "DrawingDocument"
+            redim DrwSheets(oDoc.Sheets.Count)
+			redim Drw3DType(oDoc.Sheets.Count)
+			redim BomShowMode(oDoc.Sheets.Count)
+            for i=1 to oDoc.Sheets.Count
+                set DrwSheets(i-1) = oDoc.Sheets.Item(i)
+            next
+            Set DrwSheet        = oDoc.Sheets.ActiveSheet
+            Set cur_sheet_active= oDoc.Sheets.ActiveSheet
+            catDocType = "Drawing"
+        Case "ProductDocument"
+            on error goto 0
+            Set DrwSelection = oDoc.Selection
+            'DrwSelection.Search "Name='AbsoluteAxis',all"
+			'-> Thanks to Helbling!!!
+			DrwSelection.Search "CATDrwSearch.DrwView,all"
+			
+			on error resume next
+            'set temp = DrwSelection.item(2).value
+			'-> Thanks to Helbling!!!
+            set temp = DrwSelection.item(1).value
+
+			if err.number = 0 then
+				'Set DrwSheets(0) = DrwSelection.item(2).value.parent.parent.parent.parent
+				'-> Thanks to Helbling!!!
+				Set DrwSheets(0) = DrwSelection.item(1).value.parent.parent
+
+
+				Set DrwSheet = DrwSheets(0)
+				Set cur_sheet_active= DrwSheet
+				DrwSelection.Clear
+				iback = MsgBox(Translate("Type = CATProduct, assuming Diagram - o.k.?"), vbYesNo)
+				if iback = vbYes then
+					catDocType = "Diagram"
+				end if
+			end if
+			on error goto 0
+	End Select
+
+end function
+
+'check for tables with TBlockPrefix at the beginning
+
+sub streamAllTables(oView, oStream)
+    Set cTables = oView.Tables
+    If cTables.Count > 0 Then
+        For Each oTable In cTables
+          tName = oTable.Name
+          If Left(tName,TBlockPrefixLen)=TBlockPrefix Then
+               tableStreamer oTable, oStream
+          end if
+        Next
+    End If
+end sub
+
+' write the content of a table to the intermediate file
+
+sub tableStreamer(oTable, oStream)
+	' TitleBlock_Text_TData_Start_tabName
+	' TitleBlock_Text_TData_;;data , delimeter ;;
+	' TitleBlock_Text_TData_End_tabName
+	oStream.Write "TitleBlock_Text_TData_Start"  & myDelimiter & oTable.name & vbCrLf
+    For irow = 1 To oTable.NumberOfRows
+    	line = ""
+	    For icol = 1 To oTable.NumberOfColumns
+    	   	line = line & ";" & oTable.getCellString(irow, icol)
+    	Next
+		oStream.Write "TitleBlock_Text_TData_Data"  & myDelimiter & line & vbCrLf
+    next
+	oStream.Write "TitleBlock_Text_TData_End"  & myDelimiter & oTable.name & vbCrLf
+end sub
+
+sub tableUnStreamer(oView, tabStartString, oStream)
+	'dim splitFields(20) as string
+	numadded = 0
+	' find table
+
+    Set cTables = oView.Tables
+    If cTables.Count > 0 Then
+		set oTabFound = Nothing
+        For Each oTable In cTables
+          tName = oTable.Name
+		  oTable.ComputeMode = 0
+		  sTest = "TitleBlock_Text_TData_Start" & myDelimiter & tname
+          If sTest = tabStartString Then
+
+				set oTabFound = oTable
+				numRowsOfTable = oTabFound.NumberOfRows 
+				line = oStream.ReadLine
+				sTest = "TitleBlock_Text_TData_End" & myDelimiter & tname
+				Do until line = sTest
+					oTabFound.AddRow oTabFound.NumberOfRows
+					numadded = numadded +1
+
+					'numsplit = MHNSplit(splitFields,line,";")
+					splitFields = l_Split(line,";")
+					For icol = 1 To oTable.NumberOfColumns
+						oTabFound.SetCellString oTabFound.NumberOfRows-1, icol, splitFields(icol)
+					Next
+					line = oStream.ReadLine
+
+				loop
+			end if
+        Next
+		' delete last line and top lines
+
+'		For iRow = 1 to numadded - 1
+		For iRow = 1 to numRowsOfTable - 1
+
+	       	oTabFound.RemoveRow 1
+		Next
+		'might happen, if the tb is changed and the table is not found
+		if (not (oTabFound is Nothing)) then
+			oTabFound.RemoveRow oTabFound.NumberOfRows
+			oTabFound.ComputeMode = 1
+		end if
+
+	End If
+
+
+end sub
+
+Function l_Split(FlatText As String, Delimiter As String) As Variant
+	'This function behaves like the javascript split function or the Notes Formula @Explode function. It takes a delimited string and
+	'returns an array of all the elements in the string. The Delimiter parameter should be only one character long. (I haven't tested with more).
+	'Stan Dyck 4/15/98
+
+	Redim DelimArray(0) As Integer 'records the positions of all the delimiters in the string
+	Dim i As Integer
+	Dim intNextDelim As Integer
+
+	i = 0
+	lenDelimiter = len(Delimiter)
+	DelimArray(0) = 0
+	Do
+		intNextDelim = Instr(DelimArray(i) + 1, FlatText, Delimiter)
+		If intNextDelim = 0 Then Exit Do
+		i = i + 1
+		Redim Preserve DelimArray(i)
+		DelimArray(i) = intNextDelim
+	Loop
+
+	Redim tmpSplit(0) As String
+	If Ubound(DelimArray) = 0 Then
+		tmpSplit(0) = Mid(FlatText, (DelimArray(0) + 1))
+	Else
+		'tmpSplit(0) = Mid(FlatText, DelimArray(0) + 1, DelimArray(1) - 1)
+		tmpSplit(0) = Mid(FlatText, DelimArray(0) + 1, DelimArray(1) - 1)
+	End If
+	If Ubound(DelimArray) > 0 Then
+		For i = 1 To Ubound(DelimArray)
+			Redim Preserve tmpSplit(i)
+			If i <> Ubound(DelimArray) Then
+				tmpSplit(i) = Mid(FlatText, DelimArray(i) + lenDelimiter, (DelimArray(i+1) - DelimArray(i)) - lenDelimiter)
+			Else
+				tmpSplit(i) = Mid(FlatText, DelimArray(i) + lenDelimiter)
+			End If
+		Next
+	End If
+	l_Split = tmpSplit
+End Function
+
+function isComment(line) as boolean
+	isComment = false
+	if mid(line,1,1) = "'" then
+		isComment = true
+	elseif mid(line,1,1) = "#" then
+		isComment = true
+	elseif Trim(line) ="" then
+		isComment = true
+	elseif len(line) =1 then
+		isComment = true
+	end if
+end function
+
+Function Round(nValue As Double, nDigits As Integer) As Double
+    Round = Int(nValue * (10 ^ nDigits) + _
+    0.5) / (10 ^ nDigits)
+End Function
+
+Function FormatNum(value,decPl) as String
+		dim sDigits as String
+		dim sOut as String
+		sDigits = "0123456789,.Ee"
+		sOut = ""
+		for i = 1 to len(value)
+			sChar = mid(value,i,i)
+			if InStr(sDigits, sChar) <> 0 then
+				sOut = sOut & sChar
+			end if
+		next
+		if not os = "intel" then
+			FormatNum = value
+		 	' FormatNum = Format(value, "0." & String(decPL, "#"))
+		else
+			' thx martin rÃ¶cker!
+			FormatNum = FormatNumber(value,decPL,-2,0,0)
+		end if
+		' tcl relies on "."
+		FormatNum = Replace(FormatNum,",",".")
+End Function
+
+Function getTopLevel(item) as boolean
+	' strategy: Find Object below "CNEXT"
+	' search in the collection of documents
+	' return the product object
+'	on error goto 0
+	dim oTemp as object
+	dim oTempDoc as object
+	
+	
+	CATIA.DisplayFileAlerts = False
+	
+	set oTempDoc = CATIA.ActiveDocument
+	set oTemp = item
+
+'	    msgbox ">" & TypeName(oTemp) & "<"
+'	    msgbox oTemp.name
+'	if TypeName(oTemp) = "ProductScene" then
+	if TypeName(oTemp) = "Scene" or TypeName(oTemp) = "ProductScene" then
+			'
+			' to do >>> : use the Is compare function to identify the right object
+			'
+		sType = TypeName(oTemp)
+		if oldProductDrawnName <> oTemp.Name then
+			sTemp= Translate("Sorry, " & sType & " only alpha status, give it a try?")
+			iback = MsgBox   (sTemp, vbYesNo)
+			if iback = vbNo then
+				oldProductDrawnName = oTemp.Name
+				set oldProductDrawn = Nothing
+				getTopLevel = false
+				CATIA.DisplayFileAlerts = True
+				exit function
+			end if
+			'search in all loaded documents for the name of the scene, prompt the user for the right root item (mightbe we have multiple docs having the same scene name
+			for i=1 to CATIA.Documents.Count
+				
+				if TypeName(CATIA.Documents.Item(i))= "ProductDocument" then
+					'find the scene collection
+					CATIA.Documents.Open(CATIA.Documents.Item(i).FullName)
+					CATIA.Documents.Item(i).Activate
+					CATIA.Documents.Item(i).Selection.Search "Name='" & oTemp.Name & "',in"
+'					msgbox oTemp.Name
+'					msgbox CATIA.Documents.Item(i).Selection.Count
+					for j=1 to CATIA.Documents.Item(i).Selection.Count
+						if TypeName(CATIA.Documents.Item(i).Selection.Item(j).Value) = sType  Then
+							'msgbox CATIA.Documents.Item(i).Selection.Item(j).Value is oTemp
+'						if TypeName(CATIA.Documents.Item(i).Selection.Item(j).Value) = "ProductScene"  Then
+							sTemp= Translate("Identified Scene, assuming root product = ") & CATIA.Documents.Item(i).Name
+							iback = MsgBox   (sTemp, vbYesNo)
+							if iback = vbYes then
+								set oTemp1 = CATIA.Documents.Item(i).Product
+							'msgbox oTemp1.Parent.FullName
+								oldProductDrawnName = oTemp.Name
+								oTempDoc.Activate
+
+								set oldProductDrawn = oTemp1
+								getTopLevel = true
+								set topLevelProduct = CATIA.Documents.Item(i).Product
+								CATIA.DisplayFileAlerts = True
+
+								exit function
+							end if
+						end if
+					next
+				end if
+			next
+		else
+'			set getTopLevel = oldProductDrawn
+			getTopLevel = true
+			CATIA.DisplayFileAlerts = True
+			exit Function
+		end if
+		
+	elseif TypeName(oTemp) = "Product" then 'had to be added for r18 
+		if sTypeOfDocument(oTemp.Parent.Name) = "CATPart" then
+			'for i=1 to CATIA.Documents.Count
+			'	msgbox CATIA.Documents.Item(i).Name  & ":" & oTemp.Parent.Name
+			'	if CATIA.Documents.Item(i).Name = oTemp.Parent.Name then
+			'		set topLevelProduct = CATIA.Documents.Item(i).Product
+			'	end if
+			'	exit Function
+			'next
+			'msgbox oTemp.Parent.FullName
+			getTopLevel=true
+			set topLevelProduct = oTemp
+			exit Function
+		else
+			for i=1 to CATIA.Documents.Count
+				if TypeName(CATIA.Documents.Item(i))="ProductDocument" or TypeName(CATIA.Documents.Item(i)) = "PartDocument" then
+'				CATIA.Documents.Open(CATIA.Documents.Item(i).FullName)
+					if CATIA.Documents.Item(i).Product.Name = oTemp.Name then
+						'set getTopLevel=CATIA.Documents.Item(i).Product
+						getTopLevel = true
+						set topLevelProduct = CATIA.Documents.Item(i).Product
+						CATIA.DisplayFileAlerts = True
+
+						exit Function
+					end if 
+				end if
+			next
+		end if
+	elseif TypeName(oTemp.Parent) = "ProductDocument" then 
+		'set getTopLevel=oTemp
+		getTopLevel = true
+		set topLevelProduct = oTemp
+
+	elseif TypeName(oTemp.Parent) = "PartDocument" then 
+		'set getTopLevel=oTemp
+		getTopLevel = true
+		set topLevelProduct = oTemp
+'	elseif TypeName(oTemp.Parent) = "String" then 
+		'somwhere introduced before R18: Type of doc is returned as stroing for part Docs
+'		getTopLevel = true
+'		msgbox "hello"
+'		for i=1 to CATIA.Documents.Count
+'			if CATIA.Documents.Item(i).Name = oTemp.Parent.Name then
+'				set topLevelProduct=CATIA.Documents.Item(i)
+'			end if
+'		next
+'		set topLevelProduct = oTemp
+
+	else
+		' user has selected a body - now go up the tree and find the right document under the CNEXT object
+		while oTemp.Parent.Name <> "CNEXT"
+			'set oTemp = oTemp.Parent
+			getTopLevel = true
+			set topLevelProduct = oTemp.Parent
+			set oTemp = oTemp.Parent
+			
+		wend
+
+		for i=1 to CATIA.Documents.Count
+			if CATIA.Documents.Item(i).Name = oTemp.Name then
+				set oTemp1 = CATIA.Documents.Item(i).Product
+			end if
+		next
+		'set getTopLevel = oTemp1
+		getTopLevel = true
+		set topLevelProduct = oTemp1
+
+		set oTemp = nothing
+		set oTemp1 = nothing
+
+	end if
+	CATIA.DisplayFileAlerts = True
+
+End Function
+
+Function getConfigData(value) as String
+	home = CATIA.SystemService.Environ("HOME")
+	personalConfigFile = home & "/TBConfig.dat"
+	msgbox personalConfigFile 
+End Function
+
+Function isATbPrefix(name) as boolean
+	isATbPrefix = False
+	for i = 0 to Ubound(TBlockPrefices)
+
+	'		If Left(name,TBlockPrefixLen) = TBlockPrefix then
+		If Left(name,len(TBlockPrefices(i))) = TBlockPrefices(i) then
+			isATbPrefix = true
+			exit function
+		end if
+	next
+	if Left(name,18) = "RevisionBlock_Text" then
+		isATbPrefix = true
+		exit function
+	end if
+End Function
+
+Function getATbPrefix(name) as string
+	getATbPrefix = "NOTAPREFIX"
+
+	if Left(name,18) = "RevisionBlock_Text" then
+		getATbPrefix = "RevisionBlock_Text"
+		exit function
+	end if
+
+	If isATbPrefix(name) then
+		for i = 0 to Ubound(TBlockPrefices)
+			If Left(name,len(TBlockPrefices(i))) = TBlockPrefices(i) then
+				getATbPrefix = TBlockPrefices(i)
+				exit function
+			end if
+		next
+	end if
+End Function
+
+Function safeGetFile(filename) as variant
+	tracer "safeGetFile", "Opening File >" & filename & "<"
+
+	on error resume next
+	Set safeGetFile = fs.GetFile(filename)
+	'Set safeGetFile = fso.GetFile(filename)
+	
+	if err.number <> 0 then
+		msgbox "++ Config error - unable to open >" & filename & "<"
+	end if
+	on error goto 0
+end Function
+
+Function tbOpen(file, mode) as variant
+	set tbOpen = file.OpenAsTextStream(mode)
+end Function
+
+Sub storeMaterialInfo(sParameterName, sParameterValue)
+'		myArray=l_Split(sParameterName,"\")
+'		parameterName = myArray(uBound(myArray))
+'		msgbox sParameterName & "=" & sParameterValue
+'		if parameterName = "Material" or parameterName = "RefMaterial" then
+'			sMaterialInfoPartName(numMaterialInfo) = myArray(uBound(myArray)-1)
+'			sMaterialInfoValue(numMaterialInfo) = sParameterValue
+'			msgbox sParameterName & ":" & myArray(uBound(myArray)-1) & "=" & sParameterValue
+'			numMaterialInfo = numMaterialInfo + 1
+'		end if
+end sub
+
+Sub addTBPrefixForFrame (oView)
+	'oView.Activate
+	'CATIA.ActiveDocument.Selection.Search "Name=*,in"
+	'msgbox CATIA.ActiveDocument.Selection.Count
+    for i = 1 to oView.Texts.Count
+		modifyFrameEntityName oView.Texts.Item(i)
+    next
+	for i = 1 to oView.GeometricElements.Count
+		modifyFrameEntityName oView.GeometricElements.Item(i)
+	next
+	for i = 1 to oView.Tables.Count
+		modifyFrameEntityName oView.Tables.Item(i)
+	next
+	'for i = 1 to CATIA.ActiveDocument.Selection.Count
+	'	modifyFrameEntityName CATIA.ActiveDocument.Selection.Item(i).Value
+	'next
+
+end sub
+
+Sub modifyFrameEntityName(oEntity)
+
+	on Error Resume Next
+	if not(left(oEntity.name,15) = "TitleBlock_Text" or left(oEntity.name,15) = "TitleBlockFrame" _
+	   or left(oEntity.name,7) = "MyTable") then
+		oEntity.name = "TitleBlockFrame_" & oEntity.name
+	end if
+
+	on Error Goto 0
+		
+End Sub
+
+function isModelLoaded (modelName) as boolean
+	isModelLoaded = false
+	'for i = 1 to CATIA.Documents.Count
+	'	if CATIA.Documents.Item(i).FullName = modelName then
+	'		CATIA.Documents.Item(i).Activate
+	'	end if
+	'next
+end function
+
+sub unloadModel(modelName)
+end sub
+
+function getNumLinesOfFile(sFilename) as integer
+	Set mapperIn 		= safeGetFile(sFilename)
+	set mapperStream 	= tbOpen(mapperIn,"ForReading")
+    iMap = 0
+	Do until mapperStream.atEndOfStream
+		zeile = mapperStream.ReadLine
+		if not mid(zeile,1,1) = "'" then
+			iMap = iMap + 1
+		end if
+	Loop
+	mapperStream.Close
+	getNumLinesOfFile = iMap
+end function
+
+sub modifyTextNames (cTexts)
+	tracer "modifyTextNames","Entering"
+	if cTexts.Count > 0 then
+		if fs.FileExists(sConfigDir & "/mapper.txt") then
+			iNumMap = getNumLinesOfFile(sConfigDir & "/mapper.txt")
+			Redim sMapName(iNumMap) as string
+			Redim sMapValue(iNumMap) as string
+			Set mapperIn 		= safeGetFile(sConfigDir & "/mapper.txt")
+		 	set mapperStream 	= tbOpen(mapperIn,"ForReading")
+	        iMap = 0
+			Do until mapperStream.atEndOfStream
+				zeile = mapperStream.ReadLine
+				if not mid(zeile,1,1) = "'" And Trim(Zeile) <> "" then
+					fields = l_Split(zeile,"=")
+					sMapName(iMap) = Trim(fields(0))
+					sMapValue(iMap) = Trim(fields(1))
+					iMap = iMap + 1
+				end if
+			Loop
+			mapperStream.Close
+			
+			for each Text in cTexts
+				for i = 0 to iMap
+					if Text.Name = sMapName(i) then
+						tracer "modifyTextNames", "Modified >" & sMapName(i) & " --> " & sMapValue(i) & "<"
+'					Text.Name = "TitleBlock_Text_Part_Name_English"
+						Text.Name = sMapValue(i)
+					end if
+				next
+			next
+		else 
+			tracer "modifyTextNames","No Mapping file found:" & sConfigDir & "/mapper.txt"
+		end if
+	else
+		tracer "modifyTextNames","No texts available"
+	end if
+	tracer "modifyTextNames","Leaving"
+end sub
+
+'Sortiert einen Array nach alphabetischer Reihenfolge
+Sub QuickSort(SortArray() As String, varStart As Long, varEnd As Long)
+   Dim i As Long, J As Long, RandIndex As Long, Partition As String
+   Dim Low As Long, High As Long
+
+   Low = IIf(varStart = 0, LBound(SortArray), varStart)
+   High = IIf(varEnd = 0, UBound(SortArray), varEnd)
+
+   If Low < High Then
+      If High - Low = 1 Then
+         If UCase(SortArray(Low)) > UCase(SortArray(High)) Then
+            Swap SortArray(Low), SortArray(High)
+         End If
+      Else
+         'Einen zufälligen Ausgangspunkt generieren
+         RandIndex = Rnd() * (High - Low) + Low
+         Swap SortArray(High), SortArray(RandIndex)
+         Partition = UCase(SortArray(High))
+         Do
+            'Von beiden Seiten auf den Ausgangspunkt "zugehen"
+            i = Low: J = High
+            Do While (i < J) And (UCase(SortArray(i)) <= Partition)
+               i = i + 1
+            Loop
+            Do While (J > i) And (UCase(SortArray(J)) >= Partition)
+               J = J - 1
+            Loop
+
+            'Wenn der Ausgangspunkt noch nicht erreicht ist, sind 2 Elemente auf
+            'beiden Seiten funktionsunfähig, deswegen werden sie vertauscht
+            If i < J Then
+               Swap SortArray(i), SortArray(J)
+            End If
+         Loop While i < J
+
+         'Den Ausgangspunkt zu seinem richtigen Platz im Array führen
+         Swap SortArray(i), SortArray(High)
+
+         'Die QuickSort-Routine rekursiv nochmals aufrufen
+         If (i - Low) < (High - i) Then
+            QuickSort SortArray, Low, i - 1
+            QuickSort SortArray, i + 1, High
+         Else
+            QuickSort SortArray, i + 1, High
+            QuickSort SortArray, Low, i - 1
+         End If
+      End If
+   End If
+End Sub
+
+'Vertauscht die Werte der zwei angegebenen Variablen
+Private Sub Swap(First As String, Second As String)
+   Dim varTemp As String
+
+   varTemp = First
+   First = Second
+   Second = varTemp
+End Sub
+
+
+'Sortiert einen Array nach alphabetischer Reihenfolge
+Sub QuickSort(SortArray() As String,  varStart As Long,  varEnd As Long)
+   Dim i As Long, J As Long, RandIndex As Long, Partition As String
+   Dim Low As Long, High As Long
+
+   Low = varStart
+   High = varEnd
+
+   If Low < High Then
+      If High - Low = 1 Then
+         If UCase(SortArray(Low)) > UCase(SortArray(High)) Then
+            Swap SortArray(Low), SortArray(High)
+         End If
+      Else
+         'Einen zufälligen Ausgangspunkt generieren
+         RandIndex = Rnd() * (High - Low) + Low
+         Swap SortArray(High), SortArray(RandIndex)
+         Partition = UCase(SortArray(High))
+         Do
+            'Von beiden Seiten auf den Ausgangspunkt "zugehen"
+            i = Low: J = High
+            Do While (i < J) And (UCase(SortArray(i)) <= Partition)
+               i = i + 1
+            Loop
+            Do While (J > i) And (UCase(SortArray(J)) >= Partition)
+               J = J - 1
+            Loop
+
+            'Wenn der Ausgangspunkt noch nicht erreicht ist, sind 2 Elemente auf
+            'beiden Seiten funktionsunfähig, deswegen werden sie vertauscht
+            If i < J Then
+               Swap SortArray(i), SortArray(J)
+            End If
+         Loop While i < J
+
+         'Den Ausgangspunkt zu seinem richtigen Platz im Array führen
+         Swap SortArray(i), SortArray(High)
+
+         'Die QuickSort-Routine rekursiv nochmals aufrufen
+         If (i - Low) < (High - i) Then
+            QuickSort SortArray, Low, i - 1
+            QuickSort SortArray, i + 1, High
+         Else
+            QuickSort SortArray, i + 1, High
+            QuickSort SortArray, Low, i - 1
+         End If
+      End If
+   End If
+End Sub
+
+'Vertauscht die Werte der zwei angegebenen Variablen
+Private Sub Swap(First As String, Second As String)
+
+   Dim varTemp As String
+
+   varTemp = First
+   First = Second
+   Second = varTemp
+   
+End Sub
+
+function sTypeOfDocument(sDocName) as string
+
+	sTypeOfDocument = "unknown"
+	if Right(sDocName,8) = ".CATPart" then
+	    sTypeOfDocument = "CATPart"
+		exit function
+	end if
+	
+end function
+
+function getModel(sModelName) as object
+
+	for i=1 to CATIA.Documents.Count			
+		if CATIA.Documents.Item(i).FullName = sModelName then
+			set getModel = CATIA.Documents.Item(i)
+			exit function
+		end if
+	next
+	
+	set getModel = CATIA.Documents.Open(sModelName)
+
+end function

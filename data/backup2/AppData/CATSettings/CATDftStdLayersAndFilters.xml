@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<std:node name="CATDftStdLayersAndFilters.xml" type="CATLayersAndFilters" xmlns:std="http://www.dsweb.com/std">
+  <std:typedef name="CATLayer">
+    <std:intval name="Number"  minval="0" maxval="999">0</std:intval>
+    <std:strval name="Name" >NoNameDefined</std:strval>
+    <std:strval name="Comment" >NoComment</std:strval>
+  </std:typedef>
+  <std:typedef name="CATLayersFilter">
+    <std:strval name="Name" >NoNameDefined</std:strval>
+    <std:strval name="Value" >*</std:strval>
+  </std:typedef>
+  <std:node name="Current">
+    <std:node name="Layer">
+      <std:intval>-1</std:intval>
+    </std:node>
+    <std:node name="Filter">
+      <std:strval>All</std:strval>
+    </std:node>
+  </std:node>
+  <std:node name="Layers">
+    <std:typeval name="CATLayer">
+      <std:intval name="Number" >0</std:intval>
+      <std:strval name="Name" >General</std:strval>
+      <std:strval name="Comment" >NoComment</std:strval>
+    </std:typeval>
+    <std:typeval name="CATLayer">
+      <std:intval name="Number" >1</std:intval>
+      <std:strval name="Name" >Basic geometry</std:strval>
+      <std:strval name="Comment" >NoComment</std:strval>
+    </std:typeval>
+    <std:typeval name="CATLayer">
+      <std:intval name="Number" >2</std:intval>
+      <std:strval name="Name" >TitleBlock</std:strval>
+      <std:strval name="Comment" ></std:strval>
+    </std:typeval>
+  </std:node>
+  <std:node name="LayersFilters">
+    <std:typeval name="CATLayersFilter">
+      <std:strval name="Name" >All</std:strval>
+      <std:strval name="Value" >*</std:strval>
+    </std:typeval>
+    <std:typeval name="CATLayersFilter">
+      <std:strval name="Name" >Current</std:strval>
+      <std:strval name="Value" >$</std:strval>
+    </std:typeval>
+  </std:node>
+</std:node>

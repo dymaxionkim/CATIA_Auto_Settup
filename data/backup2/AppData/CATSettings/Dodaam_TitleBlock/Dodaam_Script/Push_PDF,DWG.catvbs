@@ -1,0 +1,42 @@
+
+
+Language="VBSCRIPT"
+Sub CATMain()
+Dim oFSO
+Set oFSO= CreateObject("Scripting.FileSystemObject")
+
+PathToCATFiles = InputBox("Enter path there CATDrawings-files exist" & vbCrLf, "File", "")
+
+strComputer = "."
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+If Not oFSO.FolderExists(PathToCATFiles& "\PDF") Then
+oFSO.CreateFolder(PathToCATFiles& "\PDF")
+End If
+If Not oFSO.FolderExists(PathToCATFiles& "\DWG") Then
+oFSO.CreateFolder(PathToCATFiles& "\DWG")
+End If
+
+Set FileList = objWMIService.ExecQuery("Associators of {Win32_Directory.Name='" & PathToCATFiles & "'} Where " & "ResultClass = CIM_DataFile")
+
+For Each objFile In FileList
+
+If objFile.Extension = "CATDrawing" Then
+
+On Error Resume next
+Set documents = CATIA.Documents
+Set drawingDocument = documents.Open(PathToCATFiles & "\" & objFile.FileName & "." & objFile.Extension)
+Set drawingDocument = CATIA.ActiveDocument
+drawingDocument.ExportData PathToCATFiles & "\PDF\" & objFile.FileName & ".pdf", "pdf"
+drawingDocument.ExportData PathToCATFiles & "\DWG\" & objFile.FileName & ".dwg", "dwg"
+Set specsAndGeomWindow = CATIA.ActiveWindow
+specsAndGeomWindow.Close
+Set drawingDocument = CATIA.ActiveDocument
+drawingDocument.Close
+End If
+Next
+
+Wscript.Echo "DWG and PDF files created in subfolders to " & PathToCATFiles
+
+End Sub
+
+

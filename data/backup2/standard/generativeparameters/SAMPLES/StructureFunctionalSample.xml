@@ -1,0 +1,424 @@
+<?xml version="1.0" ?>
+<std:node name="ViewSetup" type="Viewsetup" xmlns:std="http://www.dsweb.com/std">
+  <std:enumdef name="YesNo">
+    <std:strval>No</std:strval>
+    <std:strval>Yes</std:strval>
+  </std:enumdef>
+  <std:enumdef name="OpeningCenterlines">
+    <std:strval>No centerlines</std:strval>
+    <std:strval>Long centerlines</std:strval>
+    <std:strval>Short centerlines</std:strval>
+  </std:enumdef>
+  <std:enumdef name="OblongOpeningCenterlines">
+    <std:strval>Single centerlines</std:strval>
+    <std:strval>Double centerlines</std:strval>
+  </std:enumdef>
+  <std:enumdef name="MaterialExtrusion">
+    <std:strval>None</std:strval>
+    <std:strval>Tick mark (true width)</std:strval>
+    <std:strval>Throw orientation (symbolic)</std:strval>
+    <std:strval>Tick mark and throw orientation</std:strval>
+  </std:enumdef>
+  <std:node name="Structure">
+    <std:node name="FunctionalDesign">
+  
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- DASSAULT SYSTEMES (c)2002                                                                            -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- This file is a sample to use with the Structure Functional Design workbench and the Generative View  -->
+<!-- Style of Drafting workbench.                                                                         -->
+<!--                                                                                                      -->
+<!-- Please, refer to the documentation before doing any change.                                          -->
+<!-- This file should be modified by your administrator only                                              -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+
+      <std:node name="FunStiffener">
+          <!-- FUNCTIONAL STIFFENER -->
+          <std:node name="Extraction">
+          <!-- Should it draw the functional stiffener ? -->
+          <!-- Values are No ____ the stiffener will not be extracted -->
+          <!--            Yes ___ the stiffener will be extracted (with or without GR - see "GraphicReplacement" setting) (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement" minval="0" maxval="1">
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ no graphic replacement will be used (** default **) -->
+          <!--            Yes ___ graphic replacement will be used -->
+          <std:enumval name="YesNo">No</std:enumval> 
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <!-- Angular tolerance for section generation in degrees -->
+          <!-- Default value is 15.0  -->
+          <std:floatval>15.0</std:floatval>
+        </std:node>
+        <std:node name="ShowNearSide">
+          <!-- Should it draw near side stiffeners ? -->
+          <!-- Values are No ____ near side stiffener will not be drawn -->
+          <!--            Yes ___ near side stiffener will be drawn (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+        <std:node name="NearSideLinetype" minval="1" maxval="63">
+          <!-- The line type index to use for near side stiffener representation -->
+          <!-- Default value is 1 (solid line type) -->
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="ShowFarSide">
+          <!-- Should it draw far side stiffeners ? -->
+          <!-- Values are No ____ far side stiffener will not be drawn (** default **) -->
+          <!--            Yes ___ far side stiffener will be drawn -->
+          <std:enumval name="YesNo">No</std:enumval> 
+        </std:node>
+        <std:node name="FarSideLinetype" minval="1" maxval="63">
+          <!-- The line type index to use for far side stiffener representation -->
+          <!-- Default value is 4 (phantom line type) -->
+          <std:intval>4</std:intval>
+        </std:node>         
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <!-- Should it draw arrowheads at ends of stiffener ? -->
+            <!-- Values are No ____ no symbols representing the stiffener ends will be drawn (** default **) -->
+            <!--            Yes ___ symbols representing stiffener end will be used (see "EndSymbolDetailName" setting) -->
+            <std:enumval name="YesNo">No</std:enumval> 
+          </std:node>
+          <std:node name="ChapterName">
+            <!-- The name of the chapter containing end symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "Ends" -->
+            <std:strval>Ends</std:strval> 
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <!-- The name of the detail within the catalog to instanciate for ends of stiffener -->
+            <!-- Default value is "BlackFilledArrow_3x1.5" -->
+            <std:strval>BlackFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <!-- Values are 'None' ____________________________ no Material Throw Orientation, nor tick mark (** default **)  -->
+            <!--            'Tick mark (true width)' __________ draw only the Tick Mark (see the TM_OffsetFromEndOfMember, and TM_Length settings) -->
+            <!--            'Throw orientation (symbolic)' ____ draw only the Material Throw Orientation (see the MTO_DetailName setting) -->
+            <!--            'Tick mark and throw orientation'__ draw both the Material Throw Orientation and the Tick Mark -->
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTO_Detail">
+            <!-- Important: following settings are only used when the MaterialThrowOrientation setting is set to 1 or 3 -->
+            <std:node name="SymbolsChapterName">
+              <!-- The name of the chapter containing MTO symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+              <!-- Default value is "MaterialOrientations" -->
+              <std:strval>MaterialOrientations</std:strval>
+            </std:node>
+            <std:node name="DefaultDetailName">
+              <!-- The name of the detail within the catalog to instanciate by default for Material Throw Orientation -->
+              <!-- Default value is "BlackFilledRectangle_5x1" -->  
+              <std:strval>BlackFilledRectangle_5x1</std:strval>
+            </std:node>
+            <std:node name="DrawDetailsByProfileType">
+              <!-- Should the Material Throw Orientation symbol be dependant of the profile type ? -->
+              <!-- Values are Yes____ symbols will be chosen in following settings according to profile type (** default **) -->
+              <!--            No  ___ default symbol will always be used -->
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="DetailsByProfileType">
+              <std:node name="Beam">
+                <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Angle">
+                <std:strval>WhiteFilledAngle_5x2</std:strval>
+              </std:node>
+              <std:node name="Channel">
+                <std:strval>WhiteFilledChannel_5x2</std:strval>
+              </std:node>
+              <std:node name="Tee">
+                <std:strval>WhiteFilledTee_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Pipe">
+                <std:strval>WhiteFilledPipe_2x2</std:strval>
+              </std:node>
+              <std:node name="RectangularHollow">
+                <std:strval>WhiteFilledHollow_2x2</std:strval>
+              </std:node>
+              <std:node name="Bulb">
+                <std:strval>WhiteFilledBulb_5x2</std:strval>
+              </std:node>
+              <std:node name="RoundBar">
+                <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+              </std:node>
+              <std:node name="Z">
+                <std:strval>WhiteFilledZ_5x2.9</std:strval>
+              </std:node>
+            </std:node>
+          </std:node> 
+          <std:node name="TickMark">
+            <!-- Important: following settings are only used when the MaterialThrowOrientation setting is set to 2 or 3 -->
+            <std:node name="OffsetFromEndOfMember">
+              <std:floatval>-7</std:floatval>
+            </std:node>
+            <std:node name="Length">
+              <std:floatval>5</std:floatval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <!-- ********************************************************************************************* -->
+      <std:node name="FunPlate">
+        <!-- FUNCTIONAL PLATE -->
+        <std:node name="Extraction">
+          <!-- Should it draw the functional plate ? -->
+          <!-- Values are No ____ the plate will not be drawn  -->
+          <!--            Yes ___ the plate will be extracted (with or without GR - see "GraphicReplacement" setting) (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement">
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ no Graphic Replacements will be used (ie. will project the 3D only) (** default **)
+                          Yes ___ Graphic Replacements will be used -->
+          <std:enumval name="YesNo">No</std:enumval> 
+        </std:node>
+        <std:node name="Linetype" minval="1" maxval="63">
+          <!-- The linetype index to use for functional plate representation -->
+          <!-- Default value is 1 (solid linetype) -->
+          <std:intval>1</std:intval>
+        </std:node>         
+        <std:node name="LineThickness" minval="1">
+          <!-- The thickness of the GR representation -->
+          <!-- Default value is 2 -->
+          <std:intval>2</std:intval>
+        </std:node>         
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <!-- Values are 'None' ____________________________ no Material Throw Orientation, nor tick mark (** default **)  -->
+            <!--            'Tick mark (true width)' __________ draw only the Tick Mark (see the TM_OffsetFromEndOfMember, and TM_Length settings) -->
+            <!--            'Throw orientation (symbolic)' ____ draw only the Material Throw Orientation (see the MTO_DetailName setting) -->
+            <!--            'Tick mark and throw orientation'__ draw both the Material Throw Orientation and the Tick Mark -->
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <!-- The name of the chapter containing MTO symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+            <!-- Default value is "MaterialOrientations" -->
+            <std:strval>MaterialOrientations</std:strval> 
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <!-- The name of the detail within the catalog to instanciate for Material Throw Orientation -->
+            <!-- Default value is "BlackFilledRectangle_5x1" -->
+            <!-- Important: this setting is used only when the MaterialThrowOrientation setting is set to 1 or 3 -->
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <!-- The Tick Mark length -->
+            <!-- Default value is 5.0 millimeters -->
+            <std:floatval>5.0</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <!-- ********************************************************************************************* -->
+      <std:node name="FunOpening">
+        <!-- FUNCTIONAL OPENING -->
+        <std:node name="GraphicReplacement">
+          <!-- Should it use the graphic replacement ? -->
+          <!-- Values are No ____ use no graphic replacement (** default **) -->
+          <!--            Yes ___ use the graphic replacement for opening extraction -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+        <std:node name="CenterlinesType">
+          <!-- Style of the opening centerlines representations -->
+          <!-- Values are 'No centerlines' _____ no centerlines -->
+          <!--            'Long centerlines' ________ centerlines (** default **) -->
+          <!--            'Short centerlines' __ plus symbol representing the center of the arc circle -->
+          <std:enumval name="OpeningCenterlines">Long centerlines</std:enumval>
+        </std:node>
+        <std:node name="OblongOpeningCenterlinesType">
+          <!-- How are represented the specific oblong centerlines ? -->
+          <!-- Values are 'Single centerlines' _____ centerlines like a round opening -->
+          <!--            'Double centerlines' _____ centerlines of each half-circle (** default **) -->
+          <std:enumval name="OblongOpeningCenterlines">Double centerlines</std:enumval>
+        </std:node>
+        <std:node name="ButterflyThickness">
+          <!-- The thickness of the butterfly symbol representing the opening profile -->
+          <!-- Default value is 4.0 millimeters -->
+          <std:floatval>4.0</std:floatval>
+        </std:node>
+      </std:node>
+      <!-- ********************************************************************************************* -->
+      <std:node name="FunPillar">
+        <!-- FUNCTIONAL PILLAR -->
+        <std:node name="Extraction">
+          <!-- Should it draw the functional pillar ? -->
+          <!-- Values are No ____ the pillar will not be extracted -->
+          <!--            Yes ___ the pillar will be extracted (** default **) -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+	    </std:node>
+        <std:node name="GraphicReplacement">
+          <!-- Should it draw the support curve ? -->
+          <!-- Values are No ____ the support curve will not be drawn (** default **) -->
+          <!--            Yes ___ the support curve will be drawn -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+      </std:node>
+    </std:node>
+    <!-- ********************************************************************************************* -->
+    <std:node name="CommonStructureSymbols">
+      <std:node name="ReferencePlaneSystem">
+        <!-- REFERENCE PLANE SYSTEM -->
+        <std:node name="ShowReferencePlaneSystem">
+          <!-- Should it draw the reference plane system ? -->
+          <!-- Values are No ___ no reference plane system will be drawn (** default **) -->
+          <!--            Yes __ reference plane systems will be drawn depending on the next settings -->
+          <std:enumval name="YesNo">Yes</std:enumval> 
+        </std:node>
+		<std:node name="RestrictedToTheBoundingBox">
+          <!-- Should the reference plane systems be restricted to the generated object(s) bounding box -->
+          <!-- Values are No ___ the entire reference plane systems line will be drawn (except in case of clipping) (** default **) -->
+          <!--            Yes __ the reference plane systems will be restricted -->
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GridsetPosition" minval="0" maxval="1">
+          <!-- Positionnement of the reference plane systems according to the generated view -->
+          <!-- Values are 0 ____ the reference plane systems are generated where the set of planes is located (** default **) -->
+          <!--            1 ____ the reference plane systems are generated on left and bottom sides of the generated view -->
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="HorizontalOffset">
+          <!-- The horizontal offset to add between the generated view and the vertical reference plane system in millimeters -->
+          <!-- Default value is 20.0 millimeters -->
+          <std:floatval>20</std:floatval>
+        </std:node>
+        <std:node name="VerticalOffset">
+          <!-- The vertical offset to add between the generated view and the horizontal reference plane system in millimeters -->
+          <!-- Default value is 20.0 millimeters -->
+          <std:floatval>20</std:floatval>
+        </std:node>
+        <std:node name="GridSetLineType" minval="1" maxval="63">
+          <!-- The linetype index to use for Grid Set representation -->
+          <!-- Default value is 1 (solid linetype) -->
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="TickSize">
+          <!-- The size of the ticks in millimeters -->
+          <!-- Default value is 2.0 millimeters -->
+          <std:floatval>2</std:floatval>
+        </std:node>
+        <std:node name="AnnotationStyle" minval="0" maxval="3">
+          <!-- Style of the annotation of the frames -->
+          <!-- Values are 0 ____ no annotation  -->
+          <!--            1 ____ frames names (** default **) -->
+          <!--            2 ____ offset from the origin with the units -->
+          <!--            3 ____ offset from the origin without the units -->
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="AnnotationSize">
+          <!-- Size of the annotations -->
+          <!-- Default value is 2.0 millimeters -->
+          <!-- Model unit must be millimeter for length params (else, set the size to 0.2 if your param is centimeter) -->
+          <std:floatval>2.0</std:floatval>
+        </std:node>
+        <std:node name="AnnotationStep" minval="1">
+          <!-- Step between 2 annotations -->
+          <!-- Default value is 1 (means you have an annotation on each stick) -->
+          <std:intval>5</std:intval>
+        </std:node>
+        <std:node name="AnnotationStart">
+          <!-- The first annotation position-->
+          <!-- Default value is 1 -->
+          <std:intval>1</std:intval>
+        </std:node>
+      </std:node>
+      <!-- *********************************************************************************************** -->
+      <std:node name="Connection">
+       <!-- CONNECTIONS -->
+        <std:node name="Extraction">
+          <!-- Should it draw connection symbols ? -->
+          <!-- Values are No ___ no connection will will be drawn (** default **) -->
+          <!--            Yes __ connections will be drawn depending on the next settings -->
+          <std:enumval name="YesNo">No</std:enumval> 
+        </std:node>
+        <std:node name="WeldSeam">
+          <std:node name="AngularTolerance">
+            <!-- Angular tolerance for Weld seam / Weld seam with knuckle decision. Value is in degrees -->
+            <!-- Default value is 1.0 -->
+            <std:floatval>1.0</std:floatval>
+          </std:node>
+          <std:node name="UseSymbol">
+            <!-- Should the weld seam be represented by a symbol ? -->
+            <!-- Values are No _____ connections will be represented by a long/short weld seam/weld seam with knuckle (** default **) -->
+            <!--            Yes_____ connections will be represented by a symbol -->
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="S_Representation">
+            <std:node name="LongWeldSeam">
+              <std:node name="Offset">
+                <!-- The offset from the edge of the plate representation for the Weld Seam representation -->
+                <!-- Default value is 3.0 millimeters -->
+                <std:floatval>3.0</std:floatval>
+              </std:node>
+              <std:node name="Thickness">
+                <!-- The thickness of the Weld Seam representation -->
+                <!-- Default value is 3.0 millimeters -->
+                <std:floatval>3.0</std:floatval>
+              </std:node>
+            </std:node>
+            <std:node name="ShortWeldSeam">          
+              <std:node name="Gap">
+                <!-- The gap between the weld curve and the short weld seam line -->
+                <!-- Default value is 1 millimeter -->
+                <std:floatval>1</std:floatval>
+              </std:node>
+              <std:node name="Length">
+                <!-- The length of the short weld seam in millimeters -->
+                <!-- Default value is 5 millimeters -->
+                <std:floatval>5</std:floatval>
+              </std:node>
+            </std:node>
+          </std:node>
+          <std:node name="SymbolicRepresentation">
+            <std:node name="WeldSeam">
+              <std:node name="ChapterName">
+                <!-- The name of the chapter containing connection symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+                <!-- Default value is "Connections" -->
+                <std:strval>Connections</std:strval> 
+              </std:node>
+              <std:node name="DetailName">
+                <!-- The name of the detail within the catalog to instanciate for Weld seam -->
+                <!-- Default value is "S_5x1" -->
+                <!-- Important: this setting is used only when the UseSymbol setting is set to Yes -->
+                <std:strval>S_5x1</std:strval>
+              </std:node>
+            </std:node>
+            <std:node name="WeldSeamWithKnuckle">
+              <std:node name="ChapterName">
+                <!-- The name of the chapter containing connection symbols within the Drawing Symbol Structure Catalog (refer to PRM file) -->
+                <!-- Default value is "Connections" -->
+                <std:strval>Connections</std:strval> 
+              </std:node>
+              <std:node name="DetailName">
+                <!-- The name of the detail within the catalog to instanciate for Weld seam with knuckle -->
+                <!-- Default value is "SwKnuckle_5x1" -->
+                <!-- Important: this setting is used only when the UseSymbol setting is set to Yes -->
+                <std:strval>SwKnuckle_5x1</std:strval>
+              </std:node>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="TightHiddenPlate">
+          <std:node name="StraightLineType" minval="1" maxval="63">
+            <!-- The line type index to use for far side plate representation (fonted bulkhead) -->
+            <!-- Default value is 1 (solid line type) -->      
+            <!-- This line type should be a customized line type -->
+            <std:intval>1</std:intval>
+          </std:node>    
+          <std:node name="CurvedLineType" minval="1" maxval="63">
+            <!-- The line type index to use for far side curved plate representation (fonted bulkhead) -->
+            <!-- Default value is 1 (solid line type) -->      
+            <!-- This line type should be a customized line type -->
+            <std:intval>1</std:intval>
+          </std:node>
+          <std:node name="CurvedLineThickness" minval="1">
+            <!-- The thickness to use for far side curved plate representation (fonted bulkhead) -->
+            <!-- Default value is 2 -->      
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+</std:node>
+
+

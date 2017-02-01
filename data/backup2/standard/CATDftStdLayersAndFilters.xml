@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<!DOCTYPE std [
+  <!ENTITY TypeDefinitionFile SYSTEM "CATDftStdTypeLayerAndFilter.xml">
+]>
+<std:node name="CATLayersAndFilters" xmlns:std="http://www.dsweb.com/std">
+&TypeDefinitionFile;
+
+  <std:node name="Current">
+    <std:node name="Layer">
+      <std:intval>-1</std:intval>
+    </std:node>
+    <std:node name="Filter">
+      <std:strval>All</std:strval>
+    </std:node>
+  </std:node>
+
+  <std:node name="Layers">
+    <std:typeval name="CATLayer">
+      <std:intval name="Number">-1</std:intval>
+      <std:strval name="Name">None</std:strval>
+    </std:typeval>
+    <std:typeval name="CATLayer">
+      <std:intval name="Number">0</std:intval>
+      <std:strval name="Name">General</std:strval>
+    </std:typeval>
+    <std:typeval name="CATLayer">
+      <std:intval name="Number">1</std:intval>
+      <std:strval name="Name">Basic geometry</std:strval>
+    </std:typeval>
+  </std:node>
+
+  <std:node name="LayersFilters">
+    <std:typeval name="CATLayersFilter">
+      <std:strval name="Name">All</std:strval>
+      <std:strval name="Value">*</std:strval> 
+    </std:typeval>
+    <std:typeval name="CATLayersFilter">
+      <std:strval name="Name">Current</std:strval>
+      <std:strval name="Value">$</std:strval> 
+    </std:typeval>
+  </std:node>
+</std:node>

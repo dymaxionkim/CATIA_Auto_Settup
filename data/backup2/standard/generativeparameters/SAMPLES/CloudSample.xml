@@ -1,0 +1,533 @@
+<?xml version="1.0"?>
+<std:node name="Generativeparameters" type="Generativeparameters" xmlns:std="http://www.dsweb.com/std">
+  <!-- Enums definition...DO NOT TOUCH-->
+  <std:enumdef name="FilletRep">
+    <std:strval>None</std:strval>
+
+    <std:strval>Boundaries</std:strval>
+
+    <std:strval>Symbolic</std:strval>
+
+    <std:strval>OriginalEdges</std:strval>
+
+    <std:strval>ProjectedOriginalEdges</std:strval>
+  </std:enumdef>
+
+  <std:enumdef name="YesNo">
+    <std:strval>No</std:strval>
+
+    <std:strval>Yes</std:strval>
+  </std:enumdef>
+
+  <std:typedef name="DraftingOptions">
+    <std:intval name="HiddenLines">0</std:intval>
+
+    <std:intval name="CutInSection">1</std:intval>
+
+    <std:intval name="UseWhenProjected">1</std:intval>
+  </std:typedef>
+
+  <std:enumdef name="OpeningCenterlines">
+    <std:strval>No centerlines</std:strval>
+
+    <std:strval>Long centerlines</std:strval>
+
+    <std:strval>Short centerlines</std:strval>
+  </std:enumdef>
+
+  <!-- End of Enum definition-->
+
+  <std:node name="Drafting">
+    <!--   Drafting application parameters-->
+    <std:node name="Generate">
+      <std:node name="AxisLines">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+
+      <std:node name="CenterLines">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+
+      <std:node name="Fillets">
+        <std:enumval name="FilletRep">Boundaries</std:enumval>
+      </std:node>
+
+      <std:node name="HiddenLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+
+      <std:node name="Threads">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+
+      <std:node name="3DPoints">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+
+      <std:node name="Wireframe">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+
+      <std:node name="Using3Dspec">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+    </std:node>
+
+    <std:node name="ViewDressup">
+      <std:node name="Operators">
+        <std:node name="Section">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>4</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+
+          <std:node name="SkinSection">
+            <std:node name="Color">
+              <std:colorval>0 0 0</std:colorval>
+            </std:node>
+
+            <std:node name="Linetype">
+              <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+
+          <std:node name="SolidSection">
+            <std:node name="Color">
+              <std:colorval>0 0 0</std:colorval>
+            </std:node>
+
+            <std:node name="Linetype">
+              <std:intval>1</std:intval>
+            </std:node>
+
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+
+        <std:node name="Detail">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>4</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Break">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype" minval="1" maxval="8">
+            <std:intval>4</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Breakout">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>8</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+
+      <!-- fin du noeud Operators -->
+      <std:node name="3DInheritance">
+        <std:node name="Wireframe">
+          <std:node name="Color">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Solid">
+          <std:node name="Color">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+        </std:node>
+
+        <std:node name="3DPoints">
+          <std:node name="Color">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Symbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+
+          <std:node name="Name">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+      </std:node>
+
+      <std:node name="GeneratedGeometry">
+        <std:node name="VividEdges">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>1</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+
+        <std:node name="HiddenEdges">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>3</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Fillets">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>1</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Wireframe">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+
+          <std:node name="Linetype">
+            <std:intval>1</std:intval>
+          </std:node>
+
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+
+        <std:node name="3DPoints">
+          <std:node name="Symbol">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+
+    <!--      End of Drafting parameters-->
+  </std:node>
+
+  <!-- ******************************************************************** -->
+  <!-- *         START APPLICATION - CLOUD                                  -->
+  <!-- ******************************************************************** -->
+  <std:node name="Cloud">
+
+    <std:node name="General">
+      <std:node name="MaxNbOfPoints">
+        <std:intval>-1</std:intval>
+      </std:node>
+      
+      <std:node name="Point">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+
+        <std:node name="MaxNbOfPoints">
+          <std:intval>1000</std:intval>
+        </std:node>
+      </std:node>
+      
+      <std:node name="Scan">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+
+        <std:node name="MaxNbOfSegments">
+          <std:intval>-1</std:intval>
+        </std:node>
+      </std:node>
+
+      <std:node name="Grid">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+
+        <std:node name="MaxNbOfPoints">
+          <std:intval>-1</std:intval>
+        </std:node>
+      </std:node>
+      
+      <std:node name="Mesh">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+
+        <std:node name="MaxNbOfTriangles">
+          <std:intval>-1</std:intval>
+        </std:node>
+
+        <!--Sharpness angle-->
+        <std:node name="SharpnessAngle">
+          <std:floatval>5.0</std:floatval>
+        </std:node>
+
+      </std:node>
+    </std:node>
+        
+    <!-- ********* OBJECT = ZLevelMap (begin) **************************** -->
+    <std:node name="ZLevelMap">
+      
+      <!-- ********* To hide Z level curves above and below construction-->
+      <std:node name="HideZLevelInsideConstruction">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+
+      <!-- ********* To show peaks --> 
+      <std:node name="ShowPeaks">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      
+      <!-- ********* Major Z Level Curve (begin) -->
+      <std:node name="MajorZLevelCurve">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+            
+        <std:node name="Color">
+          <std:colorval>255 0 0</std:colorval>
+        </std:node>
+            
+        <std:node name="Linetype">
+          <std:intval>1</std:intval>
+        </std:node>
+
+        <std:node name="Thickness">
+          <std:intval>2</std:intval>
+        </std:node>
+      </std:node>
+      <!-- ********* Major Z Level Curve (end) -->
+
+      <!-- ********* Minor Z Level Curve (begin) -->
+      <std:node name="MinorZLevelCurve">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+
+        <std:node name="Color">
+          <std:colorval>0 128 255</std:colorval>
+        </std:node>
+
+        <std:node name="Linetype">
+          <std:intval>1</std:intval>
+        </std:node>
+
+        <std:node name="Thickness">
+          <std:intval>1</std:intval>
+        </std:node>
+      </std:node>
+      <!-- ********* Minor Z Level Curve (end) -->
+
+      <!-- ********* Major Z Level Label (begin) -->
+      <std:node name="MajorZLevelLabel">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+
+        <!--Font -->
+        <std:node name="Font">
+          <!--Font Name-->
+          <std:node name="Name">
+            <std:strval>Arial</std:strval>
+          </std:node>
+
+          <!--Font Size-->
+          <std:node name="SizeScale">
+            <std:floatval>2.0</std:floatval>
+          </std:node>
+
+          <!--Does the text hide the Z level scans -->
+          <std:node name="HideScans">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node> 
+
+          <!--Font Color-->
+          <std:node name="Color">
+            <std:colorval>255 0 0</std:colorval>
+          </std:node>
+
+          <!--Font Bold-->
+          <std:node name="Bold">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+
+          <!--Font Italic-->
+          <std:node name="Italic">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Frame">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+
+      </std:node>
+      <!-- ********* Major Z Level Label (end) -->
+
+      <!-- ********* Minor Z Level Label (begin) -->
+      <std:node name="MinorZLevelLabel">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+
+        <!--Font -->
+        <std:node name="Font">
+          <!--Font Name-->
+          <std:node name="Name">
+            <std:strval>Arial</std:strval>
+          </std:node>
+
+          <!--Font Size-->
+          <std:node name="SizeScale">
+            <std:floatval>1.0</std:floatval>
+          </std:node>
+
+          <!--Does the text hide the Z level scans -->
+          <std:node name="HideScans">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          
+          <!--Font Color-->
+          <std:node name="Color">
+            <std:colorval>0 128 255</std:colorval>
+          </std:node>
+
+          <!--Font Bold-->
+          <std:node name="Bold">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+
+          <!--Font Italic-->
+          <std:node name="Italic">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+
+        <std:node name="Frame">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+
+      </std:node>
+      <!-- ********* Minor Z Level Label (end) -->
+      
+    </std:node>
+    <!-- ********* OBJECT = ZLevelMap (end) **************************** -->
+
+    <!-- ********* OBJECT = GeologicalModel (begin) **************************** --> 
+    <std:node name="GeologicalModel">
+      <std:node name="Name">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      
+      <std:node name="Graduation">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+
+        <std:node name="OriginType">
+          <std:intval>0</std:intval>
+        </std:node>
+
+        <std:node name="XAxisStep">
+          <std:floatval>200.0</std:floatval>
+        </std:node>
+
+        <std:node name="ZAxisStep">
+          <std:floatval>100.0</std:floatval>
+        </std:node>        
+      </std:node>
+    </std:node>
+    <!-- ********* OBJECT = GeologicalModel (end) **************************** -->
+
+  </std:node>
+  <!-- ******************************************************************** -->
+  <!-- *         END   APPLICATION - CLOUD                                  -->
+  <!-- ******************************************************************** -->
+
+</std:node>
+<!-- ********************************************************************** -->
+<!-- * END   GVS CUSTOMIZATION                                              -->
+<!-- ********************************************************************** -->

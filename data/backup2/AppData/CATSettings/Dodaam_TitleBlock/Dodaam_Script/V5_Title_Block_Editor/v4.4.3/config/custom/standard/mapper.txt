@@ -1,0 +1,4 @@
+' Text names to be changed
+' old text name is changed to new text name
+'
+TitleBlock_Text_Part_Name(English) = TitleBlock_Text_Part_Name_English

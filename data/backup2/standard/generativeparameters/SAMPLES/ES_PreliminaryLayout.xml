@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<std:node name="Generativeparameters" type="Generativeparameters" xmlns:std="http://www.dsweb.com/std">
+
+  <!-- ******************************************************************** -->
+  <!-- This xml file is an example of using the available capabilities of   -->
+  <!-- Equipment & Systems Preliminary layout                               -->
+  <!--                                                                      -->
+  <!--   Note: After editting, check for syntax errors by browsing in       -->
+  <!--         Internet Explorer.                                           -->
+  <!-- ******************************************************************** -->
+  <!--                                                                      -->
+  <!-- ******************************************************************** -->
+  <!-- REQUIRED DRAFTING PARAMETERS FOR DRAWING PRODUCTION                  -->
+  <!--   (copied from DefaultGenerativeStyle.xml)                           -->
+  <!--                                                                      -->
+  <!-- REQUIRED CHANGES TO DRAFTING DEFAULTS ARE:                           -->
+  <!--        AxisLines     set to "No"                                     -->
+  <!--        CenterLines   set to "No"                                     -->
+  <!--        3DPoints      set to "Yes"                                    -->
+  <!--        Wireframe     set to "Yes"                                    -->
+  <!-- ******************************************************************** -->
+<!-- Enums definition...DO NOT TOUCH-->
+   <std:enumdef name="FilletRep">
+      <std:strval>None</std:strval>
+
+      <std:strval>Boundaries</std:strval>
+
+      <std:strval>Symbolic</std:strval>
+
+      <std:strval>OriginalEdges</std:strval>
+
+      <std:strval>ProjectedOriginalEdges</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="YesNo">
+      <std:strval>No</std:strval>
+
+      <std:strval>Yes</std:strval>
+   </std:enumdef>
+<!-- End of Enum definition-->
+
+   <std:node name="Drafting">
+<!--   Drafting application parameters-->
+      <std:node name="Generate">
+         <std:node name="AxisLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Fillets">
+            <std:enumval name="FilletRep">Boundaries</std:enumval>
+         </std:node>
+
+         <std:node name="HiddenLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Threads">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="3DPoints">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Wireframe">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Using3DColors">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Using3Dspec">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+      </std:node>
+
+<!--      End of Drafting parameters-->
+   </std:node>
+
+  <!-- ******************************************************************** -->
+  <!-- *  START  EQUIPMENT & SYSTEMS   ENUM DEFINITIONS                     -->
+  <!-- *  (These DEFINITIONS must precede their use - DO NOT EDIT)          -->
+  <!-- ******************************************************************** -->
+  <std:enumdef name="ES_DisplayModes">
+     <std:strval>NoDisplay</std:strval>
+
+     <std:strval>Single</std:strval>
+
+     <std:strval>Double</std:strval>
+
+     <std:strval>SameAs3D</std:strval>
+
+     <!-- NOTE: "SingleDouble" APPLIES ONLY TO "Run" OBJECTS -->
+     <std:strval>SingleDouble</std:strval>
+  </std:enumdef>
+  <!-- ******************************************************************** -->
+  <!-- *  END    EQUIPMENT & SYSTEMS   ENUM DEFINITIONS                     -->
+  <!-- ******************************************************************** -->
+
+  <!-- ******************************************************************** -->
+  <!-- *         START APPLICATION - E&S  PRELIMINARY  LAYOUT               -->
+  <!-- ******************************************************************** -->
+  <std:node name="ES_PreliminaryLayout">
+
+     <!-- ********* OBJECT = RUN ****************************************** -->
+     <std:node name="Run">
+
+        <!-- ********* DisplayMode -->
+        <std:node name="DisplayMode">
+           <std:enumval name="ES_DisplayModes">SameAs3D</std:enumval>
+        </std:node>
+
+        <!-- ********* Single Line Gap Distance (mm) -->
+		    <std:node name="GapDistance">
+           <std:floatval>101.6</std:floatval>
+        </std:node>
+
+     </std:node>
+
+     <!-- ********* OBJECT = LOFT ***************************************** -->
+     <std:node name="Loft">
+
+        <!-- ********* DisplayMode -->
+        <std:node name="DisplayMode">
+          <std:enumval name="ES_DisplayModes">SameAs3D</std:enumval>
+        </std:node>
+
+     </std:node>
+  </std:node>
+  <!-- ******************************************************************** -->
+  <!-- *         END   APPLICATION - E&S  PRELIMINARY  LAYOUT               -->
+  <!-- ******************************************************************** -->
+</std:node>
+<!-- ********************************************************************** -->
+<!-- * END   GVS CUSTOMIZATION                                              -->
+<!-- ********************************************************************** -->

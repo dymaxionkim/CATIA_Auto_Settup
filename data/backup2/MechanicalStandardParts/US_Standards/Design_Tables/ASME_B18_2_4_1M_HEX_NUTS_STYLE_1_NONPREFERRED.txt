@@ -1,0 +1,2 @@
+PartNumber	PartName	Designation	d_dia(mm)	p_pitch(mm)	d1_minor_dia(mm)	threading(mm)	S_across_flat_max(mm)	S_across_flat_min(mm)	E_across_corners_max(mm)	E_across_corners_min(mm)	M_thick_max(mm)	M_thick_min(mm)	Dw_face_min(mm)	Material	Reference	Edition
+ASME B18.2.4.1M NUT M10 STEEL HEXAGON STYLE 1 NONPREFERRED	ASME_B18_2_4_1M_M10_STEEL_NON_PREFERRED_HEXAGON_STYLE_1_NUT	M10	10.0	1.5	8.376	9.1	15.0	14.73	17.32	16.64	9.1	8.7	13.6	St	ASME B18.2.4.1M	2002

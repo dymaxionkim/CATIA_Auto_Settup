@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- edited with XML Spy v4.2 U (http://www.xmlspy.com) by Delmia (Delmia) -->
+<std:node name="ViewSetup" type="Viewsetup" xmlns:std="http://www.dsweb.com/std">
+	<std:enumdef name="YesNo">
+		<std:strval>No</std:strval>
+		<std:strval>Yes</std:strval>
+	</std:enumdef>
+	<std:enumdef name="Formats">
+		<std:strval name="Formats" >A0 ISO</std:strval>
+		<std:strval name="Formats" >A ANSI</std:strval>
+	</std:enumdef>
+	<std:enumdef name ="Positions">
+		<std:strval name="Positions">CATTopRight</std:strval>
+		<std:strval name="Positions">CATTopLeft</std:strval>
+		<std:strval name="Positions">CATBottomRight</std:strval>
+		<std:strval name="Positions">CATBottomLeft</std:strval>
+		<std:strval name="Positions">CAT4Center</std:strval>
+	</std:enumdef>
+	<!-- End of Enum definition-->
+	<std:node name ="ShellExpDrawingTemplate">
+			<std:node name ="ExistingDrawing">
+				<std:enumval name="YesNo">No</std:enumval>
+			</std:node>
+			<std:node name = "DrawingPath">
+				<std:strval>C:\temp</std:strval>
+			</std:node>	
+			<std:node name ="DrawingName">
+				<std:strval>Sample.CATDrawing</std:strval>
+			</std:node>
+			<std:node name ="SheetFormat">
+				<std:enumval name="Formats">A0 ISO</std:enumval>
+			</std:node>
+			<std:node name ="ViewName">
+				<std:strval>ShellExpansion View</std:strval>
+			</std:node>
+			<std:node name ="Scale">
+				<std:floatval>0.01</std:floatval>
+			</std:node>
+			<std:node name ="ViewPosition">
+				<std:enumval name="Positions">CAT4Center</std:enumval>
+			</std:node>
+	</std:node>
+</std:node>

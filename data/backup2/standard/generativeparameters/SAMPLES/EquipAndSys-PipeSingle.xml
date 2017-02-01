@@ -1,0 +1,239 @@
+<?xml version="1.0" ?>
+<std:node name="Generativeparameters" type="Generativeparameters" xmlns:std="http://www.dsweb.com/std">
+
+  <!-- ******************************************************************** -->
+  <!-- This xml file is an example of using most the available capabilities -->
+  <!-- of DOUBLE LINE output. (Min/Max NominalSize are not turned on)       -->
+  <!--                                                                      -->
+  <!--   Note: After editting, check for syntax errors by browsing in       -->
+  <!--         Internet Explorer.                                           -->
+  <!-- ******************************************************************** -->
+  <!--                                                                      -->
+  <!-- ******************************************************************** -->
+  <!-- REQUIRED DRAFTING PARAMETERS FOR DRAWING PRODUCTION                  -->
+  <!--   (copied from DefaultGenerativeStyle.xml)                           -->
+  <!--                                                                      -->
+  <!-- REQUIRED CHANGES TO DRAFTING DEFAULTS ARE:                           -->
+  <!--        AxisLines   set to "No"                                       -->
+  <!--        CenterLines set to "No"                                       -->
+  <!--        3DPoints    set to "Yes"                                      -->
+  <!--        Wireframe   set to "Yes"                                      -->
+  <!-- ******************************************************************** -->
+<!-- Enums definition...DO NOT TOUCH-->
+   <std:enumdef name="FilletRep">
+      <std:strval>None</std:strval>
+
+      <std:strval>Boundaries</std:strval>
+
+      <std:strval>Symbolic</std:strval>
+
+      <std:strval>OriginalEdges</std:strval>
+
+      <std:strval>ProjectedOriginalEdges</std:strval>
+   </std:enumdef>
+
+   <std:enumdef name="YesNo">
+      <std:strval>No</std:strval>
+
+      <std:strval>Yes</std:strval>
+   </std:enumdef>
+<!-- End of Enum definition-->
+
+   <std:node name="Drafting">
+<!--   Drafting application parameters-->
+      <std:node name="Generate">
+         <std:node name="AxisLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="CenterLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Fillets">
+            <std:enumval name="FilletRep">Boundaries</std:enumval>
+         </std:node>
+
+         <std:node name="HiddenLines">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Threads">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="3DPoints">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Wireframe">
+            <std:enumval name="YesNo">Yes</std:enumval>
+         </std:node>
+
+         <std:node name="Using3DColors">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+
+         <std:node name="Using3Dspec">
+            <std:enumval name="YesNo">No</std:enumval>
+         </std:node>
+      </std:node>
+
+<!--      End of Drafting parameters-->
+   </std:node>
+
+  <!-- ******************************************************************** -->
+  <!-- *         START APPLICATION - P I P I N G    D E S I G N             -->
+  <!-- ******************************************************************** -->
+  <std:node name="PipingDesign">
+
+       <!-- ********* OBJECT = PIPING PARTS ******************************* -->
+       <std:node name="PipingPart">
+
+            <!-- ********************************************************** -->
+            <!--                                                            -->
+            <!-- ATS Properties                                             -->
+            <!--                                                            -->
+            <!-- ********************************************************** -->
+
+            <!-- ********* "Yes" causes inclusion of a leader -->
+            <std:node name="ATS_AutoPosition">
+                 <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* Non zero values cause inclusion of a leader -->
+            <std:node name="ATS_CharacterOffset">
+                 <std:intval>5</std:intval>
+            </std:node>
+
+            <!-- ********************************************************** -->
+            <!--                                                            -->
+            <!-- ATS Requests (ATS_1 thru ATS_40 available)                 -->
+            <!--                                                            -->
+            <!-- Note: a skipped ATS number causes no-read of following ATSs-->
+            <!-- ********************************************************** -->
+
+            <std:node name="ATS_1">
+                 <std:strval>PartName</std:strval>
+            </std:node>
+
+            <std:node name="ATS_2">
+                 <std:strval>Size</std:strval>
+            </std:node>
+
+            <std:node name="ATS_3">
+                 <std:strval>Pipe Length</std:strval>
+            </std:node>
+
+            <std:node name="ATS_4">
+                 <std:strval>NominalSize1 X NominalSize2</std:strval>
+            </std:node>
+
+            <!-- ********************************************************** -->
+            <!--                                                            -->
+            <!-- GRAPHIC REPRESENTATION COMMON ATTRIBUTES                   -->
+            <!--                                                            -->
+            <!-- ********************************************************** -->
+
+            <!-- ********* Default=Visible -->
+            <std:node name="Visible">
+                   <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* Default Color=Blue -->
+            <!-- ********* Invalid/no value means use 3D value -->
+            <std:node name="Color">
+                 <std:colorval>0 0 255</std:colorval>
+            </std:node>
+
+            <!-- ********* Default LineType=Solid -->
+            <!-- ********* Invalid/no value means use 3D value -->
+            <std:node name="LineType">
+                 <std:intval>1</std:intval>
+            </std:node>
+
+            <!-- ********* End Style Symbols: Welds, Flange,.. -->
+            <std:node name="EndStyleSymbol">
+                 <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* Fabrication Break Symbol - Spool -->
+            <std:node name="FabricationBreakSymbol">
+                 <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* Corner Bend Point -->
+            <std:node name="CornerBendPoint">
+                   <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* Insulation -->
+            <std:node name="Insulation">
+                   <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* Insulation LineThickness (Light Parts only) -->
+            <!-- ********* Invalid/no value means use value defined for base part -->
+            <std:node name="InsulationLineThickness">
+                   <std:intval>4</std:intval>
+            </std:node>
+
+            <!-- ********* ViewSpecificSymbols -->
+            <std:node name="ViewSpecificSymbols">
+                   <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********************************************************** -->
+            <!--                                                            -->
+            <!-- GRAPHIC REPRESENTATION_1                                   -->
+            <!--                                                            -->
+            <!-- Note: a skipped GR number causes no-read of following GRs  -->
+            <!-- Note: LineGapping defaults to "No"                         -->
+            <!-- ********************************************************** -->
+
+            <std:node name="GR_1">
+                 <std:strval>Single</std:strval>
+            </std:node>
+
+            <!-- ********* Display if size is MaxNominalSize or less -->
+            <!-- ********* No value (or 0in) means no MaxNominalSize -->
+            <std:node name="GR_1_MaxNominalSize">
+                 <std:strval></std:strval>
+            </std:node>
+
+            <!-- ********* Display if size is MinNominalSize or more -->
+            <!-- ********* No value (or 0in) means no MinNominalSize -->
+            <std:node name="GR_1_MinNominalSize">
+                 <std:strval>0in</std:strval>
+            </std:node>
+
+            <!-- ********* LineGapping -->
+            <std:node name="GR_1_LineGapping">
+                <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+
+            <!-- ********* LineGappingValue -->
+            <std:node name="GR_1_LineGappingValue">
+                 <std:floatval>6.0</std:floatval>
+            </std:node>
+
+            <!-- ********* LineType -->
+            <!-- ********* Invalid/no value means use common "LineType" -->
+            <std:node name="GR_1_LineType">
+                 <std:intval>5</std:intval>
+            </std:node>
+
+            <!-- ********* LineThickness -->
+            <!-- ********* Invalid/no value means use 3D value -->
+            <std:node name="GR_1_LineThickness">
+                 <std:intval>3</std:intval>
+            </std:node>
+       </std:node>
+  </std:node>
+  <!-- ******************************************************************** -->
+  <!-- *         END   APPLICATION - P I P I N G    D E S I G N             -->
+  <!-- ******************************************************************** -->
+</std:node>
+<!-- ********************************************************************** -->
+<!-- * END   GVS CUSTOMIZATION                                              -->
+<!-- ********************************************************************** -->

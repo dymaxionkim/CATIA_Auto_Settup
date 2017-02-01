@@ -1,0 +1,1 @@
+%COMSPEC% /c start %1

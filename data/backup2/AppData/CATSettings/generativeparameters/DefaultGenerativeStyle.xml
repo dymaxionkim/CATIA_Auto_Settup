@@ -1,0 +1,3471 @@
+<?xml version="1.0" ?>
+<std:node name="DefaultGenerativeStyle.xml" type="Generativeparameters" xmlns:std="http://www.dsweb.com/std">
+  <std:enumdef name="TypesOfFitup">
+    <std:strval name="TypesOfFitup" >Fitup</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfFormingLine">
+    <std:strval name="TypesOfFormingLine" >Tangency line</std:strval>
+    <std:strval name="TypesOfFormingLine" >Inverse bending curve</std:strval>
+    <std:strval name="TypesOfFormingLine" >Roll Line</std:strval>
+  </std:enumdef>
+  <std:enumdef name="ShapeDesignLabelsType">
+    <std:strval name="ShapeDesignLabelsType" >Inherited from 3D labels</std:strval>
+    <std:strval name="ShapeDesignLabelsType" >LWH</std:strval>
+    <std:strval name="ShapeDesignLabelsType" >XYZ</std:strval>
+  </std:enumdef>
+  <std:enumdef name="DrgScale">
+    <std:strval name="DrgScale" >Fit to paper</std:strval>
+    <std:strval name="DrgScale" >1:1</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfMargin">
+    <std:strval name="TypesOfMargin" >Margin</std:strval>
+  </std:enumdef>
+  <std:enumdef name="MaterialExtrusion">
+    <std:strval name="MaterialExtrusion" >None</std:strval>
+    <std:strval name="MaterialExtrusion" >Tick mark (true width)</std:strval>
+    <std:strval name="MaterialExtrusion" >Throw orientation (symbolic)</std:strval>
+    <std:strval name="MaterialExtrusion" >Tick mark and throw orientation</std:strval>
+  </std:enumdef>
+  <std:enumdef name="ElecGraphicRepresentation">
+    <std:strval name="ElecGraphicRepresentation" >DoubleLine</std:strval>
+    <std:strval name="ElecGraphicRepresentation" >SingleLine</std:strval>
+  </std:enumdef>
+  <std:enumdef name="MaterialThicknessIndicatorTypes">
+    <std:strval name="MaterialThicknessIndicatorTypes" >None</std:strval>
+    <std:strval name="MaterialThicknessIndicatorTypes" >Continuous line</std:strval>
+    <std:strval name="MaterialThicknessIndicatorTypes" >Symbolic</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfDrilledOpening">
+    <std:strval name="TypesOfDrilledOpening" >Drilled Opening</std:strval>
+  </std:enumdef>
+  <std:enumdef name="ElecGraphicReplacement">
+    <std:strval name="ElecGraphicReplacement" >3Dprojection</std:strval>
+    <std:strval name="ElecGraphicReplacement" >2Ddetail</std:strval>
+  </std:enumdef>
+  <std:enumdef name="SheetMetalAngleType">
+    <std:strval name="SheetMetalAngleType" >Internal</std:strval>
+    <std:strval name="SheetMetalAngleType" >External</std:strval>
+  </std:enumdef>
+  <std:enumdef name="ShapeDesignVLabelsPosition">
+    <std:strval name="ShapeDesignVLabelsPosition" >None</std:strval>
+    <std:strval name="ShapeDesignVLabelsPosition" >Left</std:strval>
+    <std:strval name="ShapeDesignVLabelsPosition" >Right</std:strval>
+    <std:strval name="ShapeDesignVLabelsPosition" >Both sides</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfWeldJoint">
+    <std:strval name="TypesOfWeldJoint" >Weld Joint</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfReferenceLine">
+    <std:strval name="TypesOfReferenceLine" >Template Sight Line</std:strval>
+    <std:strval name="TypesOfReferenceLine" >Template Location Line</std:strval>
+    <std:strval name="TypesOfReferenceLine" >Reference Line</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfOpening">
+    <std:strval name="TypesOfOpening" >Bridged Opening</std:strval>
+    <std:strval name="TypesOfOpening" >Tabbed Opening</std:strval>
+    <std:strval name="TypesOfOpening" >Marked Opening</std:strval>
+    <std:strval name="TypesOfOpening" >Cut Opening</std:strval>
+  </std:enumdef>
+  <std:enumdef name="ElecGraphicReplacementSupport">
+    <std:strval name="ElecGraphicReplacementSupport" >3Dprojection</std:strval>
+    <std:strval name="ElecGraphicReplacementSupport" >2Ddetail</std:strval>
+    <std:strval name="ElecGraphicReplacementSupport" >3DprojectionAnd2Ddetail</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfMarkingLine">
+    <std:strval name="TypesOfMarkingLine" >Marking Line</std:strval>
+  </std:enumdef>
+  <std:enumdef name="FilletRep">
+    <std:strval name="FilletRep" >None</std:strval>
+    <std:strval name="FilletRep" >Boundaries</std:strval>
+    <std:strval name="FilletRep" >Symbolic</std:strval>
+    <std:strval name="FilletRep" >OriginalEdges</std:strval>
+    <std:strval name="FilletRep" >ProjectedOriginalEdges</std:strval>
+  </std:enumdef>
+  <std:enumdef name="YesNo">
+    <std:strval name="YesNo" >No</std:strval>
+    <std:strval name="YesNo" >Yes</std:strval>
+  </std:enumdef>
+  <std:enumdef name="OblongOpeningCenterlines">
+    <std:strval name="OblongOpeningCenterlines" >Single centerlines</std:strval>
+    <std:strval name="OblongOpeningCenterlines" >Double centerlines</std:strval>
+  </std:enumdef>
+  <std:enumdef name="PiecePartNumberBorder">
+    <std:strval name="PiecePartNumberBorder" >None</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Rectangle</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Square</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Circle</std:strval>
+    <std:strval name="PiecePartNumberBorder" >ScoredCircle</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Diamond</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Triangle</std:strval>
+    <std:strval name="PiecePartNumberBorder" >RightFlag</std:strval>
+    <std:strval name="PiecePartNumberBorder" >LeftFlag</std:strval>
+    <std:strval name="PiecePartNumberBorder" >BothFlag</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Oblong</std:strval>
+    <std:strval name="PiecePartNumberBorder" >Ellipse</std:strval>
+  </std:enumdef>
+  <std:enumdef name="ShapeDesignHLabelsPosition">
+    <std:strval name="ShapeDesignHLabelsPosition" >None</std:strval>
+    <std:strval name="ShapeDesignHLabelsPosition" >Bottom</std:strval>
+    <std:strval name="ShapeDesignHLabelsPosition" >Top</std:strval>
+    <std:strval name="ShapeDesignHLabelsPosition" >Both sides</std:strval>
+  </std:enumdef>
+  <std:enumdef name="Formats">
+    <std:strval name="Formats" >CATDrawing</std:strval>
+    <std:strval name="Formats" >dxf</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfAttachmentLine">
+    <std:strval name="TypesOfAttachmentLine" >Attachment Line</std:strval>
+  </std:enumdef>
+  <std:enumdef name="OpeningCenterlines">
+    <std:strval name="OpeningCenterlines" >No centerlines</std:strval>
+    <std:strval name="OpeningCenterlines" >Long centerlines</std:strval>
+    <std:strval name="OpeningCenterlines" >Short centerlines</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfEdgePrep">
+    <std:strval name="TypesOfEdgePrep" >Edge Preparation</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfCuttingContour">
+    <std:strval name="TypesOfCuttingContour" >Internal Cutting Contour</std:strval>
+    <std:strval name="TypesOfCuttingContour" >External Cutting Contour</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfPositioningSymbol">
+    <std:strval name="TypesOfPositioningSymbol" >Positioning Symbol</std:strval>
+  </std:enumdef>
+  <std:enumdef name="TypesOfShrinkageCompensation">
+    <std:strval name="TypesOfShrinkageCompensation" >Shrinkage Compensation</std:strval>
+  </std:enumdef>
+  <std:typedef name="DraftingOptions">
+    <std:intval name="HiddenLines" >0</std:intval>
+    <std:intval name="CutInSection" >1</std:intval>
+    <std:intval name="UseWhenProjected" >1</std:intval>
+  </std:typedef>
+  <std:node name="Drafting">
+    <std:node name="Generate">
+      <std:node name="AxisLines">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="CenterLines">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Fillets">
+        <std:enumval name="FilletRep">Boundaries</std:enumval>
+      </std:node>
+      <std:node name="HiddenLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Threads">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="3DPoints">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Wireframe">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Using3Dspec">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+    </std:node>
+    <std:node name="ViewDressup">
+      <std:node name="Operators">
+        <std:node name="Section">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>4</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+          <std:node name="SkinSection">
+            <std:node name="Color">
+              <std:colorval>0 0 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="SolidSection">
+            <std:node name="Color">
+              <std:colorval>0 0 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="Detail">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>4</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="Break">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval minval="1">4</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="Breakout">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>8</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="3DInheritance">
+        <std:node name="Wireframe">
+          <std:node name="Color">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+        <std:node name="Solid">
+          <std:node name="Color">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+        <std:node name="3DPoints">
+          <std:node name="Color">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Symbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Name">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="GeneratedGeometry">
+        <std:node name="VividEdges">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>1</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>2</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="HiddenEdges">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>3</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="Fillets">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>1</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="Wireframe">
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>1</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="3DPoints">
+          <std:node name="Symbol">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="Structure">
+    <std:node name="FunctionalDesignLite">
+      <std:node name="Stiffener">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <std:floatval>15</std:floatval>
+        </std:node>
+        <std:node name="NearSide">
+          <std:node name="Show">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval minval="1">1</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="FarSide">
+          <std:node name="Show">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval minval="1">4</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="ChapterName">
+            <std:strval>Ends</std:strval>
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <std:strval>BlackFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTO_Detail">
+            <std:node name="SymbolsChapterName">
+              <std:strval>MaterialOrientations</std:strval>
+            </std:node>
+            <std:node name="DefaultDetailName">
+              <std:strval>BlackFilledRectangle_5x1</std:strval>
+            </std:node>
+            <std:node name="DrawDetailsByProfileType">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="DetailsByProfileType">
+              <std:node name="Beam">
+                <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Angle">
+                <std:strval>WhiteFilledAngle_5x2</std:strval>
+              </std:node>
+              <std:node name="Channel">
+                <std:strval>WhiteFilledChannel_5x2</std:strval>
+              </std:node>
+              <std:node name="Tee">
+                <std:strval>WhiteFilledTee_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Pipe">
+                <std:strval>WhiteFilledPipe_2x2</std:strval>
+              </std:node>
+              <std:node name="RectangularHollow">
+                <std:strval>WhiteFilledHollow_2x2</std:strval>
+              </std:node>
+              <std:node name="Bulb">
+                <std:strval>WhiteFilledBulb_5x2</std:strval>
+              </std:node>
+              <std:node name="RoundBar">
+                <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+              </std:node>
+              <std:node name="Z">
+                <std:strval>WhiteFilledZ_5x2.9</std:strval>
+              </std:node>
+            </std:node>
+          </std:node>
+          <std:node name="TickMark">
+            <std:node name="OffsetFromEndOfMember">
+              <std:floatval>-7</std:floatval>
+            </std:node>
+            <std:node name="Length">
+              <std:floatval>5</std:floatval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Plate">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval minval="1">2</std:intval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <std:strval>MaterialOrientations</std:strval>
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <std:floatval>5</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="SuperPlate">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval minval="1">2</std:intval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <std:strval>MaterialOrientations</std:strval>
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <std:floatval>5</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="PreliminaryLayout">
+      <std:node name="SPLWrappingSurf">
+        <std:node name="Extraction">
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="MPSelection">
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="MPXCoord">
+          <std:floatval>50000</std:floatval>
+        </std:node>
+        <std:node name="WLSelection">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="WLZCoord">
+          <std:floatval>0</std:floatval>
+        </std:node>
+        <std:node name="FrontViewSymmetrical">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="TopViewSymmetrical">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="GeometryType">
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="HullCenterlineText">
+          <std:strval>CL SHIP</std:strval>
+        </std:node>
+        <std:node name="CenterlineLocation">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="HullCenterlineTextSize">
+          <std:floatval>3</std:floatval>
+        </std:node>
+      </std:node>
+      <std:node name="SPLMoldedForm">
+        <std:node name="Extraction">
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval>2</std:intval>
+        </std:node>
+        <std:node name="ApplyOnProfileOnly">
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="BulkheadLineType">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="CurvedBulkheadLineType">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="CurvedBulkheadThickness">
+          <std:intval>2</std:intval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="EquipmentSupport">
+      <std:node name="Member">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <std:floatval>15</std:floatval>
+        </std:node>
+        <std:node name="NearSideLinetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="ChapterName">
+            <std:strval>Ends</std:strval>
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <std:strval>BlackFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Plate">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval minval="1">2</std:intval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <std:strval>MaterialOrientations</std:strval>
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <std:floatval>5</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="FunctionalDesign">
+      <std:node name="FunStiffener">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <std:floatval>15</std:floatval>
+        </std:node>
+        <std:node name="ShowNearSide">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="NearSideLinetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="ShowFarSide">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="FarSideLinetype">
+          <std:intval minval="1">4</std:intval>
+        </std:node>
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="ChapterName">
+            <std:strval>Ends</std:strval>
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <std:strval>BlackFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTO_Detail">
+            <std:node name="SymbolsChapterName">
+              <std:strval>MaterialOrientations</std:strval>
+            </std:node>
+            <std:node name="DefaultDetailName">
+              <std:strval>BlackFilledRectangle_5x1</std:strval>
+            </std:node>
+            <std:node name="DrawDetailsByProfileType">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="DetailsByProfileType">
+              <std:node name="Beam">
+                <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Angle">
+                <std:strval>WhiteFilledAngle_5x2</std:strval>
+              </std:node>
+              <std:node name="Channel">
+                <std:strval>WhiteFilledChannel_5x2</std:strval>
+              </std:node>
+              <std:node name="Tee">
+                <std:strval>WhiteFilledTee_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Pipe">
+                <std:strval>WhiteFilledPipe_2x2</std:strval>
+              </std:node>
+              <std:node name="RectangularHollow">
+                <std:strval>WhiteFilledHollow_2x2</std:strval>
+              </std:node>
+              <std:node name="Bulb">
+                <std:strval>WhiteFilledBulb_5x2</std:strval>
+              </std:node>
+              <std:node name="RoundBar">
+                <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+              </std:node>
+              <std:node name="Z">
+                <std:strval>WhiteFilledZ_5x2.9</std:strval>
+              </std:node>
+            </std:node>
+          </std:node>
+          <std:node name="TickMark">
+            <std:node name="OffsetFromEndOfMember">
+              <std:floatval>-7</std:floatval>
+            </std:node>
+            <std:node name="Length">
+              <std:floatval>5</std:floatval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="FunPlate">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval minval="1">2</std:intval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <std:strval>MaterialOrientations</std:strval>
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <std:floatval>5</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="FunOpening">
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="CenterlinesType">
+          <std:enumval name="OpeningCenterlines">Long centerlines</std:enumval>
+        </std:node>
+        <std:node name="OblongOpeningCenterlinesType">
+          <std:enumval name="OblongOpeningCenterlines">Double centerlines</std:enumval>
+        </std:node>
+        <std:node name="ButterflyThickness">
+          <std:floatval>4</std:floatval>
+        </std:node>
+      </std:node>
+      <std:node name="FunPillar">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="DetailDesign">
+      <std:node name="Stiffening">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="AngularToleranceForEndView">
+          <std:floatval>15</std:floatval>
+        </std:node>
+        <std:node name="ShowNearSide">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="NearSideLinetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="ShowFarSide">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="FarSideLinetype">
+          <std:intval minval="1">4</std:intval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTO_Detail">
+            <std:node name="SymbolsChapterName">
+              <std:strval>MaterialOrientations</std:strval>
+            </std:node>
+            <std:node name="DefaultDetailName">
+              <std:strval>BlackFilledRectangle_5x1</std:strval>
+            </std:node>
+            <std:node name="DrawDetailsByProfileType">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="DetailsByProfileType">
+              <std:node name="Beam">
+                <std:strval>WhiteFilledBeam_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Angle">
+                <std:strval>WhiteFilledAngle_5x2</std:strval>
+              </std:node>
+              <std:node name="Channel">
+                <std:strval>WhiteFilledChannel_5x2</std:strval>
+              </std:node>
+              <std:node name="Tee">
+                <std:strval>WhiteFilledTee_5x2.9</std:strval>
+              </std:node>
+              <std:node name="Pipe">
+                <std:strval>WhiteFilledPipe_2x2</std:strval>
+              </std:node>
+              <std:node name="RectangularHollow">
+                <std:strval>WhiteFilledHollow_2x2</std:strval>
+              </std:node>
+              <std:node name="Bulb">
+                <std:strval>WhiteFilledBulb_5x2</std:strval>
+              </std:node>
+              <std:node name="RoundBar">
+                <std:strval>WhiteFilledRoundBar_2x2</std:strval>
+              </std:node>
+              <std:node name="Z">
+                <std:strval>WhiteFilledZ_5x2.9</std:strval>
+              </std:node>
+            </std:node>
+          </std:node>
+          <std:node name="TickMark">
+            <std:node name="OffsetFromEndOfMember">
+              <std:floatval>-7</std:floatval>
+            </std:node>
+            <std:node name="Length">
+              <std:floatval>5</std:floatval>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="SymbolsAtEndsOfProfile">
+          <std:node name="UseAnEndSymbol">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="ChapterName">
+            <std:strval>Ends</std:strval>
+          </std:node>
+          <std:node name="DefaultDetailName">
+            <std:strval>BlackFilledArrow_3x1.5</std:strval>
+          </std:node>
+          <std:node name="AutomaticDetailDetermination">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Plating">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <std:strval>MaterialOrientations</std:strval>
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <std:floatval>5</std:floatval>
+          </std:node>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval minval="1">2</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="Inserting">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="LineThickness">
+          <std:intval minval="1">2</std:intval>
+        </std:node>
+        <std:node name="MaterialExtrusion">
+          <std:node name="MaterialThrowOrientation">
+            <std:enumval name="MaterialExtrusion">None</std:enumval>
+          </std:node>
+          <std:node name="MTOSymbolsChapterName">
+            <std:strval>MaterialOrientations</std:strval>
+          </std:node>
+          <std:node name="MTO_DetailName">
+            <std:strval>BlackFilledRectangle_5x1</std:strval>
+          </std:node>
+          <std:node name="TM_Length">
+            <std:floatval>5</std:floatval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Beaming">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Opening">
+        <std:node name="GraphicReplacement">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="CenterlinesType">
+          <std:enumval name="OpeningCenterlines">Long centerlines</std:enumval>
+        </std:node>
+        <std:node name="OblongOpeningCenterlinesType">
+          <std:enumval name="OblongOpeningCenterlines">Double centerlines</std:enumval>
+        </std:node>
+        <std:node name="ButterflyThickness">
+          <std:floatval>4</std:floatval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="CommonStructureSymbols">
+      <std:node name="ReferencePlaneSystem">
+        <std:node name="ShowReferencePlaneSystem">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="RestrictedToTheBoundingBox">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="GridsetPosition">
+          <std:intval minval="0">0</std:intval>
+        </std:node>
+        <std:node name="HorizontalOffset">
+          <std:floatval>20</std:floatval>
+        </std:node>
+        <std:node name="VerticalOffset">
+          <std:floatval>20</std:floatval>
+        </std:node>
+        <std:node name="GridSetLineType">
+          <std:intval minval="1">1</std:intval>
+        </std:node>
+        <std:node name="TickSize">
+          <std:floatval>2</std:floatval>
+        </std:node>
+        <std:node name="AnnotationStyle">
+          <std:intval minval="0">1</std:intval>
+        </std:node>
+        <std:node name="AnnotationSize">
+          <std:floatval>2</std:floatval>
+        </std:node>
+        <std:node name="AnnotationStep">
+          <std:intval minval="1">5</std:intval>
+        </std:node>
+        <std:node name="AnnotationStart">
+          <std:intval>1</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="Connection">
+        <std:node name="Extraction">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="WeldSeam">
+          <std:node name="AngularTolerance">
+            <std:floatval>1</std:floatval>
+          </std:node>
+          <std:node name="UseSymbol">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="S_Representation">
+            <std:node name="LongWeldSeam">
+              <std:node name="Offset">
+                <std:floatval>3</std:floatval>
+              </std:node>
+              <std:node name="Thickness">
+                <std:floatval>3</std:floatval>
+              </std:node>
+            </std:node>
+            <std:node name="ShortWeldSeam">
+              <std:node name="Gap">
+                <std:floatval>1</std:floatval>
+              </std:node>
+              <std:node name="Length">
+                <std:floatval>5</std:floatval>
+              </std:node>
+            </std:node>
+          </std:node>
+          <std:node name="SymbolicRepresentation">
+            <std:node name="WeldSeam">
+              <std:node name="ChapterName">
+                <std:strval>Connections</std:strval>
+              </std:node>
+              <std:node name="DetailName">
+                <std:strval>S_5x1</std:strval>
+              </std:node>
+            </std:node>
+            <std:node name="WeldSeamWithKnuckle">
+              <std:node name="ChapterName">
+                <std:strval>Connections</std:strval>
+              </std:node>
+              <std:node name="DetailName">
+                <std:strval>SwKnuckle_5x1</std:strval>
+              </std:node>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="TightHiddenPlate">
+          <std:node name="StraightLineType">
+            <std:intval minval="1">1</std:intval>
+          </std:node>
+          <std:node name="CurvedLineType">
+            <std:intval minval="1">1</std:intval>
+          </std:node>
+          <std:node name="CurvedLineThickness">
+            <std:intval minval="1">2</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="PipingDesign">
+    <std:node name="PipingPart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 0 255</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="EndStyleSymbol">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="FabricationBreakSymbol">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="CornerBendPoint">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Single</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval>2 1/2in</std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>6</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2">
+        <std:strval>Double_NoGeneration</std:strval>
+      </std:node>
+      <std:node name="GR_2_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_2_MinNominalSize">
+        <std:strval>3in</std:strval>
+      </std:node>
+      <std:node name="GR_2_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_2_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2_CenterLines">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_2_CenterLinesExtensionLength">
+        <std:floatval>8</std:floatval>
+      </std:node>
+      <std:node name="GR_3">
+        <std:strval>Envelope_NoGeneration</std:strval>
+      </std:node>
+      <std:node name="GR_3_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_3_MinNominalSize">
+        <std:strval>3in</std:strval>
+      </std:node>
+      <std:node name="GR_3_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_3_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_3_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_3_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="EquipmentArrangement">
+    <std:node name="Equipment">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 255 0</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="FB-Dimension">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="CenterOfGravitySymbol">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Envelope</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval>
+         </std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_LineType">
+        <std:intval>5</std:intval>
+      </std:node>
+      <std:node name="GR_2">
+        <std:strval>Layout</std:strval>
+      </std:node>
+      <std:node name="GR_2_MaxNominalSize">
+        <std:strval>
+         </std:strval>
+      </std:node>
+      <std:node name="GR_2_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_2_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_2_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_2_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2_LineType">
+        <std:intval>20</std:intval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="HVACDesign">
+    <std:node name="HVACPart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>100 200 255</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Double</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="TubingDesign">
+    <std:node name="TubingPart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 0 255</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="EndStyleSymbol">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="CornerBendPoint">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Single</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>6</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2">
+        <std:strval>Double_NoGeneration</std:strval>
+      </std:node>
+      <std:node name="GR_2_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_2_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_2_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_2_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2_CenterLines">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_2_CenterLinesExtensionLength">
+        <std:floatval>8</std:floatval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="CompartmentAndAccess">
+    <std:node name="CamAccessPart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 255 0</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="FB-Dimension">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Layout</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval>
+         </std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_LineType">
+        <std:intval>20</std:intval>
+      </std:node>
+      <std:node name="GR_2">
+        <std:strval>Envelope_NoGeneration</std:strval>
+      </std:node>
+      <std:node name="GR_2_MaxNominalSize">
+        <std:strval>
+         </std:strval>
+      </std:node>
+      <std:node name="GR_2_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_2_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_2_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_2_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_2_LineType">
+        <std:intval>5</std:intval>
+      </std:node>
+      <std:node name="GR_3">
+        <std:strval>Opening_NoGeneration</std:strval>
+      </std:node>
+      <std:node name="GR_3_MaxNominalSize">
+        <std:strval>
+         </std:strval>
+      </std:node>
+      <std:node name="GR_3_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_3_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_3_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_3_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_3_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_3_LineType">
+        <std:intval>6</std:intval>
+      </std:node>
+      <std:node name="ATS_AutoPosition">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="ATS_CharacterOffset">
+        <std:intval>0</std:intval>
+      </std:node>
+      <std:node name="ATS_1">
+        <std:strval>PartNumber</std:strval>
+      </std:node>
+    </std:node>
+    <std:node name="CATCptCompartment">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 0 255</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="Thickness">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="ATS-Boundary">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="ATS_AutoPosition">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="ATS_CharacterOffset">
+        <std:intval>0</std:intval>
+      </std:node>
+      <std:node name="ATS_1">
+        <std:strval>PartNumber</std:strval>
+      </std:node>
+      <std:node name="ATS_Bndy_1">
+        <std:strval>Name</std:strval>
+      </std:node>
+    </std:node>
+    <std:node name="CATCamWallSystem">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 255 0</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="Thickness">
+        <std:intval>1</std:intval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="ConduitDesign">
+    <std:node name="CndConduitPart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 0 0</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Double</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="RacewayDesign">
+    <std:node name="RwyRacewayPart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 0 0</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Double</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="WaveguideDesign">
+    <std:node name="WaveguidePart">
+      <std:node name="Visible">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Color">
+        <std:colorval>0 0 0</std:colorval>
+      </std:node>
+      <std:node name="LineType">
+        <std:intval>1</std:intval>
+      </std:node>
+      <std:node name="GR_1">
+        <std:strval>Double</std:strval>
+      </std:node>
+      <std:node name="GR_1_MaxNominalSize">
+        <std:strval></std:strval>
+      </std:node>
+      <std:node name="GR_1_MinNominalSize">
+        <std:strval>0in</std:strval>
+      </std:node>
+      <std:node name="GR_1_LineGapping">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_LineGappingValue">
+        <std:floatval>0</std:floatval>
+      </std:node>
+      <std:node name="GR_1_CenterLines">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="GR_1_CenterLinesExtensionLength">
+        <std:floatval>0</std:floatval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="Automotive BiW Fastening">
+    <std:node name="Fasteners">
+      <std:node name="Spot Fasteners">
+        <std:node name="Generate">
+          <std:node name="Extract Location">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Angular Tolerance">
+            <std:floatval>90</std:floatval>
+          </std:node>
+          <std:node name="Include View Reverse Direction">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="SheetMetal">
+    <std:node name="SheetMetalDesign">
+      <std:node name="Bend">
+        <std:node name="Axis">
+          <std:node name="Upward">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>255 0 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>4</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="Downward">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>0 0 255</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>4</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="Annotations">
+            <std:node name="Angle">
+              <std:node name="Visible">
+                <std:enumval name="YesNo">No</std:enumval>
+              </std:node>
+              <std:node name="Prefix">
+                <std:strval>Angle</std:strval>
+              </std:node>
+              <std:node name="Type">
+                <std:enumval name="SheetMetalAngleType">Internal</std:enumval>
+              </std:node>
+            </std:node>
+            <std:node name="Radius">
+              <std:node name="Visible">
+                <std:enumval name="YesNo">No</std:enumval>
+              </std:node>
+              <std:node name="Prefix">
+                <std:strval>Radius</std:strval>
+              </std:node>
+            </std:node>
+            <std:node name="UpDownStatus">
+              <std:node name="Visible">
+                <std:enumval name="YesNo">No</std:enumval>
+              </std:node>
+              <std:node name="UpString">
+                <std:strval>Up</std:strval>
+              </std:node>
+              <std:node name="DownString">
+                <std:strval>Down</std:strval>
+              </std:node>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="BTLs">
+          <std:node name="Visible">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Linetype">
+            <std:intval>2</std:intval>
+          </std:node>
+          <std:node name="Thickness">
+            <std:intval>1</std:intval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Stamp">
+        <std:node name="AppropriateLines">
+          <std:node name="Upward">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>255 128 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="Downward">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>128 0 128</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="Annotations">
+          <std:node name="StandardName">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="Prefix">
+              <std:strval>Standard name</std:strval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Unfolded Curves">
+        <std:node name="Characteristic elements">
+          <std:node name="Top">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>255 0 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="Bottom">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>0 0 255</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="Engraving">
+          <std:node name="Top">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>255 128 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="Bottom">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>128 0 128</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+        <std:node name="Marking">
+          <std:node name="Top">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>0 0 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+          <std:node name="Bottom">
+            <std:node name="Visible">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="Color">
+              <std:colorval>255 255 0</std:colorval>
+            </std:node>
+            <std:node name="Linetype">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Thickness">
+              <std:intval>1</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="Electrical">
+    <std:node name="BundleSegment">
+      <std:node name="GraphicRepresentation">
+        <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+      </std:node>
+      <std:node name="AutomaticGeneration">
+        <std:node name="TextTemplate">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+          <std:node name="TextTemplateName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="WireAnnotation">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="WireGroupName">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="InstanceName">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="PartNumber">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="SubType">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="ReferenceDesignator">
+            <std:intval>1</std:intval>
+          </std:node>
+          <std:node name="Diameter">
+            <std:intval>3</std:intval>
+          </std:node>
+          <std:node name="Mass">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="BendRadius">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="Length">
+            <std:intval>2</std:intval>
+          </std:node>
+          <std:node name="Color">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="SeparationCode">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="SignalID">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="FromConnectionPoint">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="FromDevice">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="ToConnectionPoint">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="ToDevice">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="FromPartNumberofContactinCavity">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="ToPartNumberofContactinCavity">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="Catalog">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="FullyConnected">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="NetworkConnexity">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="IsRouted">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="ElecSignalWhoTheElecWireRealize">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="CuttingLength">
+            <std:intval>0</std:intval>
+          </std:node>
+          <std:node name="ShieldingTermination">
+            <std:intval>0</std:intval>
+          </std:node>
+        </std:node>
+        <std:node name="TechnologicalFeatureDimmension">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="Protection">
+      <std:node name="Tape">
+        <std:node name="GraphicRepresentation">
+          <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="2DdetailOnExtremities">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Coefficient">
+            <std:floatval>1.1</std:floatval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="TechnologicalFeatureDimmension">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Corrugated tube">
+        <std:node name="GraphicRepresentation">
+          <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="2DdetailOnExtremities">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Coefficient">
+            <std:floatval>1.1</std:floatval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="TechnologicalFeatureDimmension">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="InternalProtection">
+      <std:node name="Adaptive">
+        <std:node name="GraphicRepresentation">
+          <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="2DdetailOnExtremities">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Coefficient">
+            <std:floatval>1.1</std:floatval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="TechnologicalFeatureDimmension">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="FixedDiameter">
+        <std:node name="GraphicRepresentation">
+          <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="2DdetailOnExtremities">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Coefficient">
+            <std:floatval>1.1</std:floatval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval>
+                  </std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="TechnologicalFeatureDimmension">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Tape">
+        <std:node name="GraphicRepresentation">
+          <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="2DdetailOnExtremities">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Coefficient">
+            <std:floatval>1.1</std:floatval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="TechnologicalFeatureDimmension">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Corrugated tube">
+        <std:node name="GraphicRepresentation">
+          <std:enumval name="ElecGraphicRepresentation">DoubleLine</std:enumval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="2DdetailOnExtremities">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Coefficient">
+            <std:floatval>1.1</std:floatval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="TechnologicalFeatureDimmension">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="Device">
+      <std:node name="SingleInsertConnector">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="GroundStud">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="TerminalStrip">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="TerminalBlock">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="ExternalSplice">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="InternalSplice">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Equipment">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="WireAnnotation">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="WireGroupName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="InstanceName">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="PartNumber">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SubType">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ReferenceDesignator">
+              <std:intval>1</std:intval>
+            </std:node>
+            <std:node name="Diameter">
+              <std:intval>3</std:intval>
+            </std:node>
+            <std:node name="Mass">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="BendRadius">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Length">
+              <std:intval>2</std:intval>
+            </std:node>
+            <std:node name="Color">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SeparationCode">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="SignalID">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToConnectionPoint">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToDevice">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FromPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ToPartNumberofContactinCavity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="Catalog">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="FullyConnected">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="NetworkConnexity">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="IsRouted">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ElecSignalWhoTheElecWireRealize">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="CuttingLength">
+              <std:intval>0</std:intval>
+            </std:node>
+            <std:node name="ShieldingTermination">
+              <std:intval>0</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="BackShell">
+        <std:node name="GraphicReplacement">
+          <std:node name="Type">
+            <std:enumval name="ElecGraphicReplacement">3Dprojection</std:enumval>
+          </std:node>
+          <std:node name="2DDetailOrientation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="AutomaticGeneration">
+          <std:node name="TextTemplate">
+            <std:node name="Generation">
+              <std:enumval name="YesNo">No</std:enumval>
+            </std:node>
+            <std:node name="CatalogName">
+              <std:strval></std:strval>
+            </std:node>
+            <std:node name="TextTemplateName">
+              <std:strval></std:strval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="Support">
+      <std:node name="GraphicReplacement">
+        <std:node name="Type">
+          <std:enumval name="ElecGraphicReplacementSupport">3DprojectionAnd2Ddetail</std:enumval>
+        </std:node>
+        <std:node name="CatalogName">
+          <std:strval></std:strval>
+        </std:node>
+        <std:node name="SectionOfSupport">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="Numbering">
+            <std:node name="UseCommonDitto">
+              <std:enumval name="YesNo">Yes</std:enumval>
+            </std:node>
+            <std:node name="PrefixOnSectionName">
+              <std:strval>Section</std:strval>
+            </std:node>
+          </std:node>
+          <std:node name="Layout">
+            <std:node name="Originposition">
+              <std:node name="X">
+                <std:floatval>-400</std:floatval>
+              </std:node>
+              <std:node name="Y">
+                <std:floatval>-400</std:floatval>
+              </std:node>
+            </std:node>
+            <std:node name="Gridsize">
+              <std:node name="X_Step">
+                <std:floatval>40</std:floatval>
+              </std:node>
+              <std:node name="Y_Step">
+                <std:floatval>40</std:floatval>
+              </std:node>
+            </std:node>
+            <std:node name="NumberOfSectionsOnX">
+              <std:intval>10</std:intval>
+            </std:node>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="AutomaticGeneration">
+        <std:node name="TextTemplate">
+          <std:node name="Generation">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="CatalogName">
+            <std:strval>
+               </std:strval>
+          </std:node>
+          <std:node name="TextTemplateName">
+            <std:strval></std:strval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="MechanicalPart">
+      <std:node name="DashedGreenLine">
+        <std:node name="LineType">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:intval>1</std:intval>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="Generative Shape Design">
+    <std:node name="WorkOnSupport">
+      <std:node name="Extraction">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Grid step ratio for increasing grid limits">
+        <std:floatval>10</std:floatval>
+      </std:node>
+      <std:node name="Lines">
+        <std:node name="Color">
+          <std:colorval>0 0 0</std:colorval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:intval>1</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="Labels">
+        <std:node name="Type">
+          <std:enumval name="ShapeDesignLabelsType">Inherited from 3D labels</std:enumval>
+        </std:node>
+        <std:node name="Position">
+          <std:node name="Horizontal">
+            <std:enumval name="ShapeDesignHLabelsPosition">None</std:enumval>
+          </std:node>
+          <std:node name="Vertical">
+            <std:enumval name="ShapeDesignVLabelsPosition">None</std:enumval>
+          </std:node>
+        </std:node>
+        <std:node name="Font">
+          <std:node name="Name">
+            <std:strval>Arial</std:strval>
+          </std:node>
+          <std:node name="Size">
+            <std:floatval>10</std:floatval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 0 0</std:colorval>
+          </std:node>
+          <std:node name="Bold">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Italic">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="Composites Design">
+    <std:node name="Ply">
+      <std:node name="Contour">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Exploded surface">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Flatten">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Highlight shell">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Seed point">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Seed curve">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Rosette">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Name">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Contour thickness">
+        <std:intval>0</std:intval>
+      </std:node>
+      <std:node name="Other geometry">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Overwrite color inheritance">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+    </std:node>
+    <std:node name="Core">
+      <std:node name="Solid">
+        <std:enumval name="YesNo">Yes</std:enumval>
+      </std:node>
+      <std:node name="Name">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Rosette">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Other geometry">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="Overwrite color inheritance">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="DPMStructure">
+    <std:node name="Margin">
+      <std:node name="Margin">
+        <std:node name="Curve">
+          <std:strval>Curve_Margin_A</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_Margin</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_Margin_7x14</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="Fitup">
+      <std:node name="Fitup">
+        <std:node name="Text">
+          <std:strval>Text_Fitup</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_FitupCeramic_8x14</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="EdgePrep">
+      <std:node name="Edge Preparation">
+        <std:node name="Text_Center">
+          <std:strval>Text_EdgePrep_Center</std:strval>
+        </std:node>
+        <std:node name="Text_Extremities">
+          <std:strval>Text_EdgePrep_Extr</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_SingleEdge</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="WeldJoint">
+      <std:node name="Weld Joint">
+        <std:node name="Curve">
+          <std:strval>Curve_Welding_B</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_Welding</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_SpotWelding</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="AttachmentLine">
+      <std:node name="Attachment Line">
+        <std:node name="Curve">
+          <std:strval>Curve_AttachLine_A</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_AttachmentLine</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_ThicknessIndicator_8x2</std:strval>
+        </std:node>
+        <std:node name="MTIType">
+          <std:strval>Symbolic</std:strval>
+        </std:node>
+        <std:node name="DrwEndSymbol">
+          <std:strval>Yes</std:strval>
+        </std:node>
+        <std:node name="Arrow">
+          <std:strval>Arrow_BlackFilledArrow_3x1.5</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation_Att">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="FScurve">
+          <std:node name="curveChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="curveType">
+            <std:strval>Curve_AttachLine_B</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="FStext">
+          <std:node name="textChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="textType">
+            <std:strval>Text_AttachmentLine</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="FSsymbol">
+          <std:node name="symbolChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="symbolType">
+            <std:strval>Symbol_ThicknessIndicator_8x2</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="FSMTI">
+          <std:node name="MTIChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="MTIType">
+            <std:strval>Symbolic</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="FSDrwEndSymbol">
+          <std:node name="DrwEndSymbolChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="drwEndSymbolType">
+            <std:strval>Yes</std:strval>
+          </std:node>
+        </std:node>
+        <std:node name="FSEndSymbol">
+          <std:node name="EndSymbolChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="endSymbolType">
+            <std:strval>Arrow_BlackFilledArrow_3x1.5</std:strval>
+          </std:node>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="PositioningSymbol">
+      <std:node name="Positioning Symbol">
+        <std:node name="Text">
+          <std:strval>Text_Positioning</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_Positioning</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="ReferenceLine">
+      <std:node name="Reference Line">
+        <std:node name="Curve">
+          <std:strval>Curve_RefLine_A</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_RefLine</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Template Location Line">
+        <std:node name="Curve">
+          <std:strval>Curve_LocationLine_B</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_LocationLine</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Template Sight Line">
+        <std:node name="Curve">
+          <std:strval>Curve_SightLine_A</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_SightLine</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="FormingLine">
+      <std:node name="Roll Line">
+        <std:node name="Curve">
+          <std:strval>Curve_RollLine_A</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_RollLine</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Inverse bending curve">
+        <std:node name="Curve">
+          <std:strval>Curve_IBC_B</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_IBC</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="MarkingLine">
+      <std:node name="Alignment Line">
+        <std:node name="Curve">
+          <std:strval>Curve_AlignLine_A</std:strval>
+        </std:node>
+        <std:node name="FScurve">
+          <std:node name="curveChk">
+            <std:enumval name="YesNo">Yes</std:enumval>
+          </std:node>
+          <std:node name="curveType">
+            <std:strval>Curve_AlignLine_B</std:strval>
+          </std:node>
+        </std:node>
+      </std:node>
+      <std:node name="Marking Line">
+        <std:node name="Curve">
+          <std:strval>Curve_MarkingLine_A</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="Opening">
+      <std:node name="Marked Opening">
+        <std:node name="Curve">
+          <std:strval>Curve_MarkedOpening</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_MarkedOpening</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Cut Opening">
+        <std:node name="Curve">
+          <std:strval>Curve_CutOpening</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_CutOpening</std:strval>
+        </std:node>
+      </std:node>
+      <std:node name="Tabbed Opening">
+        <std:node name="Curve">
+          <std:strval>Curve_TabbedOpening</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_TabbedOpening</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Bridged Opening">
+        <std:node name="Curve">
+          <std:strval>Curve_BridgedOpening</std:strval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_BridgedOpening</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="DrilledOpening">
+      <std:node name="Drilled Opening">
+        <std:node name="Curve">
+          <std:strval>Curve_DrilledOpening</std:strval>
+        </std:node>
+        <std:node name="DrawAnnotation">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="Text">
+          <std:strval>Text_DrilledOpening</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_DrilledOpening</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="ShrinkageCompensation">
+      <std:node name="Shrinkage Compensation">
+        <std:node name="Text">
+          <std:strval>Text_A</std:strval>
+        </std:node>
+        <std:node name="Symbol">
+          <std:strval>Symbol_A</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="CuttingContour">
+      <std:node name="External Cutting Contour">
+        <std:node name="Curve">
+          <std:strval>Curve_ExternalCC</std:strval>
+        </std:node>
+      </std:node>
+      <std:node name="Internal Cutting Contour">
+        <std:node name="Curve">
+          <std:strval>Curve_InternalCC</std:strval>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+  <std:node name="Cloud">
+    <std:node name="General">
+      <std:node name="MaxNbOfPoints">
+        <std:intval>-1</std:intval>
+      </std:node>
+      <std:node name="Point">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="MaxNbOfPoints">
+          <std:intval>1000</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="Scan">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="MaxNbOfSegments">
+          <std:intval>-1</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="Grid">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="MaxNbOfPoints">
+          <std:intval>-1</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="Mesh">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="MaxNbOfTriangles">
+          <std:intval>-1</std:intval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="ZLevelMap">
+      <std:node name="HideZLevelInsideConstruction">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="ShowPeaks">
+        <std:enumval name="YesNo">No</std:enumval>
+      </std:node>
+      <std:node name="MajorZLevelCurve">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="Color">
+          <std:colorval>255 0 0</std:colorval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:intval>2</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="MinorZLevelCurve">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="Color">
+          <std:colorval>0 128 255</std:colorval>
+        </std:node>
+        <std:node name="Linetype">
+          <std:intval>1</std:intval>
+        </std:node>
+        <std:node name="Thickness">
+          <std:intval>1</std:intval>
+        </std:node>
+      </std:node>
+      <std:node name="MajorZLevelLabel">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+        <std:node name="Font">
+          <std:node name="Name">
+            <std:strval>Arial</std:strval>
+          </std:node>
+          <std:node name="SizeScale">
+            <std:floatval>2</std:floatval>
+          </std:node>
+          <std:node name="HideScans">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>255 0 0</std:colorval>
+          </std:node>
+          <std:node name="Bold">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Italic">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+        <std:node name="Frame">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="MinorZLevelLabel">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="Font">
+          <std:node name="Name">
+            <std:strval>Arial</std:strval>
+          </std:node>
+          <std:node name="SizeScale">
+            <std:floatval>1</std:floatval>
+          </std:node>
+          <std:node name="HideScans">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Color">
+            <std:colorval>0 128 255</std:colorval>
+          </std:node>
+          <std:node name="Bold">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+          <std:node name="Italic">
+            <std:enumval name="YesNo">No</std:enumval>
+          </std:node>
+        </std:node>
+        <std:node name="Frame">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+      </std:node>
+    </std:node>
+    <std:node name="GeologicalModel">
+      <std:node name="Name">
+        <std:node name="Display">
+          <std:enumval name="YesNo">Yes</std:enumval>
+        </std:node>
+      </std:node>
+      <std:node name="Graduation">
+        <std:node name="Display">
+          <std:enumval name="YesNo">No</std:enumval>
+        </std:node>
+        <std:node name="OriginType">
+          <std:intval>0</std:intval>
+        </std:node>
+        <std:node name="XAxisStep">
+          <std:floatval>200</std:floatval>
+        </std:node>
+        <std:node name="ZAxisStep">
+          <std:floatval>100</std:floatval>
+        </std:node>
+      </std:node>
+    </std:node>
+  </std:node>
+</std:node>

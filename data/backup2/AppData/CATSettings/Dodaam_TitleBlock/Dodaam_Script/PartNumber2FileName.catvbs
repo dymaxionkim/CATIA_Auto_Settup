@@ -1,0 +1,297 @@
+Sub CATMain()
+
+    On Error Resume Next
+
+        Set mainProddoc = CATIA.ActiveDocument
+
+        If Err.Number 0 Then
+        BoxProduct = MsgBox("Primero tienes que abrir un CATPart o CATProduct!!!", vbCritical, "Error Macro"
+        Exit Sub
+
+    End If
+
+UserForm1.Show
+
+End Sub
+Sub oSavePart(Label3, Label8, ListBox1, ListBox2, ListBox3, CmdRun, CmdExport)
+
+Dim oPart As Part
+Set oPart = CATIA.ActiveDocument.Part
+
+'FileSystem
+Set oPartFileSystem = CreateObject("Scripting.FileSystemObject"
+Set oPartFile = oPartFileSystem.GetFile(CATIA.ActiveDocument.FullName)
+Set oPartFolder = oPartFileSystem.GetFolder(CATIA.ActiveDocument.Path)
+
+'Extract informations of FullName
+Dim k As Long
+Dim filename As String
+Dim oPartnumber As String
+k = Len(CATIA.ActiveDocument.Path) + 2
+filename = Mid(oPartFile, k)
+oPartnumber = oPart.Name & ".CATPart"
+
+'If the PartNumber is diferent of the FileName
+Dim oPartcase As String
+oPartcase = 0
+If filename oPartnumber Then
+        oPartcase = 1
+End If
+
+Select Case (oPartcase)
+ Case 0 'If the PartNumber is the same as the FileName
+        pnSave = pnSave + 1 'For count the unsave Part
+        ListBox2.AddItem filename
+        Label3.Caption = "Nothing to Declare !" & Chr(10) & Chr(10) & "The PartNumber is the same as the File Name"
+        Label8.Visible = False
+ Case 1 'If the PartNumber isn't the same as the FileName
+        pSave = pSave + 1 'For count the saving Part
+        Call oPartsub(oPart, oPartFileSystem, oPartFile, oPartFolder, filename, ListBox1, ListBox3, Label3, Label8)
+ Case Else
+        BoxProduct = MsgBox("Macro Failed!!!", vbCritical, "Error Macro"
+        Exit Sub
+End Select
+
+'Result of the macro
+BoxProduct = MsgBox("Process Finished!!!", vbInformation, "Macro Result"
+
+CmdExport.Enabled = True
+CmdRun.Enabled = False
+
+End Sub
+Sub oSaveProduct(Label3, Label8, ListBox1, ListBox2, ListBox3, CmdRun, CmdExport)
+
+Dim mainDocument
+Set mainDocument = CATIA.ActiveDocument
+
+Set oProduct = mainDocument.Product
+
+'For count the part which save or not
+Dim pSave As Integer
+Dim pnSave As Integer
+pSave = 0
+pnSave = 0
+
+'mainDocument FileSystem
+Set mProdFileSystem = CreateObject("Scripting.FileSystemObject"
+Set mProdFile = mProdFileSystem.GetFile(mainDocument.FullName)
+Set mProdFolder = mProdFileSystem.GetFolder(mainDocument.Path)
+
+'Extract informations of FullName
+Dim pl As Long
+Dim mprodfilename As String
+pl = Len(mainDocument.Path) + 2
+mprodfilename = Mid(mProdFile, pl)
+   
+'Chek if the PartNumber is diferent of the File Name
+Dim mProdcase As String
+mProdcase = 0
+If mprodfilename oProduct.Name & ".CATProduct" Then
+    mProdcase = 1
+End If
+
+Select Case (mProdcase)
+ Case 0 'If the PartNumber is the same as the FileName
+        pnSave = pnSave + 1 'For count the unsave Part
+        ListBox2.AddItem mprodfilename
+        Label8.Visible = False
+ Case 1 'If the PartNumber isn't the same as the FileName
+        pSave = pSave + 1 'For count the saving Part
+        Call mProdsub(mainDocument, oProduct, mProdFileSystem, mProdFile, mProdFolder, mprodfilename, ListBox1, ListBox3)
+ Case Else
+        BoxProduct = MsgBox("Macro Failed!!!", vbCritical, "Error Macro"
+        Exit Sub
+End Select
+'----------------------------------------------------------------------------------
+'Loop inside the product
+For i = 1 To mainDocument.Product.Products.Count
+
+    Set prdSubProduct = mainDocument.Product.Products.Item(i)
+    Set prdRefProduct = prdSubProduct.ReferenceProduct
+    Set docSubDocument = prdRefProduct.Parent
+    strSubFullPath = docSubDocument.FullName
+   
+    'oProduct FileSystem
+    Set oProdFileSystem = CreateObject("Scripting.FileSystemObject"
+    Set oProdFile = oProdFileSystem.GetFile(docSubDocument.FullName)
+    Set oProdFolder = oProdFileSystem.GetFolder(docSubDocument.Path)
+   
+    'Extract informations of FullName
+    Dim n As Long
+    Dim prodfilename As String
+    Dim oProdnumber As String
+    n = Len(docSubDocument.Path) + 2
+    prodfilename = Mid(oProdFile, n)
+           
+    'Identification of the component (CATPart or CATProduct)
+    Dim extension As String
+    If InStr(strSubFullPath, ".CATPart" Then
+        extension = ".CATPart"
+        Else
+        extension = ".CATProduct"
+    End If
+   
+    Dim oProdcase As String
+    oProdcase = 0
+    If prodfilename prdRefProduct.Name & extension Then
+        oProdcase = 1
+    End If
+
+    Select Case (oProdcase)
+        Case 0 'If the PartNumber is the same as the FileName
+            pnSave = pnSave + 1 'For count the unsave Part
+            ListBox2.AddItem prodfilename
+            Label8.Visible = False
+            Label3.Caption = "Process Finished !!!" & Chr(10) & Chr(10) & "Check the tables for more details!" & Chr(10) & Chr(10) & "Or you can Export an Txt Output File !"
+        Case 1 'If the PartNumber isn't the same as the FileName
+            pSave = pSave + 1 'For count the saving Part
+            Call mPartsub(docSubDocument, prdRefProduct, extension, oProdFileSystem, oProdFile, oProdFolder, prodfilename, ListBox1, ListBox3)
+        Case Else
+            BoxProduct = MsgBox("Macro Failed!!!", vbCritical, "Error Macro"
+            Exit Sub
+    End Select
+
+Next
+
+'Result of the macro
+Dim rInfo As String
+rInfo = "Process Finished !!!" & vbCrLf & _
+        "" & vbCrLf & _
+        "" & vbCrLf & _
+        "NOK Components (Saving Component)= " & pSave & vbCrLf & _
+        "OK Components (Unsaving Component)= " & pnSave
+
+BoxProduct = MsgBox(rInfo, vbInformation, "Macro Result"
+CmdExport.Enabled = True
+CmdRun.Enabled = False
+
+End Sub
+Sub mProdsub(mainDocument, oProduct, mProdFileSystem, mProdFile, mProdFolder, mprodfilename, ListBox1, ListBox3)
+
+'Backup of the name file
+Dim oldmProdFile As String
+oldmProdFile = mProdFile
+'Save the new FileName
+'Check if exist or not
+If mProdFileSystem.FileExists(oProduct.Name & ".CATProduct" Then
+    BoxError = MsgBox("This file already exist! Do you want overwrite it?", vbYesNo)
+    If BoxError = vbYes Then
+        mainDocument.SaveAs mProdFolder & "" & oProduct.Name & ".CATProduct"
+        ListBox1.AddItem mprodfilename
+        ListBox3.AddItem oProduct.Name & ".CATProduct"
+        'Delete the Old File
+        If mProdFileSystem.FileExists(oldmProdFile) Then
+            mProdFileSystem.DeleteFile oldmProdFile
+        End If
+    End If
+    If BoxError = vbNo Then
+        BoxAlert = MsgBox("Be Careful !" & Chr(10) & "This File not Saving!!!", vbInformation, "Information Macro"
+        ListBox1.AddItem mprodfilename & " --> Not Save!"
+    End If
+Else
+    mainDocument.SaveAs mProdFolder & "" & oProduct.Name & ".CATProduct"
+    'Save the informations in the Textlist
+    ListBox1.AddItem mprodfilename
+    ListBox3.AddItem oProduct.Name & ".CATProduct"
+    If mProdFileSystem.FileExists(oldmProdFile) Then
+        mProdFileSystem.DeleteFile oldmProdFile
+    End If
+End If
+CmdExport.Enabled = True
+End Sub
+Sub mPartsub(docSubDocument, prdRefProduct, extension, oProdFileSystem, oProdFile, oProdFolder, prodfilename, ListBox1, ListBox3)
+
+'Backup of the Old FileName
+Dim oldProdfile As String
+oldProdfile = oProdFile
+
+'Save the new FileName
+'Check if exist or not
+If oProdFileSystem.FileExists(prdRefProduct.Name & extension) Then
+    BoxpError = MsgBox("This file already exist! Do you want overwrite it?", vbYesNo)
+    If BoxpError = vbYes Then
+        docSubDocument.SaveAs oProdFolder & "" & prdRefProduct.Name & extension
+        ListBox1.AddItem prodfilename
+        ListBox3.AddItem prdRefProduct.Name & extension
+        'Delete the Old File
+        If oProdFileSystem.FileExists(oldProdfile) Then
+            oProdFileSystem.DeleteFile oldProdfile
+        End If
+    End If
+    If BoxpError = vbNo Then
+        BoxProduct = MsgBox("Be Careful !" & Chr(10) & "File not Saving!!!", vbInformation, "Information Macro"
+        ListBox1.AddItem prodfilename & " --> Not Save!"
+    End If
+Else
+   docSubDocument.SaveAs oProdFolder & "" & prdRefProduct.Name & extension
+   'Save the informations in the Textlist
+   ListBox1.AddItem prodfilename
+   ListBox3.AddItem prdRefProduct.Name & extension
+   If oProdFileSystem.FileExists(oldProdfile) Then
+    oProdFileSystem.DeleteFile oldProdfile
+   End If
+End If
+
+End Sub
+
+Sub oPartsub(oPart, oPartFileSystem, oPartFile, oPartFolder, filename, ListBox1, ListBox3, Label3, Label8)
+
+'Backup of the Old FileName
+Dim oldPartfile As String
+oldPartfile = oPartFile
+
+'Save the new FileName
+'Check if exist or not
+If oPartFileSystem.FileExists(oPart.Name & ".CATPart" Then
+    BoxoError = MsgBox("This file already exist! Do you want overwrite it?", vbYesNo)
+    If BoxoError = vbYes Then
+        CATIA.ActiveDocument.SaveAs oPartFolder & "" & oPart.Name & ".CATPart"
+        'Save the informations in the Textlist
+        ListBox1.AddItem filename
+        ListBox3.AddItem oPart.Name & ".CATPart"
+        'Delete the Old File
+        If oPartFileSystem.FileExists(oldPartfile) Then
+            oPartFileSystem.DeleteFile oldPartfile
+        End If
+        'Get the info of the new FileName
+        Set newPartFile = oPartFileSystem.GetFile(CATIA.ActiveDocument.FullName)
+        If Not (newPartFile Is Nothing) Then
+            Dim sInfo As String
+            With newPartFile
+                sInfo = "Date Created       : " & .DateCreated & vbCrLf & _
+                      "Date Last accessed : " & .DateLastAccessed & vbCrLf & _
+                      "Date Last Modified : " & .DateLastModified & vbCrLf & _
+                      "Size               : " & .Size & "Kb"
+            End With
+            Label3.Caption = sInfo
+            Label8.Visible = False
+        End If
+    End If
+    If BoxoError = vbNo Then
+        BoxProduct = MsgBox("Be Careful !" & Chr(10) & "File not Saving!!!", vbInformation, "Information Macro"
+        ListBox1.AddItem filename & " --> Not Save!"
+    End If
+Else
+    CATIA.ActiveDocument.SaveAs oPartFolder & "" & oPart.Name & ".CATPart"
+    'Save the informations in the Textlist
+    ListBox1.AddItem filename
+    ListBox3.AddItem oPart.Name & ".CATPart"
+    If oPartFileSystem.FileExists(oldPartfile) Then
+        oPartFileSystem.DeleteFile oldPartfile
+    End If
+    'Get the info of the new FileName
+    Set newPartFile = oPartFileSystem.GetFile(CATIA.ActiveDocument.FullName)
+    If Not (newPartFile Is Nothing) Then
+        With newPartFile
+            sInfo = "Date Created       : " & .DateCreated & vbCrLf & _
+                    "Date Last accessed : " & .DateLastAccessed & vbCrLf & _
+                    "Date Last Modified : " & .DateLastModified & vbCrLf & _
+                    "Size               : " & .Size & "Kb"
+        End With
+        Label3.Caption = sInfo
+        Label8.Visible = False
+    End If
+End If
+
+End Sub
+

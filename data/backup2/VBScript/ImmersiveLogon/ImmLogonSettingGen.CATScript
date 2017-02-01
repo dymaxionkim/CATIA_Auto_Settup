@@ -1,0 +1,42 @@
+Language="VBSCRIPT"
+
+Sub CATMain()
+
+Dim settingControllers1 As SettingControllers
+Set settingControllers1 = CATIA.SettingControllers
+
+Dim logonSettingAtt1 As SettingController
+Set logonSettingAtt1 = settingControllers1.Item("CATImmLogonSettingCtrl")
+
+
+Dim WICH
+WICH = Catia.SystemService.Environ("WICH")
+If WICH = "WICH" Then
+logonSettingAtt1.WriteInComboHost = True
+Else
+logonSettingAtt1.WriteInComboHost = False
+End If
+
+Dim LB
+LB = Catia.SystemService.Environ("LB")
+If LB = "LB" Then
+logonSettingAtt1.LoadBalancing = True
+Else
+logonSettingAtt1.LoadBalancing = False
+End If
+
+Dim arrayOfVariantOfBSTR1
+arrayOfVariantOfBSTR1 = logonSettingAtt1.Hosts
+
+
+Dim arrayOfVariantOfBSTR2
+arrayOfVariantOfBSTR2 = logonSettingAtt1.Hosts
+
+Dim arrayOfVariantOfBSTR3(0)
+arrayOfVariantOfBSTR3(0) = Catia.SystemService.Environ("Host")
+logonSettingAtt1.Hosts = arrayOfVariantOfBSTR3
+
+
+logonSettingAtt1.SaveRepository 
+
+End Sub

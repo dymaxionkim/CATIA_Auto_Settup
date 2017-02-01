@@ -1,0 +1,65 @@
+' Instanciation of a User Feature Reference "MyUserFeature2" 
+' MyUserFeature2 is stored in the CATPart "e:\tmp\UserFeature_001_StartSweep.CATPart"
+' It has
+' 2 inputs: Centre and Surface
+' 2 published parameters: Hauteur and Rayon
+' 1 output: Direction
+'------------------------------------------------------------------
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieve the current part"
+
+Dim PartDocumentDest As PartDocument
+Set PartDocumentDest = CATIA.ActiveDocument
+
+Dim PartDest As Part
+Set PartDest = PartDocumentDest.Part
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieve the factory of the current part"
+
+Dim factory As InstanceFactory
+Set factory = PartDest.GetCustomerFactory("InstanceFactory")
+'------------------------------------------------------------------
+Catia.SystemService.Print "BeginInstanceFactory"
+
+factory.BeginInstanceFactory "MyUserFeature2", "e:\tmp\UserFeature_001_StartSweep.CATPart"
+'------------------------------------------------------------------
+Catia.SystemService.Print "Begin Instantiation"
+
+factory.BeginInstantiate
+'------------------------------------------------------------------
+Catia.SystemService.Print "Set Inputs"
+
+Dim Centre As Object
+Set Centre = PartDest.FindObjectByName("Point.1")
+
+Dim Surface As Object
+Set Surface = PartDest.FindObjectByName("Surface.1")
+
+factory.PutInputData "Centre", Centre
+factory.PutInputData "Surface", Surface
+'------------------------------------------------------------------
+Catia.SystemService.Print "Modify Parameters"
+
+Dim param1 As Parameter
+Set param1 = factory.GetParameter("Hauteur")
+param1.ValuateFromString("40mm")
+
+Dim param2 As Parameter
+Set param2 = factory.GetParameter("Rayon")
+param2.ValuateFromString("30mm")
+'------------------------------------------------------------------
+Catia.SystemService.Print "Instantiate"
+
+Dim Instance As ShapeInstance
+Set Instance = factory.Instantiate
+'------------------------------------------------------------------
+Catia.SystemService.Print "End of Instantiation"
+factory.EndInstantiate
+'------------------------------------------------------------------
+Catia.SystemService.Print "Release the reference document"
+
+factory.EndInstanceFactory
+'------------------------------------------------------------------
+Catia.SystemService.Print "Update"
+PartDest.Update

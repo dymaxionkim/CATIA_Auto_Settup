@@ -1,0 +1,13 @@
+Language="VBSCRIPT"
+
+Sub CATMain()
+
+Set productDocument1 = CATIA.ActiveDocument
+Set product1 = productDocument1.Product
+
+' Set tb as AsmUpgradeToolBox
+Set toolBox = CATIA.GetItem("CATIAAsmUpgradeToolBoxExtImpl")
+Set tb = toolBox.ToolBox
+tb.AsmUpgrade(product1)
+
+End Sub

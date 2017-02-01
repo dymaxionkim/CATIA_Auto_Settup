@@ -1,0 +1,52 @@
+!----------------------------------------------------------
+!   DASSAULT SYSTEMES  -  V5 ENVIRONMENT FILE
+!----------------------------------------------------------
+! MODE : Global
+! TYPE : CATIA
+! TMSTMP : 1440992084
+! ARGS : -cs CATIA -a global -icon yes -menu no 
+!----------------------------------------------------------
+
+CATInstallPath=C:\Program Files\Dassault Systemes\B20\win_b64
+CATDLLPath=C:\Program Files\Dassault Systemes\B20\win_b64\code\bin
+CATICPath=C:\Program Files\Dassault Systemes\B20\win_b64\code\productIC
+CATCommandPath=C:\Program Files\Dassault Systemes\B20\win_b64\code\command
+CATDictionaryPath=C:\Program Files\Dassault Systemes\B20\win_b64\code\dictionary
+CATDocView=C:\Program Files\Dassault Systemes\B20\win_b64\doc
+CATReffilesPath=C:\Program Files\Dassault Systemes\B20\win_b64\reffiles
+CATFontPath=C:\Program Files\Dassault Systemes\B20\win_b64\resources\fonts
+CATGalaxyPath=C:\Program Files\Dassault Systemes\B20\win_b64\resources\galaxy
+CATGraphicPath=C:\Program Files\Dassault Systemes\B20\win_b64\resources\graphic;C:\Program Files\Dassault Systemes\B20\win_b64\resources\graphic\icons;C:\Program Files\Dassault Systemes\B20\win_b64\resources\graphic\figures;C:\Program Files\Dassault Systemes\B20\win_b64\resources\graphic\splashscreens;C:\Program Files\Dassault Systemes\B20\win_b64\resources\graphic\symbols;C:\Program Files\Dassault Systemes\B20\win_b64\resources\graphic\textures
+CATMsgCatalogPath=C:\Program Files\Dassault Systemes\B20\win_b64\resources\msgcatalog
+CATFeatureCatalogPath=C:\Program Files\Dassault Systemes\B20\win_b64\resources\featurecatalog
+CATDefaultCollectionStandard=C:\Program Files\Dassault Systemes\B20\win_b64\resources\standard
+CATKnowledgePath=C:\Program Files\Dassault Systemes\B20\win_b64\resources\knowledge
+CATStartupPath=C:\Program Files\Dassault Systemes\B20\win_b64\startup
+CATW3ResourcesPath=C:\Program Files\Dassault Systemes\B20\win_b64\docs
+CATReconcilePath=
+CATReferenceSettingPath=C:\Users\dong\AppData\Roaming\DassaultSystemes\CATSettings
+CATUserSettingPath=CSIDL_APPDATA\DassaultSystemes\CATSettings
+CATCollectionStandard=C:\Users\dong\AppData\Roaming\DassaultSystemes\CATSettings
+CATTemp=CSIDL_LOCAL_APPDATA\DassaultSystemes\CATTemp
+CATMetasearchPath=DSKEY_TMPDIR
+CATW3PublishPath=DSKEY_TMPDIR
+CATSharedWorkbookPath=DSKEY_TMPDIR
+CATErrorLog=CSIDL_LOCAL_APPDATA\DassaultSystemes\CATTemp\error.log
+CATReport=CSIDL_LOCAL_APPDATA\DassaultSystemes\CATReport
+CATDisciplinePath=
+USER_HOME=CSIDL_PERSONAL
+JAVA_HOME=%JAVA_HOME%
+CLASSPATH_JDBC=
+CLASSPATH=%CLASSPATH_JDBC%;%CLASSPATH%
+PATH=C:\Program Files\Dassault Systemes\B20\win_b64\code\bin;C:\Program Files\Dassault Systemes\B20\win_b64\code\command;%JAVA_HOME%\bin;%PATH%
+
+! Screen width value un millimeters => measured on your screen
+CATWidthMMOfScreen=708
+! screen height value in millimeters => measured on your screen
+CATHeightMMOfScreen=398
+! horizontal screen resolution set in your computer display properties panel
+CATWidthPixelOfScreen=1360
+! vertical screen resolution set in your computer display properties panel
+CATHeightPixelOfScreen=768
+
+

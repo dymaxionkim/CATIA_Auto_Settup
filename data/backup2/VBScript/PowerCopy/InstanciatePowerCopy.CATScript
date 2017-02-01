@@ -1,0 +1,69 @@
+' Instanciation of a PowerCopy Reference "MyPowerCopy1" 
+' MyPowerCopy1 is stored in the CATPart "e:\tmp\PowerCopyReference.CATPart"
+' It has
+' 3 inputs: FirstHole, Support,and SecondHole
+' 2 published parameters: Radius1 and Radius2
+'------------------------------------------------------------------
+
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieve the current part"
+
+Dim PartDocumentDest As PartDocument
+Set PartDocumentDest = CATIA.ActiveDocument
+
+Dim PartDest As Part
+Set PartDest = PartDocumentDest.Part
+'------------------------------------------------------------------
+Catia.SystemService.Print "Retrieve the factory of the current part"
+
+Dim factory As InstanceFactory
+Set factory = PartDest.GetCustomerFactory("InstanceFactory")
+'------------------------------------------------------------------
+Catia.SystemService.Print "BeginInstanceFactory"
+
+factory.BeginInstanceFactory "TwoSurfacicHole", "e:\tmp\PowerCopyReference.CATPart"
+'------------------------------------------------------------------
+Catia.SystemService.Print "Begin Instantiation"
+
+factory.BeginInstantiate
+'------------------------------------------------------------------
+Catia.SystemService.Print "Set Inputs"
+
+Dim FirstHole As Object
+Set FirstHole = PartDest.FindObjectByName("Point.1")
+
+Dim Support As Object
+Set Support = PartDest.FindObjectByName("Extrude.1")
+
+Dim SecondHole As Object
+Set SecondHole = PartDest.FindObjectByName("Point.2")
+
+factory.PutInputData "FirstHole", FirstHole
+factory.PutInputData "Support", Support
+factory.PutInputData "SecondHole", SecondHole
+'------------------------------------------------------------------
+Catia.SystemService.Print "Modify Parameters"
+
+Dim param1 As Parameter
+Set param1 = factory.GetParameter("Radius1")
+param1.ValuateFromString("25mm")
+
+Dim param2 As Parameter
+Set param2 = factory.GetParameter("Radius2")
+param2.ValuateFromString("15mm")
+'------------------------------------------------------------------
+Catia.SystemService.Print "Instantiate"
+
+Dim Instance As ShapeInstance
+Set Instance = factory.Instantiate
+'------------------------------------------------------------------
+Catia.SystemService.Print "End of Instantiation"
+factory.EndInstantiate
+'------------------------------------------------------------------
+Catia.SystemService.Print "Release the reference document"
+
+factory.EndInstanceFactory
+'------------------------------------------------------------------
+Catia.SystemService.Print "Update"
+PartDest.Update
+

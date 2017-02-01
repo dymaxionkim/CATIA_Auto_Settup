@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<std:node name="ViewSetup" type="Viewsetup" xmlns:std="http://www.dsweb.com/std">
+  <std:node name="Structure">
+    <std:node name="PreliminaryLayout">
+  
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- DASSAULT SYSTEMES (c)2002 																																						-->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+<!-- This file is a sample to use with the Structure Preliminary Layout workbench and the Generative View -->
+<!-- Style of Drafting workbench.																																					-->
+<!-- This file should be modified by your administrator only 	 					  -->
+<!-- oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo -->
+		<std:node name="SPLWrappingSurf">
+		  <std:node name="Extraction">
+			<!-- Set if the wrapping surface has to be drawn  -->
+      		<!-- Values are 0 ____ the wrapping surface only will be extracted (** default **)  -->
+			<!--  			-1 ____ the wrapping surface will not be extracted. This Option disable GraphicReplacement -->
+			<std:intval>0</std:intval>
+		  </std:node>
+		  <std:node name="GraphicReplacement">
+			<!-- Set if the wrapping surface has a Graphic Replacement  -->
+      		<!-- Values are 0 ____ the wrapping surface will be simply drawn  -->
+			<!--  			1 ____ the wrapping surface and the hull centerline will be extracted   (** default **)  -->
+			<!--  			2 ____ the hull centerline only will be extracted -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="MPSelection">
+			<!-- Tell if the user selects the plane representing the middle station -->
+      		<!-- Value is 0 ___ when the user doesn't select the middle station plane (** default **)  -->
+			<!-- 		  1 ___ when the user does select the middle station plane -->
+			<std:intval>0</std:intval>
+		  </std:node>
+		  <std:node name="MPXCoord">
+			<!-- If the user doesn't select the plane representing the middle station,  -->
+			<!-- give the distance of this plane on X  -->
+			<!-- Default value is 50000.0  -->
+			<std:floatval>50000.0</std:floatval>
+		  </std:node>
+		  <std:node name="WLSelection">
+			<!-- Tell if the user selects the plane representing the WaterLine  -->
+      		<!-- Value is 0 ___ when the user doesn't select the WaterLine plane  -->
+			<!-- 					1 ___ when the user does select the WaterLine  plane (** default **) -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="WLZCoord">
+			<!-- If the user doesn't select the plane representing the WaterLine,  -->
+			<!-- give the distance of this plane on Z  -->
+			<!-- Default value is 0.0  -->
+			<std:floatval>0.0</std:floatval>
+		  </std:node>
+		  <std:node name="FrontViewSymmetrical">
+			<!-- Tell if Front View is Symmetrical  -->
+      		<!-- Value is 0 ___ when the view is asymmetrical  -->
+			<!--	      1 ___ when the view is symmetrical (** default **) -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="TopViewSymmetrical">
+			<!-- Tell if Top View is Symmetrical  -->
+      		<!-- Value is 0 ___ when the view is asymmetrical  -->
+			<!-- Value is 1 ___ when the view is symmetrical (** default **) -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="GeometryType">
+			<!-- Tell what type of geometry is used  -->
+      		<!-- Value is 0 ___ when the type is wireframe only (** default **)  -->
+			<!-- 	  	  1 ___ when the view is surface only  -->
+			<!-- 		  2 ___ when the view is both = wireframe + Surface -->
+			<std:intval>0</std:intval>
+		  </std:node>
+  			<std:node name="HullCenterlineText">
+  				<!-- This is the text to be written at the extemities of the centerline  -->
+  				<!-- Default value is "CL SHIP" -->
+  				<std:strval>CL SHIP</std:strval>
+		  </std:node>
+		  <std:node name="CenterlineLocation">
+			<!-- Tell where the HullCenterlineText must be pin  -->
+      		<!-- Value is 1 ___ Top location (** default **)  -->
+			<!-- 	  	  2 ___ Bottom location  -->
+			<!-- 		  3 ___ both location, Top and Bottom -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="HullCenterlineTextSize">
+	    		<!-- Size of the hull centerline text  -->
+	    		<!-- Default value is 3 millimeters (paper size relative)  -->
+					<!-- Model unit must be millimeter for length params (else, set the size to 0,3 if your param is centimeter) -->
+	    		<std:floatval>3.0</std:floatval>
+		  </std:node>
+		</std:node>
+			<!-- ************************************************************************ -->
+		<std:node name="SPLMoldedForm">
+		  <std:node name="Extraction">
+			<!-- Set if the object has to be drawn -->
+      		<!-- Values are 0 ____ has to be displayed (** default **) -->
+			<!--			-1 ____ no need to be displayed  -->
+			<std:intval>0</std:intval>
+		  </std:node>
+		  <std:node name="Linetype">
+			<!-- The linetype index to use for Molded Form representation -->
+			<!-- Default value is 1 (solid linetype) -->
+			<std:intval>1</std:intval>
+		  </std:node>         
+		  <std:node name="LineThickness">
+			<!-- The thickness of the GR representation -->
+			<!-- Default value is 2 -->
+			<std:intval>2</std:intval>
+		  </std:node>         
+		  <std:node name="ApplyOnProfileOnly">
+			<!-- Apply the linetype on profile view only -->
+			<!-- Values are 0 __ linetype will be applied to molded forms whatever the view (** default value **)  -->
+			<!--		    1 __ linetype will be applied only when the molded form is seen on its profile -->
+			<std:intval>0</std:intval>
+		  </std:node>
+
+  		  <std:node name="BulkheadLineType">
+	  		<!-- The fonted bukhead linetype -->
+			<!--Default value is 1 (should be a customized value) -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="CurvedBulkheadLineType">
+			<!-- The line type index to use for far side curved plate representation (fonted bulkhead) -->
+			<!-- Default value is 1 (solid line type) -->      
+			<!-- This line type should be a customized line type -->
+			<std:intval>1</std:intval>
+		  </std:node>
+		  <std:node name="CurvedBulkheadThickness">
+			<!-- The thickness to use for far side curved plate representation (fonted bulkhead) -->
+			<!-- Default value is 2 -->      
+			<std:intval>2</std:intval>
+		  </std:node>
+		</std:node>
+
+	</std:node>
+  </std:node>
+</std:node>
+

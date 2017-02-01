@@ -1,0 +1,269 @@
+
+' © COPYRIGHT DASSAULT SYSTEMES 2008 
+
+' Created by VKF - Jan 2008
+
+' --------------------------------------------------------------------------------------------
+' This script provides backward compatibilty for CATIA® R17 and R18 (upto SP3)
+' for saving CATIA Environment as a part of "Multiple CATIA Environment Management For Supplier" highlight
+' Script Should be used only with ENOVIA SmarTeam® R19 and above
+' This script works with following types
+'   - CATIA Product
+'   - CATIA Internal Component
+'   - CATIA Part
+'   - CATIA Drawing
+' --------------------------------------------------------------------------------------------
+
+' -------------------------------------------------------------------------------------
+Option Explicit
+' -------------------------------------------------------------------------------------
+Dim Language as String
+Language="VBScript"
+' -------------------------------------------------------------------------------------
+
+
+' -------------------------------------------------------------------------------------
+' Removes paramToRemove From ListParameters 
+' -------------------------------------------------------------------------------------
+Sub RemoveExistingParameter(ListParameters As Parameters , ParamToRemove As String)
+     
+    'MsgBox ParamToRemove
+    'MsgBox ListParameters.Count
+
+    ' Since we are removing the parameters from the list
+    ' We cannot use the direct For loop
+    ' We have to go from end to 1
+     
+    ' if the parameter to remove already exists 
+    ' in the Parameters collection , we remove it
+        
+    Dim j As Integer
+    Dim nbCount As Integrer
+    Dim nbIndex As Integrer
+    nbCount = ListParameters.Count * (-1)
+
+    For nbIndex = nbCount to (-1)
+        j = nbIndex * (-1)
+        'MsgBox ListParameters.Item(j).Name
+            
+        If (ListParameters.Item(j).Name = ParamToRemove) Then
+            ListParameters.Remove ParamToRemove
+        End If
+    Next
+
+End Sub
+
+
+' -------------------------------------------------------------------------------------
+' Retrieves CATIA Environment and Adds it in the Parameter list
+' -------------------------------------------------------------------------------------
+Sub AddEnvironmentParameter(ListParameters As Parameters)
+    
+    ' Create the OEM Environment parameter
+    ' This parameter is a string type parameter 
+    ' Its initial value is CATIA Environment
+    
+    Dim CATIAEnv as String
+    
+    On Error Resume Next
+    CATIAEnv = CATIA.SystemService.Environ("OEM Environment")
+    If Err Then
+        Exit Sub
+    End if
+    Dim oString As Parameter 
+    Set oString = ListParameters.CreateString("OEM Environment", CATIAEnv)
+    
+End Sub
+
+' -------------------------------------------------------------------------------------
+' Adds the parameter on Product and its entire assembly
+' -------------------------------------------------------------------------------------
+Sub AddParameterOnProduct( DocProduct As Product)
+    
+    Dim RefProduct As Product
+    Set RefProduct = DocProduct.ReferenceProduct
+    
+    ' Retrieve the collection object which contains
+    ' all the document parameters
+    
+    ' Now The oProduct could actually be a Part Document
+    ' Is so, we have to add the Parameter on the CATIAPart and not on CATProduct
+    ' For Part Document, CAI Save treats Part.Parameters
+    
+    ' If the oProduct has Shape Representation, it is a part
+    
+    Dim ListParameters As Parameters 
+    
+    If (DocProduct.HasAMasterShapeRepresentation) Then
+    
+        ' Get the Part Document
+        Dim DocPart As Document
+        Set DocPart = DocProduct.GetMasterShapeRepresentation(False)
+        ' Get the Part Parameters
+        Set ListParameters = DocPart.Part.Parameters
+    
+    Else
+    
+        ' Get the Product or Internal Component Parameters
+        Set ListParameters = RefProduct.Parameters
+    
+    End If
+
+    Dim PartNumber as String
+    PartNumber = DocProduct.PartNumber
+        
+    ' Remove the existing 'OEM Environment' parameter 
+    Dim ParamToRemove AS String
+    ParamToRemove = PartNumber & "\" & "OEM Environment"
+    
+    RemoveExistingParameter ListParameters , ParamToRemove
+
+    AddEnvironmentParameter ListParameters
+
+    ' Do not forget to update the Product
+    RefProduct.Update   
+    
+    ' ----------------------------------------------
+    ' Recursive execute this for setting parameter 
+    ' on all the children objects
+    ' For Product(or internal component), 
+    ' direct internal component and 
+    ' direct part are retrieved using RefProduct.Products
+    ' ----------------------------------------------
+    
+    Dim ProductList As Products
+    
+    Set ProductList = RefProduct.Products
+    Dim j As Integer
+    
+    For j = 1 to ProductList.Count
+        
+        Dim OneProduct As Product
+        Set OneProduct = ProductList.Item(j)
+        
+        AddParameterOnProduct OneProduct
+    Next
+    
+End Sub
+
+
+' -------------------------------------------------------------------------------------
+' Adds the parameter on Root Product
+' -------------------------------------------------------------------------------------
+Sub AddParameterOnProductDocument(ProductDoc As Document)
+
+    ' Treat the Root Product 
+    AddParameterOnProduct ProductDoc.Product
+ 
+End Sub
+
+
+' -------------------------------------------------------------------------------------
+' Adds the parameter on Part 
+' This is executed only when Part is opened in own editor
+' -------------------------------------------------------------------------------------
+Sub AddParameterOnPartDocument(PartDoc As Document)
+      
+    ' Retrieve the collection object which contains
+    ' all the document parameters
+    Dim ListParameters As Parameters 
+    Dim PartNumber as String
+
+    Set ListParameters = PartDoc.Part.Parameters
+    PartNumber = PartDoc.Product.PartNumber
+
+    ' Remove the OEM Environment parameter 
+    Dim ParamToRemove AS String
+    ParamToRemove = PartNumber & "\" & "OEM Environment"
+    
+    RemoveExistingParameter ListParameters , ParamToRemove
+
+    AddEnvironmentParameter ListParameters
+
+    ' Update the document
+    PartDoc.Part.Update 
+
+End Sub
+
+
+' -------------------------------------------------------------------------------------
+' Adds the parameter on Drawing
+' -------------------------------------------------------------------------------------
+Sub AddParameterOnDrawingDocument(DrawingDoc As Document)
+      
+    ' Retrieve the collection object which contains
+    ' all the document parameters
+    Dim ListParameters As Parameters 
+    Set ListParameters = DrawingDoc.Parameters
+
+    ' Remove the OEM Environment parameter 
+    Dim ParamToRemove AS String
+    ParamToRemove = "OEM Environment"
+    
+    RemoveExistingParameter ListParameters , ParamToRemove
+
+    AddEnvironmentParameter ListParameters
+    
+    ' Update the document
+    DrawingDoc.Update 
+
+End Sub
+
+
+' -------------------------------------------------------------------------------------
+' Start point of the script
+' -------------------------------------------------------------------------------------
+Sub CATMain()
+
+    ' Get the CATIA Release
+    Dim oRelease as String
+    oRelease = CATIA.SystemConfiguration.Release
+    
+    ' The functionality does not support CATIA Release prior to R17
+    If oRelease < 17 Then
+        MsgBox "This Script is not supported for this CATIA Release"
+        Exit Sub
+    End If
+
+    ' Get the CATIA Service Pack
+    Dim oServicePack as String
+    oServicePack = CATIA.SystemConfiguration.ServicePack
+    
+    ' The CAI code is available from R18SP4
+    ' So, If the CATIA Release 17 or less than R18SP4, we execute this script
+    If (oRelease = 17) OR ((oRelease = 18 AND oServicePack < 4)) Then
+        
+        ' Set the CATIA popup file alerts to False
+        ' It prevents to stop the macro at each alert during its execution
+        CATIA.DisplayFileAlerts = False
+
+        Dim CurrentDoc As Document
+
+        ' ActiveDocument returns the root document in the active editor
+        Set CurrentDoc = CATIA.ActiveDocument
+    
+        'MsgBox CurrentDoc.Name
+
+        ' Root Document is Part
+        If (InStr( LCase(CurrentDoc.Name) , LCase(".CATPart") )) Then
+            AddParameterOnPartDocument CurrentDoc
+        End If
+            
+        ' Root Document is Product
+        If (InStr( LCase(CurrentDoc.Name) , LCase(".CATProduct") )) Then
+            AddParameterOnProductDocument CurrentDoc
+        End If
+
+        ' Root Document is Drawing
+        If (InStr( LCase(CurrentDoc.Name) , LCase(".CATDrawing") )) Then
+            AddParameterOnDrawingDocument CurrentDoc
+        End If
+
+    Else
+
+        MsgBox "This Script is not required to run for this CATIA Release"
+
+    End If
+    
+End Sub
+
