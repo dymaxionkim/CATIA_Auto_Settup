@@ -1,37 +1,119 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/dymaxionkim/CATIA_Auto_Settup/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# CATIA_Auto_Settup
 
-### Markdown
+_(주)도담시스템스 CATIA 자동 설정 도구 V08_
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+## Compatible Envirenment
+* MS WIndows 7, 8, 8.1, 10
+* CATIA V5R20 installed in default settup
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## 다운로드 : 
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
+## 제작배경
+* 사용자마다 설정이 달라서 혼선 발생
+* 회사 표준 설정안을 만들어서 한방에 쉽게 적용할 수 있게 하면 좋겠다고 생각
+* 계속 판올림해서 개선해도 일관성을 유지하면 좋겠다고 생각
+
+
+## 원리
+* 설명할 필요가 없음.  간단함.
+* 중요한 설정파일들의 위치를 파악하고 그걸 강제로 카피하는 방식으로 이루어짐.
+
+
+## 주요 설정 포인트
+* 사용자 인터페이스 관련 설정 : 단축키, 디스플레이 등
+* 3D 모델링 관련 설정 : 생략
+* 2D 도면 관련 설정 : 각종 심볼, 선굵기, 폰트 등을 표준에 맞게 설정함.
+* 기타 자질구레한 것들 : 시작 속도 개선 등
+
+
+## 사용하기 전의 전제조건
+* Windows7에서 테스트 완료하였다.
+* Windows8.1에서도 테스트 완료하였다.
+* CATIA V5R20 버전만 된다.  다른 버전은 배치파일을 수정해야 한다.
+* CATIA의 설치 경로는 반드시 디폴트 경로로 깔아뒀어야 한다.
+* 잘못 건드려 CATIA 설정이 꼬이지 않으려면 반드시 설명대로 따라하기 바란다.
+
+
+## 배치파일 실행 방법
+* 포함된 배치파일들은 시스템 영역의 파일 및 변수들을 삭제/생성/수정하기 때문에, 반드시 관리자 권한으로 실행되어야 한다.
+* 이상없이 실행되도록 하기 위해 아래와 같은 절차를 따른다.
+* 윈도우 `시작` 버튼 - `모든 프로그램` - `보조 프로그램`으로 찾아 들어간다.  (Windows8.1에서도 알아서 찾아갈 것)
+* `명령 프롬프트`를 골라서 마우스 오른쪽 버튼을 누른 후 `관리자 권한으로 실행` 한다.
+* 이상의 실행 절차가 귀챦으면 `data` 폴더 안에 `Command Prompt` 단축아이콘을 미리 만들어 두었으므로 이것을 더블클릭하면 된다.
+* 명령 프롬프트가 관리자 권한으로 이상없이 실행되었는지 확인한다.
+* 본 설정이 들어있는 경로로 찾아 들어간다.
+* 예를 들어, `d:\설정` 폴더에 있다면, 다음 명령을 쳐서 찾아들어간다.
+
+```bash
+d:
+cd d:\설정\data
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+* 이제 아래와 같은 조건별(case1~4)로 해당 배치파일을 입력해서 실행시키도록 한다.  자칫 잘못된 배치파일을 실행하지 않도록 특히 주의한다.
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/dymaxionkim/CATIA_Auto_Settup/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## 설정을 적용하는 방법 (최초 실행시)
 
-### Support or Contact
+### case1
+* CATIA V5R20을 PC에 기본 경로로 처음 깔고 난 후에 처음 회사 설정을 적용하고자 할 때.
+* CATIA 초보자, 신입사원일 경우.
+```bash
+case1.bat
+```
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+
+### case2
+* CATIA V5R20을 PC에 기본 경로로 처음 깔고 난 후에 처음 회사 설정을 적용하고자 할 때.
+* CATIA 유경험자일 경우, 자신만의 단축키 등 UI를 계속 유지하고 싶을 경우.
+```bash
+case2.bat
+```
+
+
+
+## 설정을 적용하는 방법 (두 번째 이후 실행시)
+
+### case3
+* 전에 case1 또는 case2를 실행해서 backup1 폴더가 이미 만들어져 있을 경우.
+* 기존의 backup1 폴더 내용을 갱신하지 않고 그냥 새로운 설정만 적용하고자 할 때.
+* UI까지도 전부 새로운 설정으로 적용하고자 할 때.
+```bash
+case3.bat
+```
+
+### case4
+* 전에 case1 또는 case2를 실행해서 backup1 폴더가 이미 만들어져 있을 경우.
+* 기존의 backup1 폴더 내용을 갱신하지 않고 그냥 새로운 설정만 적용하고자 할 때.
+* UI는 원래의 backup1에 백업된 것을 적용하고자 할 때.
+```bash
+case4.bat
+```
+
+
+
+##  관리자용 설명 (설정을 만드는 사람용)
+
+### 셋팅한 설정을 백업받는 방법
+* 회사 표준 설정인 backup2 폴더를 만들어낼 때.
+* .\data\backup2.bat 파일을 마우스 오른쪽 클릭하고 "바로가기 만들기"를 선택한다.
+* 만들어진 바로가기 아이콘을 마우스 오른쪽 클릭하고 "속성"을 선택한다.
+* 속성 팝업창이 뜨면, "바로가기" 탭에서 "고급" 버튼을 누른다.
+* 고급 팝업창이 뜨면, "관리자 권한으로 실행"을 체크한다.
+* 확인을 눌러서 빠져나온다.
+* 이제 만들어진 바로가기 아이콘을 더블클릭해서 실행하면 된다.
+* 완료후 backup2 폴더가 이상없이 잘 만들어졌는지 확인한다.
+
+
+## History
+* 20150915 : V04
+* 20151106 : V06
+* 20160722 : V07
+* 20160819 : V08
+  - 타이틀블록내 변수명 수정, 매크로 추가
+
