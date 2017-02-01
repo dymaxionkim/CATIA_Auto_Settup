@@ -2,16 +2,16 @@
 
 # CATIA_Auto_Settup
 
-_(주)도담시스템스 CATIA 자동 설정 도구 V08_
+_CATIA 자동 설정 도구 V08_
 
 
 
 ## Compatible Envirenment
 * MS WIndows 7, 8, 8.1, 10
 * CATIA V5R20 installed in default settup
+* (주)도담시스템스용
 
-
-## 다운로드 : 
+## 다운로드 : https://github.com/dymaxionkim/CATIA_Auto_Settup/archive/master.zip
 
 
 ## 제작배경
